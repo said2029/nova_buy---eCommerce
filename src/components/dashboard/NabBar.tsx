@@ -19,7 +19,7 @@ export default function NabBar({
   sidbarOpen: boolean;
 }) {
   return (
-    <header className="w-full max-w-full h-16 px-5 py-2 flex justify-between shadow-md fixed top-0 left-0 z-10 ">
+    <header className="w-full max-w-full h-16 px-5 py-2 bg-background flex dark:bg-slate-800 justify-between fixed top-0 left-0 z-10 ">
       <>
         <nav
           className={clsx("flex gap-3 items-center", {
@@ -34,12 +34,10 @@ export default function NabBar({
             )}
           </Button>
         </nav>
-        <ul className="flex gap-2">
+        <ul className="flex gap-3">
           <li>
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Button variant="outline">English</Button>
-              </DropdownMenuTrigger>
+              <DropdownMenuTrigger className="h-10">En</DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>English</DropdownMenuItem>
                 <DropdownMenuItem>Arabic</DropdownMenuItem>
