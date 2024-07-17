@@ -103,8 +103,13 @@ export default function Sidbar({ isOpen }: { isOpen: Boolean }) {
               <Box strokeWidth={1} /> Orders
             </Link>
           </li>
-          <li className={li_class + li_class_border}>
-            <UserCog strokeWidth={1} /> Our Staff
+          <li>
+            <Link
+              className={li_class + li_class_border}
+              href={"/dasboard/ourStaff"}
+            >
+              <UserCog strokeWidth={1} /> Our Staff
+            </Link>
           </li>
           <li className={li_class + li_class_border}>
             <Settings strokeWidth={1} /> Settings

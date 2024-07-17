@@ -1,12 +1,10 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger } from "@/components/ui/select";
 
-import React from "react";
-
-export default function Selector({ options,defaultName='select',name='' }: { options: [string],defaultName?:string,name?:string}) {
+export default function Selector({ options,defaultName='select',name='',classNane }: { options: [string],defaultName?:string,name?:string,classNane?:string}) {
   return (
-    <Select name={name}>
-      <SelectTrigger>{defaultName}</SelectTrigger>
-      <SelectContent>
+    <Select  name={name}>
+      <SelectTrigger className={classNane}>{defaultName}</SelectTrigger>
+      <SelectContent >
         <SelectGroup>
           {options.map((item, i) => {
             return (

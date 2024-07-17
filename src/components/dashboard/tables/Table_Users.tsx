@@ -76,7 +76,7 @@ export default function User_Table() {
         </TableBody>
         <TableFooter className="bg-gray-500/10 w-full">
           <TableRow >
-            <TableCell colSpan={3}  className="text-gray-600/80 dark:text-gray-200/80">SHOWING 1-8 OF 171</TableCell>
+            <TableCell colSpan={3}  className="text-gray-600/80 dark:text-gray-200/80 text-start">SHOWING 1-8 OF 171</TableCell>
             <TableCell colSpan={3}>
               <PaginationComponent />
             </TableCell>

@@ -1,7 +1,6 @@
 "use client";
 import NabBar from "@/components/dashboard/NabBar";
 import Sidbar from "@/components/dashboard/Sidbar";
-import clsx from "clsx";
 import {motion} from 'framer-motion'
 import { ReactNode, useState } from "react";
 export default function SidbarProvider({ children }: { children: ReactNode }) {
