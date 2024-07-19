@@ -72,18 +72,16 @@ export default function Sidbar({ isOpen }: { isOpen: Boolean }) {
               <CollapsibleContent className="bg-slate-50/10 rounded-md p-1">
                 <ul className="px-6 flex flex-col gap-2 my-2">
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dasboard/products"}>
-                    Products
-                    </Link>
+                    <Link href={"/dasboard/products"}>Products</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    Category
+                    <Link href={"/dasboard/categories"}>Category</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    Attributes
+                    <Link href={"/dasboard/attributes"}>Attributes</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    Coupon
+                    <Link href={"/dasboard/coupon"}>Coupon</Link>
                   </li>
                 </ul>
               </CollapsibleContent>

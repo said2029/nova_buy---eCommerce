@@ -57,7 +57,7 @@ export default function page() {
   return (
     <MainProviderPerants name="Products">
       <section>
-        <div className="bg-gray-500/10 w-full py-7 px-4 rounded-md flex gap-5">
+        <div className="bg-gray-400/10 w-full py-7 px-4 rounded-md flex gap-5">
           <Input type="text" placeholder="Search..." />
           <Selector
             defaultName="Categoy"
@@ -74,7 +74,6 @@ export default function page() {
               <form
                 onSubmit={form.handleSubmit(submit)}
                 className="space-y-4"
-                action=""
               >
                 <FormField
                   control={form.control}
