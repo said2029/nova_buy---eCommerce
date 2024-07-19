@@ -1,7 +1,7 @@
 "use client";
-import { DialogControlle } from "@/components/dashboard/SheetProvider";
+import { SheetControlle } from "@/components/dashboard/SheetProvider";
 import OurStaff_Table from "@/components/dashboard/tables/Table_Staff";
-import MainProviderPerants from "@/components/dashboard/utils/MainProviderPerants";
+import MainProviderPerants from "@/components/dashboard/MainProviderPerants";
 import Selector from "@/components/dashboard/utils/Selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,7 +60,7 @@ export default function page() {
       <section className="bg-gray-500/10 p-3 rounded-md flex gap-3 z-0">
         <Input className="h-12" placeholder="Search...." />
         <Selector classNane="h-12" options={["ddfsd"]} defaultName="role" />
-        <DialogControlle
+        <SheetControlle
           icon={<Plus />}
           buttonName="Add Staff"
           tital="Add Staff"
@@ -179,7 +179,7 @@ export default function page() {
               <Button className="w-full">Add Staff</Button>
             </form>
           </Form>
-        </DialogControlle>
+        </SheetControlle>
         <Button className="w-28 h-12">Filter</Button>
         <Button type="button" className="w-28 h-12">
           Restat

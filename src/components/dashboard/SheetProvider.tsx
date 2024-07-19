@@ -1,44 +1,35 @@
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Plus } from "lucide-react";
 import { ReactNode } from "react";
 
-export function DialogControlle({
+export function SheetControlle({
   children,
   buttonName,
   tital,
   icon,
 }: {
   children: ReactNode;
-  buttonName: string;
-  tital: string;
-  icon: ReactNode;
+  buttonName?: string;
+  tital?: string;
+  icon?: ReactNode;
 }) {
   return (
-    <Sheet>
+    <Sheet >
       <SheetTrigger asChild>
         <Button className="h-12" variant="default">
-          {icon}
+          {icon ? icon : <Plus />}
           {buttonName}
         </Button>
       </SheetTrigger>
-      <SheetContent className="sm:max-w-[425px]">
-        <SheetHeader>
+      <SheetContent  className="sm:max-w-[425px] overflow-auto">
+        <SheetHeader className="mb-5">
           <SheetTitle>{tital}</SheetTitle>
         </SheetHeader>
         {children}

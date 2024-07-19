@@ -1,5 +1,5 @@
 import User_Table from "@/components/dashboard/tables/Table_Users";
-import MainProviderPerants from "@/components/dashboard/utils/MainProviderPerants";
+import MainProviderPerants from "@/components/dashboard/MainProviderPerants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React from "react";

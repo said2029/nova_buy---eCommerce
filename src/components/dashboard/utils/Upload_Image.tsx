@@ -26,7 +26,7 @@ export default function Upload_Image({
     setUploading(true);
     const list = Array.from(imgData);
 
-    let Urls: any = [];
+    let Urls: Array<string> = value ? value : [];
 
     await Promise.all(
       list.map(async (item) => {
@@ -35,7 +35,11 @@ export default function Upload_Image({
         });
       })
     );
-    if (Urls) onChange(Urls[0]);
+    if (multiImages) {
+      if (Urls) onChange(Urls);
+    } else {
+      if (Urls) onChange(Urls[0]);
+    }
     setUploading(false);
   };
   return (
@@ -43,7 +47,7 @@ export default function Upload_Image({
       <Label
         htmlFor="file_upload_Input"
         className={clsx(
-          "bg-gray-900 rounded-md h-full border-2 overflow-hidden border-dashed flex flex-col justify-center items-center",
+          "bg-background rounded-md h-full border-2 overflow-hidden border-dashed flex flex-col justify-center items-center",
           {
             "opacity-20": isUplading,
           }

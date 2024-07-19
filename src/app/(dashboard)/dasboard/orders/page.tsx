@@ -1,5 +1,5 @@
 import Order_Table from "@/components/dashboard/tables/Order_Table";
-import MainProviderPerants from "@/components/dashboard/utils/MainProviderPerants";
+import MainProviderPerants from "@/components/dashboard/MainProviderPerants";
 import Selector from "@/components/dashboard/utils/Selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

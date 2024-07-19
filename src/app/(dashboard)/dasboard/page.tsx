@@ -99,7 +99,7 @@ export default function page() {
           <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
             Recent Order
           </h1>
-          <section className="mt-11">
+          <section className="mt-11 px-3">
             <Order_Table />
           </section>
         </div>
