@@ -1,3 +1,4 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Loadiner from "@/components/ui/Loadiner";
@@ -16,18 +17,25 @@ export default function Upload_Image({
   value?: any;
   multiImages?: boolean;
 }) {
-  const [isUplading, setUploading] = useState(false);
+
+  const [isUplading, setIsloading] = useState(false);
 
   const onChangeInputImage = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setIsloading(true);
+    console.log(isUplading);
     const imgData = event.target.files;
     if (!imgData || imgData.length <= 0) return;
-    setUploading(true);
+
     const list = Array.from(imgData);
 
-    let Urls: Array<string> = value ? value : [];
-
+    let Urls: Array<string> = value
+      ? Array.isArray(value)
+        ? value
+        : [value]
+      : [];
+    Urls = multiImages ? Urls : [];
     await Promise.all(
       list.map(async (item) => {
         await UplaodImage(item).then((res) => {
@@ -35,19 +43,21 @@ export default function Upload_Image({
         });
       })
     );
+    console.log(Urls);
     if (multiImages) {
       if (Urls) onChange(Urls);
     } else {
       if (Urls) onChange(Urls[0]);
     }
-    setUploading(false);
+    setIsloading(false);
+    console.log(isUplading);
   };
   return (
     <div className="h-44 w-full relative">
       <Label
         htmlFor="file_upload_Input"
         className={clsx(
-          "bg-background rounded-md h-full border-2 overflow-hidden border-dashed flex flex-col justify-center items-center",
+          "bg-background/70 rounded-md h-full border-2 overflow-hidden border-dashed flex flex-col justify-center items-center",
           {
             "opacity-20": isUplading,
           }

@@ -1,0 +1,215 @@
+"use client";
+import MainProviderPerants from "@/components/dashboard/MainProviderPerants";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
+const SettingsSchema = z.object({
+  numberOfImages: z.string(),
+  defaultCurrency: z.string(),
+  defaultTimeZone: z.string(),
+  defaultDateFormat: z.string(),
+  receiptSizeWidth: z.string(),
+  shopName: z.string(),
+  companyName: z.string(),
+  vatNumber: z.string(),
+  address: z.string(),
+  postCode: z.string(),
+  contactEmail: z.string(),
+  website: z.string(),
+});
+
+export default function page() {
+  const form = useForm<z.infer<typeof SettingsSchema>>({
+    resolver: zodResolver(SettingsSchema),
+    defaultValues: {
+      numberOfImages: "",
+      defaultCurrency: "",
+      defaultTimeZone: "",
+      defaultDateFormat: "",
+      receiptSizeWidth: "",
+      shopName: "",
+      companyName: "",
+      vatNumber: "",
+      address: "",
+      postCode: "",
+      contactEmail: "",
+      website: "",
+    },
+  });
+  return (
+    <MainProviderPerants name="Setting">
+      <section className="bg-gray-400/10 p-3 rounded-md md:px-10 lg:px-48 ">
+        <Form {...form}>
+          <form  action="">
+            <FormField
+              control={form.control}
+              name="shopName"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel >Shop Name</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="text" {...field} placeholder="Shop Name" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="companyName"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Company Name</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="text" {...field} placeholder="Company Name" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="contactEmail"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Contact Email</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="text" {...field} placeholder="Contact Email" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="defaultCurrency"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Default Currency</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="text" {...field} placeholder="Default Currency" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="defaultDateFormat"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Default DateFormat</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="text" {...field} placeholder="Default DateFormat" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="defaultTimeZone"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Default TimeZone</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="text" {...field} placeholder="Default TimeZone" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="numberOfImages"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Number Of Images</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="number" {...field} placeholder="Number Of Images" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Address</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="text" {...field} placeholder="Address" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="postCode"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Post Code</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="number" {...field} placeholder="Post Code" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="receiptSizeWidth"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Receipt Size Width</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="number" {...field} placeholder="Receipt Size Width" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="vatNumber"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Vat Number</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="number" {...field} placeholder="Vat Number" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="website"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                  <FormLabel>Website</FormLabel>
+                  <div className="w-full col-span-3">
+                    <Input type="text" {...field} placeholder="Website" />
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </section>
+    </MainProviderPerants>
+  );
+}

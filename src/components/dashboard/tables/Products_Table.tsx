@@ -29,7 +29,7 @@ export default function Products_Table() {
             <TableHead>ACTIONS</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="border-2 border-red-400">
+        <TableBody className="border-2 border-red-400  text-center">
           <TableRow className="border-0 border-red-400">
             <TableCell>banana</TableCell>
             <TableCell>Fruits & Vegetable</TableCell>

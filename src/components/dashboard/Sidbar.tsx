@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/collapsible";
 import {
   Box,
+  CircleX,
   FolderKanban,
   JapaneseYenIcon,
   Settings,
@@ -17,8 +18,15 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
-export default function Sidbar({ isOpen }: { isOpen: Boolean }) {
+export default function Sidbar({
+  isOpen,
+  toggelSidbat,
+}: {
+  isOpen: Boolean;
+  toggelSidbat: () => void;
+}) {
   const animationControlle = useAnimation();
   const li_class =
     "cursor-pointer hover:text-red-300 duration-500 flex gap-2 py-[2px]";
@@ -45,7 +53,7 @@ export default function Sidbar({ isOpen }: { isOpen: Boolean }) {
       transition={{ type: "tween", duration: 0.6 }}
       className="w-80 h-screen bg-white shadow-xl shadow-gray-300 dark:shadow-gray-950 dark:bg-gray-900 fixed z-20 overflow-y-auto pb-48"
     >
-      <div className="h-32 w-full bg-red-400 p-14 flex justify-center items-center ">
+      <div className="h-32 w-full bg-red-400 p-14 flex justify-center items-center relative">
         {/* logo */}
         <Image
           className="opacity-85"
@@ -54,6 +62,14 @@ export default function Sidbar({ isOpen }: { isOpen: Boolean }) {
           height={512}
           src={"/images/logo2.png"}
         />
+        <Button
+          onClick={toggelSidbat}
+          size="icon"
+          variant="ghost"
+          className="absolute top-2 right-2"
+        >
+          <CircleX strokeWidth={1} />
+        </Button>
       </div>
 
       <div className="mt-9 ">
@@ -78,7 +94,7 @@ export default function Sidbar({ isOpen }: { isOpen: Boolean }) {
                     <Link href={"/dasboard/categories"}>Category</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dasboard/attributes"}>Attributes</Link>
+                    <Link href={"/dasboard/subCategory"}>SubCategory</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
                     <Link href={"/dasboard/coupon"}>Coupon</Link>
@@ -111,8 +127,13 @@ export default function Sidbar({ isOpen }: { isOpen: Boolean }) {
               <UserCog strokeWidth={1} /> Our Staff
             </Link>
           </li>
-          <li className={li_class + li_class_border}>
-            <Settings strokeWidth={1} /> Settings
+          <li>
+            <Link
+              className={li_class + li_class_border}
+              href={"/dasboard/setting"}
+            >
+              <Settings strokeWidth={1} /> Settings
+            </Link>
           </li>
           <li className={li_class_border}>
             <Collapsible>
@@ -126,10 +147,10 @@ export default function Sidbar({ isOpen }: { isOpen: Boolean }) {
                     View Store
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    Store Customizations
+                    <Link href={"/dasboard/storeCustomizations"}>Store Customizations</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    Store Setting
+                    <Link href="/dasboard/storeSetting">Store Setting</Link>
                   </li>
                 </ul>
               </CollapsibleContent>

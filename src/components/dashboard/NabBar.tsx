@@ -21,17 +21,9 @@ export default function NabBar({
   return (
     <header className="w-full max-w-full h-16 px-5 py-2 bg-background flex dark:bg-slate-800 justify-between fixed top-0 left-0 z-10 ">
       <>
-        <nav
-          className={clsx("flex gap-3 items-center", {
-            "ml-[20rem]": sidbarOpen,
-          })}
-        >
+        <nav className={clsx("flex gap-3 items-center")}>
           <Button onClick={toggelSidbat} variant="ghost">
-            {sidbarOpen ? (
-              <CircleX strokeWidth={1} />
-            ) : (
-              <Menu strokeWidth={1} />
-            )}
+            <Menu strokeWidth={1} />
           </Button>
         </nav>
         <ul className="flex gap-3">

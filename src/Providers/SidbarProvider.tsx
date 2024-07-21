@@ -10,7 +10,7 @@ export default function SidbarProvider({ children }: { children: ReactNode }) {
   };
   return (
     <div className="flex relative">
-      <Sidbar isOpen={sidbarOpen} />
+      <Sidbar toggelSidbat={toggleSidbar} isOpen={sidbarOpen} />
       <motion.div
       className="w-full"
       variants={{

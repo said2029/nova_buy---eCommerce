@@ -56,8 +56,8 @@ export default function page() {
 
   return (
     <MainProviderPerants name="Products">
-      <section>
-        <div className="bg-gray-400/10 w-full py-7 px-4 rounded-md flex gap-5">
+      <section >
+        <div className="bg-gray-400/10 w-full py-5 px-4 rounded-md flex gap-5">
           <Input type="text" placeholder="Search..." />
           <Selector
             defaultName="Categoy"
@@ -289,7 +289,7 @@ export default function page() {
           <Button className="h-12">Filter</Button>
           <Button className="h-12">Restar</Button>
         </div>
-        <div className="mt-8 py-4">
+        <div className="mt-8 p-4 bg-gray-400/10 rounded-md">
           <Products_Table />
         </div>
       </section>
