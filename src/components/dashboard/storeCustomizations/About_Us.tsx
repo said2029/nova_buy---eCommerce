@@ -1,0 +1,523 @@
+"use client";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Upload_Image from "../utils/Upload_Image";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { About_us_schema } from "@/Types";
+import { z } from "zod";
+import Tag_Hr from "./Tag";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+
+type AboutUsFormValues = z.infer<typeof About_us_schema>;
+
+export default function page() {
+  const form = useForm<AboutUsFormValues>({
+    resolver: zodResolver(About_us_schema),
+    defaultValues: {
+      pageHeader: {
+        enable: "",
+        pageHeaderBackground: "",
+        pageTitle: "",
+      },
+      aboutPage: {
+        enable: "",
+        topTitle: "",
+        topDescription: "",
+        boxOneTitle: "",
+        boxOneSubtitle: "",
+        boxOneDescription: "",
+        boxTwoTitle: "",
+        boxTwoSubtitle: "",
+        boxTwoDescription: "",
+      },
+      pageTopContentRight: {
+        enable: "",
+        topContentRightImage: "",
+      },
+      contentSection: {
+        enable: "",
+        firstParagraph: "",
+        secondParagraph: "",
+        contentImage: "",
+      },
+      ourTeam: {
+        enableThisBlock: "",
+        ourTeamTitle: "",
+        ourTeamDescription: "",
+        member: [
+          {
+            ourTeamOneImage: "",
+            ourTeamOneTitle: "",
+            ourTeamOneSubTitle: "",
+          },
+          {
+            ourTeamOneImage: "",
+            ourTeamOneTitle: "",
+            ourTeamOneSubTitle: "",
+          },
+          {
+            ourTeamOneImage: "",
+            ourTeamOneTitle: "",
+            ourTeamOneSubTitle: "",
+          },
+          {
+            ourTeamOneImage: "",
+            ourTeamOneTitle: "",
+            ourTeamOneSubTitle: "",
+          },
+          {
+            ourTeamOneImage: "",
+            ourTeamOneTitle: "",
+            ourTeamOneSubTitle: "",
+          },
+        ],
+      },
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "ourTeam.member",
+  });
+
+  const submit = (data: AboutUsFormValues) => {
+    console.log(data);
+  };
+
+  return (
+    <div className="bg-gray-200/10 rounded-md mt-10 p-2">
+      <h1 className="font-semibold text-2xl pl-4 border-s-4 border-red-400">
+        About Us
+      </h1>
+      <section className="px-4 md:px-10">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(submit)}>
+            <Tag_Hr name="Page Header" />
+            <section>
+              <FormField
+                control={form.control}
+                name="pageHeader.enable"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Enable</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input type="text" {...field} placeholder="Enable" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="pageHeader.pageHeaderBackground"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">
+                      Page Header Background
+                    </FormLabel>
+                    <div className="w-full col-span-3">
+                      <Upload_Image
+                        name="pageHeader.pageHeaderBackground"
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="pageHeader.pageTitle"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Page Title</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input type="text" {...field} placeholder="Page Title" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </section>
+
+            <Tag_Hr name="About Page" />
+            <section>
+              <FormField
+                control={form.control}
+                name="aboutPage.enable"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Enable</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input type="text" {...field} placeholder="Enable" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="aboutPage.topTitle"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Top Title</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input type="text" {...field} placeholder="Top Title" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="aboutPage.topDescription"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Top Description</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Textarea {...field} placeholder="Top Description" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="aboutPage.boxOneTitle"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Box One Title</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input
+                        type="text"
+                        {...field}
+                        placeholder="Box One Title"
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="aboutPage.boxOneSubtitle"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Box One Subtitle</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input
+                        type="text"
+                        {...field}
+                        placeholder="Box One Subtitle"
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="aboutPage.boxOneDescription"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">
+                      Box One Description
+                    </FormLabel>
+                    <div className="w-full col-span-3">
+                      <Textarea {...field} placeholder="Box One Description" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="aboutPage.boxTwoTitle"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Box Two Title</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input
+                        type="text"
+                        {...field}
+                        placeholder="Box Two Title"
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="aboutPage.boxTwoSubtitle"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Box Two Subtitle</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input
+                        type="text"
+                        {...field}
+                        placeholder="Box Two Subtitle"
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="aboutPage.boxTwoDescription"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">
+                      Box Two Description
+                    </FormLabel>
+                    <div className="w-full col-span-3">
+                      <Textarea {...field} placeholder="Box Two Description" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </section>
+
+            <Tag_Hr name="Page Top Content Right" />
+            <section>
+              <FormField
+                control={form.control}
+                name="pageTopContentRight.enable"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Enable</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input type="text" {...field} placeholder="Enable" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="pageTopContentRight.topContentRightImage"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">
+                      Top Content Right Image
+                    </FormLabel>
+                    <div className="w-full col-span-3">
+                      <Upload_Image
+                        name="pageTopContentRight.topContentRightImage"
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </section>
+
+            <Tag_Hr name="Content Section" />
+            <section>
+              <FormField
+                control={form.control}
+                name="contentSection.enable"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Enable</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input type="text" {...field} placeholder="Enable" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="contentSection.firstParagraph"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">First Paragraph</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Textarea {...field} placeholder="First Paragraph" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="contentSection.secondParagraph"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Second Paragraph</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Textarea {...field} placeholder="Second Paragraph" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="contentSection.contentImage"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Content Image</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Upload_Image
+                        name="contentSection.contentImage"
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </section>
+
+            <Tag_Hr name="Our Team" />
+            <section>
+              <FormField
+                control={form.control}
+                name="ourTeam.enableThisBlock"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Enable This Block</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input
+                        type="text"
+                        {...field}
+                        placeholder="Enable This Block"
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ourTeam.ourTeamTitle"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">Our Team Title</FormLabel>
+                    <div className="w-full col-span-3">
+                      <Input
+                        type="text"
+                        {...field}
+                        placeholder="Our Team Title"
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ourTeam.ourTeamDescription"
+                render={({ field }) => (
+                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                    <FormLabel className="w-full">
+                      Our Team Description
+                    </FormLabel>
+                    <div className="w-full col-span-3">
+                      <Textarea {...field} placeholder="Our Team Description" />
+                      <FormMessage />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <Tabs className="mt-9" defaultValue="Member 1">
+                <TabsList className="bg-gray-200/10 h-16 flex flex-wrap w-full">
+                  <TabsTrigger value="Member 1">Member 1</TabsTrigger>
+                  <TabsTrigger value="Member 2">Member 2</TabsTrigger>
+                  <TabsTrigger value="Member 3">Member 3</TabsTrigger>
+                  <TabsTrigger value="Member 4">Member 4</TabsTrigger>
+                  <TabsTrigger value="Member 5">Member 5</TabsTrigger>
+                </TabsList>
+
+                {fields.map((_, index) => (
+                  <TabsContent value={`Member ${index + 1}`}>
+                    <FormField
+                      key={index}
+                      control={form.control}
+                      name={`ourTeam.member.${index}.ourTeamOneImage`}
+                      render={({ field }) => (
+                        <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                          <FormLabel className="w-full">
+                            Member {index + 1} Image
+                          </FormLabel>
+                          <div className="w-full col-span-3">
+                            <Upload_Image
+                              name={`ourTeam.member.${index}.ourTeamOneImage`}
+                              value={field.value}
+                              onChange={field.onChange}
+                            />
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      key={index}
+                      control={form.control}
+                      name={`ourTeam.member.${index}.ourTeamOneTitle`}
+                      render={({ field }) => (
+                        <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                          <FormLabel className="w-full">
+                            Member {index + 1} Title
+                          </FormLabel>
+                          <div className="w-full col-span-3">
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="Member Title"
+                            />
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      key={index}
+                      control={form.control}
+                      name={`ourTeam.member.${index}.ourTeamOneSubTitle`}
+                      render={({ field }) => (
+                        <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                          <FormLabel className="w-full">
+                            Member {index + 1} Subtitle
+                          </FormLabel>
+                          <div className="w-full col-span-3">
+                            <Input
+                              type="text"
+                              {...field}
+                              placeholder="Member Subtitle"
+                            />
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </TabsContent>
+                ))}
+              </Tabs>
+            </section>
+
+            <Button className="fixed bottom-2 right-2">Save Changes</Button>
+          </form>
+        </Form>
+      </section>
+    </div>
+  );
+}
