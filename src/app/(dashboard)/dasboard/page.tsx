@@ -1,6 +1,6 @@
 import Cart_dashboard from "@/components/dashboard/Carts/Cart_dashboard";
 import Bast_Products_Chart from "@/components/dashboard/Chart/Bast_Products_Chart";
-import { Order_Chart } from "@/components/dashboard/Chart/Order_Chart_Line";
+import Order_Chart from "@/components/dashboard/Chart/Order_Chart_Line";
 import Order_Table from "@/components/dashboard/tables/Order_Table";
 import { BringToFront, ClockArrowDown, ShoppingBag, ShoppingCart } from "lucide-react";
 
@@ -78,14 +78,14 @@ export default function page() {
           <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
             Chart
           </h1>
-          <section className="mt-11 grid grid-cols-1 md:grid-cols-2  gap-2 px-7">
-            <div className="bg-background rounded-md p-3">
+          <section className="mt-11 grid grid-cols-1 lg:grid-cols-2  gap-2 px-7">
+            <div className="bg-background/10 rounded-md p-3">
               <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
                 Weekly Sales
               </h1>
               <Order_Chart />
             </div>
-            <div className="bg-background rounded-md p-3">
+            <div className="bg-background/10 rounded-md p-3">
               <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
                 Best Selling Products
               </h1>

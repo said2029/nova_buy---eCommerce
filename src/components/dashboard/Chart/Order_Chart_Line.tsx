@@ -1,54 +1,71 @@
 "use client";
 
-import { LineChart, CartesianGrid, XAxis, Line } from "recharts";
-
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+  ChartData,
+  ArcElement,
+  Chart,
+  RadialLinearScale,
+  Legend,
+  Title,
+  Tooltip,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+} from "chart.js";
+import { useEffect, useState } from "react";
+import { Line } from "react-chartjs-2";
 
-const chartData = [
-  { month: "January", Order: 186, sales: 80 },
-  { month: "February", Order: 305, sales: 200 },
-  { month: "March", Order: 237, sales: 120 },
-  { month: "April", Order: 0, sales: 190 },
-  { month: "May", Order: 209, sales: 130 },
-  { month: "June", Order: 214, sales: 140 },
-];
+export default function Order_Chart() {
+  const [chartData, SetchartData] = useState<ChartData<
+    "line",
+    number[],
+    unknown
+  > | null>(null);
+  useEffect(() => {
+    Chart.register(
+      ArcElement,
+      RadialLinearScale,
+      CategoryScale,
+      Title,
+      Tooltip,
+      LinearScale,
+      PointElement,
+      LineElement
+    );
+    SetchartData({
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+      datasets: [
+        {
+          label: "Selling",
+          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+          data: [12, 590, 80, 81, 56],
+          borderColor: "rgb(75, 192, 192)",
+          borderWidth: 1,
+          hoverBorderWidth: 2,
+          fill: "rgba(255, 99, 132, 0.2)",
+          pointBorderColor: "rgba(255, 99, 132, 0.2)",
+          borderCapStyle:"square"
+        },
+        {
+          label: "orders",
+          backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+          data: [24, 32, 43, 12, 74],
+          borderColor: "rgb(75, 192, 192)",
+          borderWidth: 1,
+          hoverBorderWidth: 2,
+          fill: "rgba(54, 162, 235, 0.2)",
+          pointBorderColor: "rgba(54, 162, 235, 0.2)",
+          pointHoverBorderWidth:3,
+          
+        },
+      ],
+    });
+  }, []);
 
-const chartConfig = {
-  Order: {
-    label: "Order",
-    color: "green",
-  },
-  sales: {
-    label: "sales",
-    color: "orange",
-  },
-} satisfies ChartConfig;
-
-export function Order_Chart() {
   return (
-    <ChartContainer  config={chartConfig} className="min-h-[200px] w-full">
-      <LineChart  accessibilityLayer data={chartData}>
-        <CartesianGrid vertical={false} />
-        <XAxis
-
-          dataKey="month"
-          tickMargin={10}
-          tickFormatter={(value) => value.slice(0, 3)}
-        />
-        <ChartTooltip content={<ChartTooltipContent />} />
-        <Line
-          dataKey="Order"
-          color="var(--color-Order)"
-          fill="var(--color-Order)"
-          radius={4}
-        />
-        <Line dataKey="sales" fill="var(--color-sales)" radius={4} />
-      </LineChart>
-    </ChartContainer>
+    <div className="w-full h-full flex justify-center items-center">
+      {chartData && <Line radioGroup="red" data={chartData} />}
+    </div>
   );
 }
