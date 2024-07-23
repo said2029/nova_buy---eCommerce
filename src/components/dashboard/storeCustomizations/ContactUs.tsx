@@ -78,7 +78,7 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -125,7 +125,7 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -181,7 +181,7 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -237,7 +237,7 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -280,7 +280,7 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -314,7 +314,7 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>

@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
 
-const CouonSchema = zod.object({
+const CouponSchema = zod.object({
   name: zod.string(),
   code: zod.string(),
   discount: zod.string(),
@@ -26,17 +26,17 @@ const CouonSchema = zod.object({
 });
 
 export default function page() {
-  const form = useForm<zod.infer<typeof CouonSchema>>({
-    resolver: zodResolver(CouonSchema),
+  const form = useForm<zod.infer<typeof CouponSchema>>({
+    resolver: zodResolver(CouponSchema),
   });
-  const submit = (value: zod.infer<typeof CouonSchema>) => {
+  const submit = (value: zod.infer<typeof CouponSchema>) => {
     console.log(value);
     form.reset();
     // add to database
   };
   return (
     <MainProviderPerants name="Coupon">
-      <section className="bg-gray-400/10 rounded-md w-full py-5 px-3 flex gap-2">
+      <section className="bg-gray-400/10 flex-wrap sm:flex-nowrap rounded-md w-full py-5 px-3 flex gap-2">
         <Input placeholder="Search...." />
         <SheetControlle buttonName="Add Category" tital="Add Category">
           <Form {...form}>
@@ -48,6 +48,7 @@ export default function page() {
                   <FormItem>
                     <FormControl>
                       <Upload_Image
+                      name="Image_Coupon"
                         onChange={field.onChange}
                         value={field.value}
                       />

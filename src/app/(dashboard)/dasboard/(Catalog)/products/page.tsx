@@ -56,25 +56,25 @@ export default function page() {
 
   return (
     <MainProviderPerants name="Products">
-      <section >
-        <div className="bg-gray-400/10 w-full py-5 px-4 rounded-md flex gap-5">
-          <Input type="text" placeholder="Search..." />
+      <section>
+        <div className="bg-gray-400/10 w-full py-5 px-4 rounded-md flex flex-wrap gap-5">
+          <Input className="flex-grow sm:max-w-72 xl:max-w-[50%]" type="text" placeholder="Search..." />
           <Selector
             defaultName="Categoy"
+            className="flex-grow sm:max-w-28"
             name="Category"
             options={["1", "dsf"]}
           />
           <Selector
             defaultName="Price"
+             className="flex-grow sm:max-w-28"
             name="Price"
             options={["Low To High", "High To Low", "Published", "UnPublished"]}
           />
+          <span className="flex-grow hidden md:block"></span>
           <SheetControlle tital="Add Product" buttonName="Add Product">
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(submit)}
-                className="space-y-4"
-              >
+              <form onSubmit={form.handleSubmit(submit)} className="space-y-4">
                 <FormField
                   control={form.control}
                   name="images"
@@ -83,6 +83,7 @@ export default function page() {
                       <FormControl>
                         <>
                           <Upload_Image
+                            name={Math.random().toString()}
                             multiImages={true}
                             value={field.value}
                             onChange={field.onChange}

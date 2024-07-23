@@ -1,5 +1,6 @@
 "use client";
 import MainProviderPerants from "@/components/dashboard/MainProviderPerants";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -46,16 +47,20 @@ export default function page() {
       website: "",
     },
   });
+
+  const submit = (value:z.infer<typeof SettingsSchema>)=>{
+    console.log(value);
+  }
   return (
     <MainProviderPerants name="Setting">
       <section className="bg-gray-400/10 p-3 rounded-md md:px-10 lg:px-48 ">
         <Form {...form}>
-          <form  action="">
+          <form onSubmit={form.handleSubmit(submit)} className="space-y-2"  action="">
             <FormField
               control={form.control}
               name="shopName"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4 text-nowrap gap-2 sm:gap-2  place-items-center">
                   <FormLabel >Shop Name</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="text" {...field} placeholder="Shop Name" />
@@ -68,7 +73,7 @@ export default function page() {
               control={form.control}
               name="companyName"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Company Name</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="text" {...field} placeholder="Company Name" />
@@ -81,7 +86,7 @@ export default function page() {
               control={form.control}
               name="contactEmail"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Contact Email</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="text" {...field} placeholder="Contact Email" />
@@ -94,7 +99,7 @@ export default function page() {
               control={form.control}
               name="defaultCurrency"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Default Currency</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="text" {...field} placeholder="Default Currency" />
@@ -107,7 +112,7 @@ export default function page() {
               control={form.control}
               name="defaultDateFormat"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Default DateFormat</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="text" {...field} placeholder="Default DateFormat" />
@@ -120,7 +125,7 @@ export default function page() {
               control={form.control}
               name="defaultTimeZone"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Default TimeZone</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="text" {...field} placeholder="Default TimeZone" />
@@ -133,7 +138,7 @@ export default function page() {
               control={form.control}
               name="numberOfImages"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Number Of Images</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="number" {...field} placeholder="Number Of Images" />
@@ -146,7 +151,7 @@ export default function page() {
               control={form.control}
               name="address"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Address</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="text" {...field} placeholder="Address" />
@@ -159,7 +164,7 @@ export default function page() {
               control={form.control}
               name="postCode"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Post Code</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="number" {...field} placeholder="Post Code" />
@@ -172,7 +177,7 @@ export default function page() {
               control={form.control}
               name="receiptSizeWidth"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Receipt Size Width</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="number" {...field} placeholder="Receipt Size Width" />
@@ -185,7 +190,7 @@ export default function page() {
               control={form.control}
               name="vatNumber"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Vat Number</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="number" {...field} placeholder="Vat Number" />
@@ -198,7 +203,7 @@ export default function page() {
               control={form.control}
               name="website"
               render={({ field }) => (
-                <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
+                <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
                   <FormLabel>Website</FormLabel>
                   <div className="w-full col-span-3">
                     <Input type="text" {...field} placeholder="Website" />
@@ -207,6 +212,7 @@ export default function page() {
                 </FormItem>
               )}
             />
+             <Button className="fixed bottom-2 right-2">Save Changes</Button>
           </form>
         </Form>
       </section>

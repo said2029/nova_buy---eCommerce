@@ -57,9 +57,9 @@ export default function page() {
 
   return (
     <MainProviderPerants name="Our staff">
-      <section className="bg-gray-500/10 p-3 rounded-md flex gap-3 z-0">
+      <section className="bg-gray-500/10 p-3 flex-wrap sm:flex-nowrap rounded-md flex gap-3 z-0">
         <Input className="h-12" placeholder="Search...." />
-        <Selector classNane="h-12" options={["ddfsd"]} defaultName="role" />
+        <Selector className="h-12" options={["ddfsd"]} defaultName="role" />
         <SheetControlle
           icon={<Plus />}
           buttonName="Add Staff"
@@ -76,7 +76,7 @@ export default function page() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Upload_Image multiImages={false} value={field.value} onChange={field.onChange} />
+                      <Upload_Image name="image_staff" multiImages={false} value={field.value} onChange={field.onChange} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

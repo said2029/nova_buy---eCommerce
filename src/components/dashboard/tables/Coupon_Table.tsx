@@ -39,7 +39,7 @@ export default function Coupon_Table() {
             <TableCell>dsf43</TableCell>
             <TableCell>12$</TableCell>
             <TableCell>
-              <Switch className="border-2 border-red-400" />
+              <Switch  className="border-2 border-red-400" />
             </TableCell>
             <TableCell>date</TableCell>
             <TableCell>

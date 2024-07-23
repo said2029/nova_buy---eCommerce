@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { PlusCircle, Trash2, X } from "lucide-react";
 
 type AboutUsFormValues = z.infer<typeof About_us_schema>;
 
@@ -438,17 +439,39 @@ export default function page() {
                   </FormItem>
                 )}
               />
-              <Tabs className="mt-9" defaultValue="Member 1">
-                <TabsList className="bg-gray-200/10 h-16 flex flex-wrap w-full">
-                  <TabsTrigger value="Member 1">Member 1</TabsTrigger>
-                  <TabsTrigger value="Member 2">Member 2</TabsTrigger>
-                  <TabsTrigger value="Member 3">Member 3</TabsTrigger>
-                  <TabsTrigger value="Member 4">Member 4</TabsTrigger>
-                  <TabsTrigger value="Member 5">Member 5</TabsTrigger>
+              <Tabs className="mt-9 relative" defaultValue="Member 1">
+                <TabsList className="bg-gray-200/10 min-h-16 h-fit max-h-24 overflow-y-auto py-2 flex flex-wrap w-full relative">
+                  {fields.map((_, index) => (
+                    <TabsTrigger value={`Member ${index + 1}`}>
+                      Member {index + 1}
+                    </TabsTrigger>
+                  ))}
+                  <Button
+                    onClick={() => {
+                      append({
+                        ourTeamOneImage: "",
+                        ourTeamOneTitle: "",
+                        ourTeamOneSubTitle: "",
+                      });
+                    }}
+                    variant="ghost"
+                    className="absolute right-0 top-3 "
+                  >
+                    <PlusCircle />
+                  </Button>
                 </TabsList>
 
                 {fields.map((_, index) => (
-                  <TabsContent value={`Member ${index + 1}`}>
+                  <TabsContent
+                    className="relative"
+                    value={`Member ${index + 1}`}
+                  >
+                    <Trash2
+                      className="cursor-pointer text-red-400 hover:scale-110 duration-200"
+                      onClick={() => {
+                        remove(index);
+                      }}
+                    />
                     <FormField
                       key={index}
                       control={form.control}

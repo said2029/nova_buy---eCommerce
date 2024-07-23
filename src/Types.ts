@@ -259,14 +259,14 @@ const SEO_schema = z.object({
 
 const Privacy_TC_schema = z.object({
   privacyPolicy: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     background: z.string().optional(), 
     title: z.string().optional(), 
     pageContent: z.string().optional(), 
   }),
 
   termsAndConditions: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     background: z.string().optional(), 
     title: z.string().optional(), 
     pageContent: z.string().optional(), 

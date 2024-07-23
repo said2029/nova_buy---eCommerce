@@ -10,20 +10,20 @@ export default function Selector({
   options,
   defaultName = "select",
   name = "select",
-  classNane,
+  className,
   onChange,
   value,
 }: {
   options: Array<string>;
   defaultName?: string;
   name?: string;
-  classNane?: string;
+  className?: string;
   onChange?: (value: string) => void;
   value?: string;
 }) {
   return (
     <Select onValueChange={onChange} name={name}>
-      <SelectTrigger className={classNane}>
+      <SelectTrigger className={className}>
         {value ? value : defaultName}
       </SelectTrigger>
       <SelectContent>

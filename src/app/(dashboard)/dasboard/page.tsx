@@ -1,5 +1,5 @@
-import { Bast_Products_Chart } from "@/components/dashboard/Chart/Bast_Products_Chart";
 import Cart_dashboard from "@/components/dashboard/Carts/Cart_dashboard";
+import Bast_Products_Chart from "@/components/dashboard/Chart/Bast_Products_Chart";
 import { Order_Chart } from "@/components/dashboard/Chart/Order_Chart_Line";
 import Order_Table from "@/components/dashboard/tables/Order_Table";
 import { BringToFront, ClockArrowDown, ShoppingBag, ShoppingCart } from "lucide-react";

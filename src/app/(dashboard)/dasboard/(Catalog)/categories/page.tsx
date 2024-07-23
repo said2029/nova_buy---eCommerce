@@ -14,10 +14,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { CategorySchema } from "@/Types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
+
+const CategorySchema = zod.object({
+  name: zod.string().min(3).max(255),
+  image: zod.string().url(),
+  description: zod.string(),
+  subcategories: zod.array(zod.string()),
+
+    
+})
 
 export default function page() {
   const form = useForm<zod.infer<typeof CategorySchema>>({
@@ -30,8 +38,8 @@ export default function page() {
   }
   return (
     <MainProviderPerants name="Category">
-      <section className="bg-gray-400/10 rounded-md w-full py-5 px-3 flex gap-2">
-        <Input placeholder="Search...." />
+      <section className="bg-gray-400/10 rounded-md w-full flex-wrap sm:flex-nowrap py-5 px-3 flex gap-2">
+        <Input className="flex-grow" placeholder="Search...." />
         <SheetControlle buttonName="Add Category" tital="Add Category">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(submit)} className="space-y-4">
@@ -42,6 +50,7 @@ export default function page() {
                   <FormItem>
                     <FormControl>
                       <Upload_Image
+                        name="image_gategory"
                         onChange={field.onChange}
                         value={field.value}
                       />

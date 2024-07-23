@@ -26,7 +26,7 @@ export default function page() {
   });
   return (
     <MainProviderPerants name="subCategory">
-      <section className="bg-gray-400/10 rounded-md w-full py-5 px-3 flex gap-2">
+      <section className="bg-gray-400/10 flex-wrap sm:flex-nowrap rounded-md w-full py-5 px-3 flex gap-2">
         <Input placeholder="Search...." />
         <SheetControlle buttonName="Add subCategory" tital="Add subCategory">
           <Form {...form}>

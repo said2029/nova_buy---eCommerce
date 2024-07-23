@@ -328,7 +328,7 @@ export default function HomeSetting() {
                       Show Discount Coupon
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -380,7 +380,7 @@ export default function HomeSetting() {
                       Show Promotion Banner
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -457,7 +457,7 @@ export default function HomeSetting() {
                       Show PopularProducts
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -528,7 +528,7 @@ export default function HomeSetting() {
                       Show PopularProducts
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -633,7 +633,7 @@ export default function HomeSetting() {
                       Show Latest Discounted Products
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -703,7 +703,7 @@ export default function HomeSetting() {
                   <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                     <FormLabel className="w-full">Show</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -854,7 +854,7 @@ export default function HomeSetting() {
                   <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                     <FormLabel className="w-full">Show Promo Section</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -930,7 +930,7 @@ export default function HomeSetting() {
                           <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                             <FormLabel className="w-full">Active</FormLabel>
                             <div className="w-full col-span-3">
-                              <Switch {...field} />
+                              <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                               <FormMessage />
                             </div>
                           </FormItem>
@@ -1014,7 +1014,7 @@ export default function HomeSetting() {
                     <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                       <FormLabel className="w-full">Active</FormLabel>
                       <div className="w-full col-span-3">
-                        <Switch {...field} />
+                        <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                         <FormMessage />
                       </div>
                     </FormItem>
@@ -1086,7 +1086,7 @@ export default function HomeSetting() {
                     <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                       <FormLabel className="w-full">Active</FormLabel>
                       <div className="w-full col-span-3">
-                        <Switch {...field} />
+                        <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                         <FormMessage />
                       </div>
                     </FormItem>
@@ -1169,7 +1169,7 @@ export default function HomeSetting() {
                   <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                     <FormLabel className="w-full">Show PaymentMethod</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -1204,7 +1204,7 @@ export default function HomeSetting() {
                       Show Bottom Contact
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch {...field} />
+                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
                       <FormMessage />
                     </div>
                   </FormItem>
