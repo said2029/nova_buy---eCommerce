@@ -75,7 +75,7 @@ export default function Sidbar({
       <div className="mt-9 ">
         <ul className="space-y-7 opacity-75">
           <li>
-            <Link className={li_class + li_class_border} href={"/dasboard"}>
+            <Link className={li_class + li_class_border} href={"/dashboard/home"}>
               <Table strokeWidth={1} /> Dashboard
             </Link>
           </li>
@@ -88,16 +88,16 @@ export default function Sidbar({
               <CollapsibleContent className="bg-slate-50/10 rounded-md p-1">
                 <ul className="px-6 flex flex-col gap-2 my-2">
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dasboard/products"}>Products</Link>
+                    <Link href={"/dashboard/home/products"}>Products</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dasboard/categories"}>Category</Link>
+                    <Link href={"/dashboard/home/categories"}>Category</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dasboard/subCategory"}>SubCategory</Link>
+                    <Link href={"/dashboard/home/subCategory"}>SubCategory</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dasboard/coupon"}>Coupon</Link>
+                    <Link href={"/dashboard/home/coupon"}>Coupon</Link>
                   </li>
                 </ul>
               </CollapsibleContent>
@@ -106,7 +106,7 @@ export default function Sidbar({
           <li>
             <Link
               className={li_class + li_class_border}
-              href={"/dasboard/users"}
+              href={"/dashboard/home/users"}
             >
               <Users strokeWidth={1} /> Users
             </Link>
@@ -114,7 +114,7 @@ export default function Sidbar({
           <li>
             <Link
               className={li_class + li_class_border}
-              href={"/dasboard/orders"}
+              href={"/dashboard/home/orders"}
             >
               <Box strokeWidth={1} /> Orders
             </Link>
@@ -122,7 +122,7 @@ export default function Sidbar({
           <li>
             <Link
               className={li_class + li_class_border}
-              href={"/dasboard/ourStaff"}
+              href={"/dashboard/home/ourStaff"}
             >
               <UserCog strokeWidth={1} /> Our Staff
             </Link>
@@ -130,7 +130,7 @@ export default function Sidbar({
           <li>
             <Link
               className={li_class + li_class_border}
-              href={"/dasboard/setting"}
+              href={"/dashboard/home/setting"}
             >
               <Settings strokeWidth={1} /> Settings
             </Link>
@@ -147,10 +147,10 @@ export default function Sidbar({
                     View Store
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dasboard/storeCustomizations"}>Store Customizations</Link>
+                    <Link href={"/dashboard/home/storeCustomizations"}>Store Customizations</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href="/dasboard/storeSetting">Store Setting</Link>
+                    <Link href="/dashboard/home/storeSetting">Store Setting</Link>
                   </li>
                 </ul>
               </CollapsibleContent>

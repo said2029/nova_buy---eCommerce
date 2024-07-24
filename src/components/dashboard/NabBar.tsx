@@ -53,7 +53,7 @@ export default function NabBar({
               <DropdownMenuContent className=" py-1 mt-2 rounded-lg text-end w-36 mx-3">
                 <DropdownMenuItem className="flex gap-2 cursor-pointer font-medium">
                   <Archive strokeWidth={1} size={20} />
-                  Dashboard
+                  dashboard/home
                 </DropdownMenuItem>
                 <DropdownMenuItem className="flex gap-2 cursor-pointer font-medium">
                   <UserPen size={20} strokeWidth={1} />
