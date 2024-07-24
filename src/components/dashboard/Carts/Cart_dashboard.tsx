@@ -18,14 +18,14 @@ export default function Cart_dashboard({
   Icon
 }:  Prop) {
   return (
-    <article className={cn(`p-3 h-28 bg-gray-50 dark:bg-slate-900 duration-300 cursor-pointer  ${shadowColor} shadow-[0_3px] hover:shadow-[0_0px] rounded-md flex gap-2 justify-between items-center`)}>
+    <article className={cn(`p-3 h-28 bg-gray-100c dark:bg-slate-900/25 duration-300 cursor-pointer  ${shadowColor} shadow-[0_3px] hover:shadow-[0_0px] rounded-md flex gap-2 justify-between items-center`)}>
       <div className="w-20 h-full flex justify-center items-center">
-        {Icon?Icon: <Image className="object-cover" src={image || ""} width={300} height={300} alt="dsfs"/>}
+        {Icon?Icon: <Image className="object-fill" src={image || ""} width={300} height={300} alt="dsfs"/>}
        
       </div>
       <div className="space-y-3 text-end">
         <h1 className="opacity-75 text-lg font-semibold">{titel}</h1>
-        <p className="text-2xl font-bold">${currency}</p>
+        <p className="text-2xl font-bold opacity-80">${currency}</p>
       </div>
     </article>
   );

@@ -20,6 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { MultiSelectTest } from "../utils/MultiSelelecor";
 import { Textarea } from "@/components/ui/textarea";
+import { PlusCircleIcon, Trash } from "lucide-react";
 
 const Menu_Editor = [
   "categories",
@@ -207,17 +208,50 @@ export default function HomeSetting() {
             <Tag_Hr name="Main Slider" />
             <section>
               <Tabs defaultValue="Slider 1">
-                <TabsList className="bg-gray-200/10 h-16 flex flex-wrap w-full">
-                  <TabsTrigger value="Slider 1">Slider 1</TabsTrigger>
-                  <TabsTrigger value="Slider 2">Slider 2</TabsTrigger>
-                  <TabsTrigger value="Slider 3">Slider 3</TabsTrigger>
-                  <TabsTrigger value="Slider 4">Slider 4</TabsTrigger>
-                  <TabsTrigger value="Slider 5">Slider 5</TabsTrigger>
+                <TabsList className="bg-gray-200/10 h-fit py-4 min-h-16 flex flex-wrap w-full relative">
+                  <Button
+                    onClick={() =>
+                      append({
+                        sliderImages: "",
+                        sliderTitle: "",
+                        sliderDescription: "",
+                        sliderButtonName: "",
+                        sliderButtonLink: "",
+                      })
+                    }
+                    variant="outline"
+                    className="absolute right-1"
+                    size="icon"
+                  >
+                    <PlusCircleIcon />
+                  </Button>
+                  {fields.map((fields, index) => {
+                    return (
+                      <TabsTrigger value={`Slider ${index + 1}`}>
+                        Slider {index + 1}
+                      </TabsTrigger>
+                    );
+                  })}
                 </TabsList>
 
                 {fields.map((fields, index) => {
                   return (
-                    <TabsContent key={index} value={`Slider ${index + 1}`}>
+                    <TabsContent
+                      className="relative"
+                      key={index}
+                      value={`Slider ${index + 1}`}
+                    >
+                      <Button
+                        onClick={() =>
+                          remove(index)
+                        }
+                        variant="outline"
+                        className="absolute left-2"
+                        size="icon"
+                      >
+                        <Trash className="text-rose-400" />
+                      </Button>
+
                       <Controller
                         control={form.control}
                         name={`sliderHero.${index}.sliderImages`}
@@ -328,7 +362,12 @@ export default function HomeSetting() {
                       Show Discount Coupon
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -380,7 +419,12 @@ export default function HomeSetting() {
                       Show Promotion Banner
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -457,7 +501,12 @@ export default function HomeSetting() {
                       Show PopularProducts
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -528,7 +577,12 @@ export default function HomeSetting() {
                       Show PopularProducts
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -633,7 +687,12 @@ export default function HomeSetting() {
                       Show Latest Discounted Products
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -703,7 +762,12 @@ export default function HomeSetting() {
                   <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                     <FormLabel className="w-full">Show</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -766,7 +830,7 @@ export default function HomeSetting() {
                     <FormLabel className="w-full">Title Image Right</FormLabel>
                     <div className="w-full col-span-3">
                       <Upload_Image
-                      name="getYourDailyNeedsTitleImageRight"
+                        name="getYourDailyNeedsTitleImageRight"
                         value={field.value}
                         onChange={field.onChange}
                       />
@@ -785,7 +849,7 @@ export default function HomeSetting() {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Upload_Image
-                      name="getYourDailyNeedsTitleButton1Image"
+                        name="getYourDailyNeedsTitleButton1Image"
                         value={field.value}
                         onChange={field.onChange}
                       />
@@ -819,7 +883,7 @@ export default function HomeSetting() {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Upload_Image
-                      name="getYourDailyNeedsTitleButton2Image"
+                        name="getYourDailyNeedsTitleButton2Image"
                         value={field.value}
                         onChange={field.onChange}
                       />
@@ -854,7 +918,12 @@ export default function HomeSetting() {
                   <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                     <FormLabel className="w-full">Show Promo Section</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -930,7 +999,12 @@ export default function HomeSetting() {
                           <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                             <FormLabel className="w-full">Active</FormLabel>
                             <div className="w-full col-span-3">
-                              <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                              <Switch
+                                onCheckedChange={(value) =>
+                                  field.onChange(value.toString())
+                                }
+                                {...field}
+                              />
                               <FormMessage />
                             </div>
                           </FormItem>
@@ -1014,7 +1088,12 @@ export default function HomeSetting() {
                     <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                       <FormLabel className="w-full">Active</FormLabel>
                       <div className="w-full col-span-3">
-                        <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                        <Switch
+                          onCheckedChange={(value) =>
+                            field.onChange(value.toString())
+                          }
+                          {...field}
+                        />
                         <FormMessage />
                       </div>
                     </FormItem>
@@ -1028,7 +1107,7 @@ export default function HomeSetting() {
                       <FormLabel className="w-full">Footer Logo</FormLabel>
                       <div className="w-full col-span-3">
                         <Upload_Image
-                        name="footerBlock.footerLogo"
+                          name="footerBlock.footerLogo"
                           value={field.value}
                           onChange={field.onChange}
                         />
@@ -1086,7 +1165,12 @@ export default function HomeSetting() {
                     <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                       <FormLabel className="w-full">Active</FormLabel>
                       <div className="w-full col-span-3">
-                        <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                        <Switch
+                          onCheckedChange={(value) =>
+                            field.onChange(value.toString())
+                          }
+                          {...field}
+                        />
                         <FormMessage />
                       </div>
                     </FormItem>
@@ -1169,7 +1253,12 @@ export default function HomeSetting() {
                   <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                     <FormLabel className="w-full">Show PaymentMethod</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -1183,7 +1272,7 @@ export default function HomeSetting() {
                     <FormLabel className="w-full">PaymentMethod Logo</FormLabel>
                     <div className="w-full col-span-3">
                       <Upload_Image
-                      name="paymentMethodImage"
+                        name="paymentMethodImage"
                         value={field.value}
                         onChange={field.onChange}
                       />
@@ -1204,7 +1293,12 @@ export default function HomeSetting() {
                       Show Bottom Contact
                     </FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
