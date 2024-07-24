@@ -1,0 +1,17 @@
+{
+    "dashboard": {
+      "Summary": "Summary",
+      "Today Orders":"Today Orders",
+      "Yesterday Orders":"Yesterday Orders",
+      "This Month":"This Month",
+      "Last Month":"Last Month",
+      "Order Status":"Order Status",
+      "Pending Order":"Pending Order",
+      "Processing Order":"Processing Order",
+      "Completed Order":"Completed Order",
+      "Cancelled Order":"Cancelled Order",
+      "Chart":"Chart",
+      "Weekly sales":"Weekly sales",
+      "Best Selling Products":"Best Selling Products"
+    }
+  }

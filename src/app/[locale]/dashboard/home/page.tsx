@@ -2,9 +2,20 @@ import Cart_dashboard from "@/components/dashboard/Carts/Cart_dashboard";
 import Bast_Products_Chart from "@/components/dashboard/Chart/Bast_Products_Chart";
 import Order_Chart from "@/components/dashboard/Chart/Order_Chart_Line";
 import Order_Table from "@/components/dashboard/tables/Order_Table";
-import { BringToFront, ClockArrowDown, ShoppingBag, ShoppingCart } from "lucide-react";
+import {
+  BringToFront,
+  ClockArrowDown,
+  ShoppingBag,
+  ShoppingCart,
+} from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-export default function page() {
+export default async function page({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({ locale, namespace: "dashboard" });
   return (
     <>
       <div className="p-7 mt-3">
@@ -12,63 +23,63 @@ export default function page() {
 
         <div className=" py-5 dark:bg-slate-800 bg-background  rounded-md">
           <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
-            Summary
+            {t("Summary")}
           </h1>
           <section className="mt-11 grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-2 px-2 md:px-7 xl:grid-cols-4">
             <Cart_dashboard
               currency={"12312"}
               shadowColor={"shadow-red-400"}
-              titel={"Today Orders"}
-              Icon={<ClockArrowDown size={200} strokeWidth={1}/>}
+              titel={t("Today Orders")}
+              Icon={<ClockArrowDown size={200} strokeWidth={1} />}
             />
             <Cart_dashboard
               currency={"12312"}
               shadowColor={"shadow-sky-400"}
-              titel={"Yesterday Orders"}
-              Icon={<BringToFront size={200} strokeWidth={1}/>}
+              titel={t("Yesterday Orders")}
+              Icon={<BringToFront size={200} strokeWidth={1} />}
             />
             <Cart_dashboard
               currency={"12312"}
               shadowColor={"shadow-blue-400"}
-              titel={"This Month"}
-              Icon={<ShoppingCart size={200} strokeWidth={1}/>}
+              titel={t("This Month")}
+              Icon={<ShoppingCart size={200} strokeWidth={1} />}
             />
             <Cart_dashboard
               currency={"12312"}
               shadowColor={"shadow-yellow-400"}
-              titel={"Last Month"}
-              Icon={<ShoppingBag size={200} strokeWidth={1}/>}
+              titel={t("Last Month")}
+              Icon={<ShoppingBag size={200} strokeWidth={1} />}
             />
           </section>
         </div>
         {/*  Order Status */}
         <div className=" py-5 mt-7 dark:bg-slate-800 bg-background rounded-md">
           <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
-            Order Status
+          {t("Order Status")}
           </h1>
           <section className="mt-11 grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-2 px-2 md:px-7 xl:grid-cols-4">
             <Cart_dashboard
               currency={"12312"}
               shadowColor={"shadow-green-400"}
-              titel={"Pending Order"}
+              titel={t("Pending Order")}
               image="/images/Icons/checklist.png"
             />
             <Cart_dashboard
               currency={"12312"}
               shadowColor={"shadow-sky-400"}
-              titel={"Processing Order"}
+              titel={t("Processing Order")}
               image="/images/Icons/order-processed.png"
             />
             <Cart_dashboard
               currency={"12312"}
               shadowColor={"shadow-red-400"}
-              titel={"Completed Order"}
+              titel={t("Completed Order")}
               image="/images/Icons/completed-task.png"
             />
             <Cart_dashboard
               currency={"12312"}
               shadowColor={"shadow-blue-400"}
-              titel={"Cancelled Order"}
+              titel={t("Cancelled Order")}
               image="/images/Icons/delivery-cancelled.png"
             />
           </section>
@@ -76,18 +87,18 @@ export default function page() {
         {/* Chart */}
         <div className=" py-5 mt-7 dark:bg-slate-800 bg-background rounded-md">
           <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
-            Chart
+          {t("Weekly sales")}
           </h1>
           <section className="mt-11 grid grid-cols-1 lg:grid-cols-2  gap-2 px-7">
             <div className="bg-background/10 rounded-md p-3">
               <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
-                Weekly Sales
+              {t("Chart")}
               </h1>
               <Order_Chart />
             </div>
             <div className="bg-background/10 rounded-md p-3">
               <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
-                Best Selling Products
+              {t("Best Selling Products")}
               </h1>
               <Bast_Products_Chart />
             </div>
