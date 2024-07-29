@@ -14,20 +14,22 @@ import { Edit2Icon, Trash, ZoomIn } from "lucide-react";
 import Avater_Image from "../utils/Avater_Image";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
-export default function Coupon_Table() {
+export default function Coupon_Table({ openEdit }: { openEdit?: () => void }) {
+  const t = useTranslations("table");
   return (
     <div>
       <Table className="rounded-xl overflow-hidden text-center border-2 border-red-400">
         <TableHeader className="bg-gray-500/10">
           <TableRow>
-            <TableHead>CAMPAIGN NAME</TableHead>
-            <TableHead>CODE</TableHead>
-            <TableHead> DISCOUNT</TableHead>
-            <TableHead>PUBLISHED</TableHead>
-            <TableHead>End Time</TableHead>
-            <TableHead>STATUS</TableHead>
-            <TableHead>ACTIONS</TableHead>
+            <TableHead>{t("CAMPAIGN NAME")}</TableHead>
+            <TableHead>{t("CODE")}</TableHead>
+            <TableHead>{t("DISCOUNT")}</TableHead>
+            <TableHead>{t("PUBLISHED")}</TableHead>
+            <TableHead>{t("End Time")}</TableHead>
+            <TableHead>{t("STATUS")}</TableHead>
+            <TableHead>{t("ACTIONS")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="border-2 border-red-400">
@@ -39,7 +41,7 @@ export default function Coupon_Table() {
             <TableCell>dsf43</TableCell>
             <TableCell>12$</TableCell>
             <TableCell>
-              <Switch  className="border-2 border-red-400" />
+              <Switch className="border-2 border-red-400" />
             </TableCell>
             <TableCell>date</TableCell>
             <TableCell>
@@ -47,7 +49,7 @@ export default function Coupon_Table() {
             </TableCell>
             <TableCell>
               <Button size={"icon"} variant={"ghost"}>
-                <Edit2Icon strokeWidth={1} />
+                <Edit2Icon onClick={openEdit} strokeWidth={1} />
               </Button>
               <Button size={"icon"} variant={"ghost"}>
                 <Trash className="text-red-500" strokeWidth={1} />

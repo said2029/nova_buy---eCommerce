@@ -7,10 +7,12 @@ import HomeSetting from "@/components/dashboard/storeCustomizations/HomeSetting"
 import Privacy_Policy_and_TC from "@/components/dashboard/storeCustomizations/Privacy Policy and T&C";
 import SEOSettingsPage from "@/components/dashboard/storeCustomizations/SEO_Setting";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getTranslations } from "next-intl/server";
 
-export default function page() {
+export default async function page() {
+  const t =await getTranslations("storeCustomizations")
   return (
-    <MainProviderPerants name="Store Customizations">
+    <MainProviderPerants name={t("Store Customizations")}>
       <Tabs defaultValue="HomeSetting">
         <TabsList className="flex gap-2 flex-wrap items-center min-h-16 h-fit">
           <TabsTrigger
@@ -18,50 +20,50 @@ export default function page() {
             className="h-12 bg-gray-200/10 rounded-md"
             value="HomeSetting"
           >
-            HomeSetting
+            {t("HomeSetting")}
           </TabsTrigger>
           <TabsTrigger
             className="h-12 bg-gray-200/10 rounded-md"
             value="About US"
           >
-            About US
+            {t("About US")}
           </TabsTrigger>
           <TabsTrigger
             className="h-12 bg-gray-200/10 rounded-md"
             value="FAQs"
           >
-            FAQs
+            {t("FAQs")}
           </TabsTrigger>
           <TabsTrigger
             className="h-12 bg-gray-200/10 rounded-md"
             value="Privacy_Policy_and_TC"
           >
-           Privacy_Policy_and_TC
+           {t("Privacy Policy and T&C")}
           </TabsTrigger>
           <TabsTrigger
             className="h-12 bg-gray-200/10 rounded-md"
             value="ContactUs"
           >
-            ContactUs
+            {t("ContactUs")}
           </TabsTrigger>
           <TabsTrigger
             className="h-12 bg-gray-200/10 rounded-md"
             value="Checkout"
           >
-            Checkout
+            {t("Checkout")}
           </TabsTrigger>
           <TabsTrigger
             className="h-12 bg-gray-200/10 rounded-md"
             value="SEOSettings"
           >
-            SEO Setting
+            {t("SEO Setting")}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="HomeSetting">
           <HomeSetting />
         </TabsContent>
-        <TabsContent value="About US">
+        <TabsContent value={t("About US")}>
           <About_Us />
         </TabsContent>
         <TabsContent value="FAQs"><FAQs/></TabsContent>

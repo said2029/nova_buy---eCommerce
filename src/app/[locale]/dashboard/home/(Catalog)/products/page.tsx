@@ -20,6 +20,8 @@ import { useForm } from "react-hook-form";
 import * as zod from "zod";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useRef } from "react";
 
 const fromshcema = zod.object({
   titel: zod.string(),
@@ -35,6 +37,7 @@ const fromshcema = zod.object({
 });
 
 export default function page() {
+  const t = useTranslations("productPage");
   const form = useForm<zod.infer<typeof fromshcema>>({
     resolver: zodResolver(fromshcema),
   });
@@ -54,11 +57,17 @@ export default function page() {
     form.setValue("images", temp);
   };
 
+  const ref_SheetButton = useRef<HTMLButtonElement>(null);
+
   return (
     <MainProviderPerants name="Products">
       <section>
         <div className="bg-gray-400/10 w-full py-5 px-4 rounded-md flex flex-wrap gap-5">
-          <Input className="flex-grow sm:max-w-72 xl:max-w-[50%]" type="text" placeholder="Search..." />
+          <Input
+            className="flex-grow sm:max-w-72 xl:max-w-[50%]"
+            type="text"
+            placeholder={t("Search")}
+          />
           <Selector
             defaultName="Categoy"
             className="flex-grow sm:max-w-28"
@@ -67,12 +76,16 @@ export default function page() {
           />
           <Selector
             defaultName="Price"
-             className="flex-grow sm:max-w-28"
+            className="flex-grow sm:max-w-28"
             name="Price"
             options={["Low To High", "High To Low", "Published", "UnPublished"]}
           />
           <span className="flex-grow hidden md:block"></span>
-          <SheetControlle tital="Add Product" buttonName="Add Product">
+          <SheetControlle
+            SheetTriggerRef={ref_SheetButton}
+            tital={t("Add Product")}
+            buttonName={t("Add Product")}
+          >
             <Form {...form}>
               <form onSubmit={form.handleSubmit(submit)} className="space-y-4">
                 <FormField
@@ -153,7 +166,7 @@ export default function page() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="Title" {...field} />
+                        <Input placeholder={t("Title")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -165,7 +178,7 @@ export default function page() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="Discription" {...field} />
+                        <Input placeholder={t("Discription")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -181,7 +194,7 @@ export default function page() {
                           <Input
                             step={0.1}
                             type="number"
-                            placeholder="Sale Price"
+                            placeholder={t("Sale Price")}
                             {...field}
                           />
                         </FormControl>
@@ -198,7 +211,7 @@ export default function page() {
                           <Input
                             step={0.1}
                             type="number"
-                            placeholder="Price"
+                            placeholder={t("Price")}
                             {...field}
                           />
                         </FormControl>
@@ -213,7 +226,11 @@ export default function page() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input type="number" placeholder="Stock" {...field} />
+                        <Input
+                          type="number"
+                          placeholder={t("Price")}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -253,45 +270,23 @@ export default function page() {
                     </FormItem>
                   )}
                 />
-                {/* <FormField
-                  control={form.control}
-                  name="colors"
-                  render={({ field }) => (
-                    <>
-                      <Selector
-                        onChange={field.onChange}
-                        defaultName="Colors"
-                        options={["1", "dsf"]}
-                      />
-                      <FormMessage />
-                    </>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="size"
-                  render={({ field }) => (
-                    <>
-                      <Selector
-                        onChange={field.onChange}
-                        defaultName="Size"
-                        options={["1", "dsf"]}
-                      />
-                      <FormMessage />
-                    </>
-                  )}
-                /> */}
+
                 <Button type="submit" className="w-full">
-                  Add Product
+                  {t("Add Product")}
                 </Button>
               </form>
             </Form>
           </SheetControlle>
-          <Button className="h-12">Filter</Button>
-          <Button className="h-12">Restar</Button>
+          <Button className="h-12">{t("Filter")} </Button>
+          <Button className="h-12">{t("Filter")} </Button>
         </div>
         <div className="mt-8 p-4 bg-gray-400/10 rounded-md">
-          <Products_Table />
+          <Products_Table
+            openEdit={() => {
+              console.log("click button");
+              ref_SheetButton.current?.click();
+            }}
+          />
         </div>
       </section>
     </MainProviderPerants>

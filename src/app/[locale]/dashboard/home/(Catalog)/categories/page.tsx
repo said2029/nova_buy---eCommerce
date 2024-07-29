@@ -15,6 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
 
@@ -28,6 +30,7 @@ const CategorySchema = zod.object({
 })
 
 export default function page() {
+  const t = useTranslations("Category");
   const form = useForm<zod.infer<typeof CategorySchema>>({
     resolver: zodResolver(CategorySchema),
   });
@@ -36,11 +39,13 @@ export default function page() {
     console.log(value);
     form.reset();
   }
+
+  const ref_SheetButton = useRef<HTMLButtonElement>(null);
   return (
     <MainProviderPerants name="Category">
       <section className="bg-gray-400/10 rounded-md w-full flex-wrap sm:flex-nowrap py-5 px-3 flex gap-2">
         <Input className="flex-grow" placeholder="Search...." />
-        <SheetControlle buttonName="Add Category" tital="Add Category">
+        <SheetControlle SheetTriggerRef={ref_SheetButton} buttonName={t("Add Category")} tital={t("Add Category")}>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(submit)} className="space-y-4">
               <FormField
@@ -65,7 +70,7 @@ export default function page() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Category Name" {...field} />
+                      <Input placeholder={t("Category Name")}  {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -77,7 +82,7 @@ export default function page() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Textarea placeholder="Category Description" {...field} />
+                      <Textarea placeholder={t("Category Description")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,16 +106,18 @@ export default function page() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Add Category
+                {t("Add Category")}
               </Button>
             </form>
           </Form>
         </SheetControlle>
-        <Button className="h-12">Filter</Button>
-        <Button className="h-12">Restart</Button>
+        <Button className="h-12">{t("Filter")}</Button>
+        <Button className="h-12">{t("Restar")}</Button>
       </section>
       <section className="bg-gray-400/10 rounded-md p-2 mt-5">
-        <Category_Table />
+        <Category_Table openEdit={()=>{
+          ref_SheetButton.current?.click();
+        }}/>
       </section>
     </MainProviderPerants>
   );

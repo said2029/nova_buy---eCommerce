@@ -3,7 +3,7 @@ import Forget_password from "@/components/dashboard/auth/forget_password";
 import RestartPassword from "@/components/dashboard/auth/RestartPassword";
 import Sign_in_dashboard from "@/components/dashboard/auth/sign_in_dashboard";
 import Sign_up_dashboard from "@/components/dashboard/auth/Sign_up_dashboard";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type AuthMode_schema = "sign_in" | "sign_up" | "forget" | "reset";
@@ -18,7 +18,9 @@ export default function page() {
   };
 
   useEffect(() => {
-    setMode(PathParams.get("mode") as AuthMode_schema);
+    if (PathParams.get("mode")) {
+      setMode(PathParams.get("mode") as AuthMode_schema);
+    }
   }, [PathParams.get("mode")]);
 
   return (

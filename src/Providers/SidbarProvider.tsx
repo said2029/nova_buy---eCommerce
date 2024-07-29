@@ -2,13 +2,18 @@
 import NabBar from "@/components/dashboard/NabBar";
 import Sidbar from "@/components/dashboard/Sidbar";
 import { motion } from "framer-motion";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 export default function SidbarProvider({ children }: { children: ReactNode }) {
   const [sidbarOpen, setSidbarOpen] = useState(false);
   const toggleSidbar = () => {
     setSidbarOpen(!sidbarOpen);
   };
-  let mql = window.matchMedia("(max-width: 1024px)");
+  let mql: any = null;
+  useEffect(() => {
+    if (window) {
+      mql = window?.matchMedia("(max-width: 1024px)");
+    }
+  }, []);
 
   return (
     <div className="flex relative">
@@ -24,7 +29,7 @@ export default function SidbarProvider({ children }: { children: ReactNode }) {
           },
         }}
         initial="closed"
-        animate={mql.matches==false && sidbarOpen ? "open" : "closed"}
+        animate={mql?.matches == false && sidbarOpen ? "open" : "closed"}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
         <NabBar sidbarOpen={sidbarOpen} toggelSidbat={toggleSidbar} />

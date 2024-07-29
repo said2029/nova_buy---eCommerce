@@ -12,20 +12,24 @@ import PaginationComponent from "../Pagination";
 import { Button } from "@/components/ui/button";
 import { Edit2Icon, Trash, ZoomIn } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { useTranslations } from "next-intl";
 
-
-export default function SubCategory_Table() {
-
+export default function SubCategory_Table({
+  openEdit,
+}: {
+  openEdit: () => void;
+}) {
+  const t = useTranslations("table");
   return (
     <div>
       <Table className="rounded-xl overflow-hidden text-center border-2 border-red-400">
         <TableHeader className="bg-gray-500/10">
           <TableRow>
             <TableHead>ID</TableHead>
-            <TableHead>NAME</TableHead>
-            <TableHead> DISPLAY NAME</TableHead>
-            <TableHead>PUBLISHED</TableHead>
-            <TableHead>ACTIONS</TableHead>
+            <TableHead>{t("NAME")}</TableHead>
+            <TableHead> {t("DISPLAY NAME")}</TableHead>
+            <TableHead>{t("PUBLISHED")}</TableHead>
+            <TableHead>{t("ACTIONS")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="border-2 border-red-400">
@@ -37,7 +41,7 @@ export default function SubCategory_Table() {
               <Switch className="border-2 border-red-400" />
             </TableCell>
             <TableCell>
-              <Button size={"icon"} variant={"ghost"}>
+              <Button onClick={openEdit} size={"icon"} variant={"ghost"}>
                 <Edit2Icon strokeWidth={1} />
               </Button>
               <Button size={"icon"} variant={"ghost"}>
@@ -55,7 +59,7 @@ export default function SubCategory_Table() {
               colSpan={2}
               className="text-gray-600/80 dark:text-gray-200/80"
             >
-              SHOWING 1-8 OF 171
+              {("SHOWING")} 1-8 OF 171
             </TableCell>
             <TableCell colSpan={4}>
               <PaginationComponent />

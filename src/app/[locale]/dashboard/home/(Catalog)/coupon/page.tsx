@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
 
@@ -26,6 +28,7 @@ const CouponSchema = zod.object({
 });
 
 export default function page() {
+  const t = useTranslations("Coupon");
   const form = useForm<zod.infer<typeof CouponSchema>>({
     resolver: zodResolver(CouponSchema),
   });
@@ -34,11 +37,12 @@ export default function page() {
     form.reset();
     // add to database
   };
+  const ref_SheetButton = useRef<HTMLButtonElement>(null);
   return (
-    <MainProviderPerants name="Coupon">
+    <MainProviderPerants name={t("Coupon")}>
       <section className="bg-gray-400/10 flex-wrap sm:flex-nowrap rounded-md w-full py-5 px-3 flex gap-2">
         <Input placeholder="Search...." />
-        <SheetControlle buttonName="Add Category" tital="Add Category">
+        <SheetControlle SheetTriggerRef={ref_SheetButton} buttonName={t("Add Coupon")} tital={t("Add Coupon")}>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(submit)} className="space-y-4">
               <FormField
@@ -63,7 +67,7 @@ export default function page() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Coupon Name" {...field} />
+                      <Input placeholder={t("Coupon Name")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -75,7 +79,7 @@ export default function page() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Coupon Code " {...field} />
+                      <Input placeholder={t("Coupon Code")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -89,7 +93,7 @@ export default function page() {
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Coupon discount "
+                        placeholder={t("Coupon discount")}
                         {...field}
                       />
                     </FormControl>
@@ -105,7 +109,7 @@ export default function page() {
                     <FormControl>
                       <Input
                         type="date"
-                        placeholder="Coupon Time End "
+                        placeholder={t("Coupon Time End")}
                         {...field}
                       />
                     </FormControl>
@@ -121,7 +125,7 @@ export default function page() {
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Coupon Max Using "
+                        placeholder={t("Coupon Max Using")}
                         {...field}
                       />
                     </FormControl>
@@ -130,16 +134,18 @@ export default function page() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Add Category
+                {t("Add Coupon")}
               </Button>
             </form>
           </Form>
         </SheetControlle>
-        <Button className="h-12">Filter</Button>
-        <Button className="h-12">Restart</Button>
+        <Button className="h-12">{t("Filter")}</Button>
+        <Button className="h-12">{t("Restart")}</Button>
       </section>
       <section className="mt-5 rounded-md p-2 bg-gray-400/10 ">
-        <Coupon_Table />
+        <Coupon_Table openEdit={()=>{
+          ref_SheetButton.current?.click();
+        }}/>
       </section>
     </MainProviderPerants>
   );

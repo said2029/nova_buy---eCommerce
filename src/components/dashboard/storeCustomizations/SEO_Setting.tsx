@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useTranslations } from "next-intl";
 
 type SEOFormValues = z.infer<typeof SEO_schema>;
 
@@ -33,10 +34,12 @@ export default function SEOSettingsPage() {
     console.log(data);
   };
 
+  const t =useTranslations("storeCustomizations");
+
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-4">
       <h1 className="font-semibold text-2xl pl-4 border-s-4 border-blue-400">
-        SEO Settings
+        {t("SEO Setting")}
       </h1>
       <section className="px-4 md:px-10">
         <Form {...form}>

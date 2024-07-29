@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Trash2, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type AboutUsFormValues = z.infer<typeof About_us_schema>;
 
@@ -93,11 +94,12 @@ export default function page() {
   const submit = (data: AboutUsFormValues) => {
     console.log(data);
   };
+  const t = useTranslations("storeCustomizations");
 
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-2">
       <h1 className="font-semibold text-2xl pl-4 border-s-4 border-red-400">
-        About Us
+        {t("About US")}
       </h1>
       <section className="px-4 md:px-10">
         <Form {...form}>

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { checkout_schema } from "@/Types";
 import Tag_Hr from "./Tag";
+import { useTranslations } from "next-intl";
 
 type CheckoutFormValues = z.infer<typeof checkout_schema>;
 
@@ -47,6 +48,8 @@ export default function CheckoutPage() {
     },
   });
 
+  const t =useTranslations("storeCustomizations");
+
   const submit = (data: CheckoutFormValues) => {
     console.log(data);
   };
@@ -54,7 +57,7 @@ export default function CheckoutPage() {
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-4">
       <h1 className="font-semibold text-2xl pl-4 border-s-4 border-blue-400">
-        Checkout
+        {t("Checkout")}
       </h1>
       <section className="px-4 md:px-10">
         <form onSubmit={form.handleSubmit(submit)}>

@@ -12,21 +12,27 @@ import PaginationComponent from "../Pagination";
 import { Button } from "@/components/ui/button";
 import { Edit2Icon, Printer, Trash, View, ZoomIn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
-export default function Products_Table() {
+export default function Products_Table({
+  openEdit,
+}: {
+  openEdit?: () => void;
+}) {
+  const t = useTranslations("table");
   return (
     <div>
       <Table className="rounded-xl overflow-hidden border-2 border-red-400">
         <TableHeader className="bg-gray-500/10">
           <TableRow>
-            <TableHead>PRODUCT NAME</TableHead>
-            <TableHead>CATEGORY</TableHead>
-            <TableHead>PRICE</TableHead>
-            <TableHead>SALE PRICE</TableHead>
-            <TableHead>STOCK</TableHead>
-            <TableHead>STATUS</TableHead>
-            <TableHead>PUBLISHED</TableHead>
-            <TableHead>ACTIONS</TableHead>
+            <TableHead>{t("PRODUCT NAME")}</TableHead>
+            <TableHead>{t("CATEGORY")}</TableHead>
+            <TableHead>{t("PRICE")}</TableHead>
+            <TableHead>{t("SALE PRICE")}</TableHead>
+            <TableHead>{t("STOCK")}</TableHead>
+            <TableHead>{t("STATUS")}</TableHead>
+            <TableHead>{t("PUBLISHED")}</TableHead>
+            <TableHead>{t("ACTIONS")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="border-2 border-red-400  text-center">
@@ -42,7 +48,7 @@ export default function Products_Table() {
             </TableCell>
             <TableCell>
               <Button size={"icon"} variant={"ghost"}>
-                <Edit2Icon strokeWidth={1} />
+                <Edit2Icon onClick={openEdit} strokeWidth={1} />
               </Button>
               <Button size={"icon"} variant={"ghost"}>
                 <Trash className="text-red-500" strokeWidth={1} />
@@ -59,7 +65,7 @@ export default function Products_Table() {
               colSpan={6}
               className="text-gray-600/80 dark:text-gray-200/80"
             >
-              SHOWING 1-8 OF 171
+              {t("SHOWING")} 1-8 OF 171
             </TableCell>
             <TableCell colSpan={6}>
               <PaginationComponent />

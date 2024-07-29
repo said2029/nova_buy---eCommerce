@@ -108,7 +108,7 @@ export default async function page({
 
         <div className=" py-5 mt-7 dark:bg-slate-800 bg-background rounded-md">
           <h1 className="border-s-4 border-red-500 ps-4 font-semibold">
-            Recent Order
+           {t("Recent Order")} 
           </h1>
           <section className="mt-11 px-3">
             <Order_Table />

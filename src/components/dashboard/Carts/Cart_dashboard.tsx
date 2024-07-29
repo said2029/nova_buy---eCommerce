@@ -20,7 +20,7 @@ export default function Cart_dashboard({
   return (
     <article className={cn(`p-3 h-28 bg-gray-100c dark:bg-slate-900/25 duration-300 cursor-pointer  ${shadowColor} shadow-[0_3px] hover:shadow-[0_0px] rounded-md flex gap-2 justify-between items-center`)}>
       <div className="w-20 h-full flex justify-center items-center">
-        {Icon?Icon: <Image className="object-fill" src={image || ""} width={300} height={300} alt="dsfs"/>}
+        {Icon?Icon: <Image className="object-fill" src={image || ""} width={300} height={300} alt={titel}/>}
        
       </div>
       <div className="space-y-3 text-end">

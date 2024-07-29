@@ -23,6 +23,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import Upload_Image from "@/components/dashboard/utils/Upload_Image";
+import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
 const formSchema = z.object({
@@ -35,6 +36,7 @@ const formSchema = z.object({
 });
 
 export default function page() {
+  const t = useTranslations("Our staff");
   const formAddStaff = useForm<z.infer<typeof formSchema>>({
     mode: "onChange",
     resolver: zodResolver(formSchema),
@@ -50,20 +52,21 @@ export default function page() {
 
 
   const submit = (value: z.infer<typeof formSchema>) => {
-    console.log("sdfdsfdsfdsf");
     console.log(value);
     formAddStaff.reset();
   };
+  const ref_SheetButton = useRef<HTMLButtonElement>(null);
 
   return (
-    <MainProviderPerants name="Our staff">
+    <MainProviderPerants name={t("Our staff")}>
       <section className="bg-gray-500/10 p-3 flex-wrap sm:flex-nowrap rounded-md flex gap-3 z-0">
-        <Input className="h-12" placeholder="Search...." />
+        <Input className="h-12" placeholder={t("Search")} />
         <Selector className="h-12" options={["ddfsd"]} defaultName="role" />
         <SheetControlle
           icon={<Plus />}
           buttonName="Add Staff"
-          tital="Add Staff"
+          tital={t("Add Staff")}
+          SheetTriggerRef={ref_SheetButton}
         >
           <Form  {...formAddStaff}>
             <form
@@ -88,7 +91,7 @@ export default function page() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Name" {...field} />
+                      <Input placeholder={t("Name")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -100,7 +103,7 @@ export default function page() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input type="email" placeholder="email" {...field} />
+                      <Input type="email" placeholder={t("email")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -114,7 +117,7 @@ export default function page() {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="password"
+                        placeholder={t("password")}
                         {...field}
                       />
                     </FormControl>
@@ -168,7 +171,7 @@ export default function page() {
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Contact Number"
+                        placeholder={t("Contact Number")}
                         {...field}
                       />
                     </FormControl>
@@ -176,17 +179,19 @@ export default function page() {
                   </FormItem>
                 )}
               />
-              <Button className="w-full">Add Staff</Button>
+              <Button className="w-full">{t("Add Staff")}</Button>
             </form>
           </Form>
         </SheetControlle>
-        <Button className="w-28 h-12">Filter</Button>
+        <Button className="w-28 h-12">{t("Filter")}</Button>
         <Button type="button" className="w-28 h-12">
-          Restat
+          {t("Restart")}
         </Button>
       </section>
       <section className="bg-gray-500/10 p-3 rounded-md mt-10">
-        <OurStaff_Table />
+        <OurStaff_Table openEdit={()=>{
+          ref_SheetButton.current?.click();
+        }}/>
       </section>
     </MainProviderPerants>
   );

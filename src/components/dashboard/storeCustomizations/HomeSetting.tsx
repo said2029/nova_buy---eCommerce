@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch";
 import { MultiSelectTest } from "../utils/MultiSelelecor";
 import { Textarea } from "@/components/ui/textarea";
 import { PlusCircleIcon, Trash } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const Menu_Editor = [
   "categories",
@@ -122,11 +123,12 @@ export default function HomeSetting() {
   const submit = (value: z.infer<typeof HomeSettingSchema>) => {
     console.log(value);
   };
+  const t = useTranslations("storeCustomizations");
 
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-2">
       <h1 className="font-semibold text-2xl pl-4 border-s-4 border-red-400">
-        Home Setting
+        {t("Home Setting")}
       </h1>
       <hr className="my-3 border-2 bg-background" />
       <section className="px-4 md:px-10">
@@ -242,9 +244,7 @@ export default function HomeSetting() {
                       value={`Slider ${index + 1}`}
                     >
                       <Button
-                        onClick={() =>
-                          remove(index)
-                        }
+                        onClick={() => remove(index)}
                         variant="outline"
                         className="absolute left-2"
                         size="icon"

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -30,6 +31,7 @@ const SettingsSchema = z.object({
 });
 
 export default function page() {
+  const t = useTranslations("SettingPage");
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
@@ -52,7 +54,7 @@ export default function page() {
     console.log(value);
   }
   return (
-    <MainProviderPerants name="Setting">
+    <MainProviderPerants name={t("Setting")}>
       <section className="bg-gray-400/10 p-3 rounded-md md:px-10 lg:px-48 ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(submit)} className="space-y-2"  action="">
@@ -61,9 +63,9 @@ export default function page() {
               name="shopName"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4 text-nowrap gap-2 sm:gap-2  place-items-center">
-                  <FormLabel >Shop Name</FormLabel>
+                  <FormLabel >{t("Shop Name")} </FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="text" {...field} placeholder="Shop Name" />
+                    <Input type="text" {...field} placeholder={t("Shop Name")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -74,9 +76,9 @@ export default function page() {
               name="companyName"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Company Name</FormLabel>
+                  <FormLabel>{t("Company Name")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="text" {...field} placeholder="Company Name" />
+                    <Input type="text" {...field} placeholder={t("Company Name")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -87,9 +89,9 @@ export default function page() {
               name="contactEmail"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Contact Email</FormLabel>
+                  <FormLabel>{t("Contact Email")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="text" {...field} placeholder="Contact Email" />
+                    <Input type="text" {...field} placeholder={t("Contact Email")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -100,9 +102,9 @@ export default function page() {
               name="defaultCurrency"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Default Currency</FormLabel>
+                  <FormLabel>{t("Default Currency")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="text" {...field} placeholder="Default Currency" />
+                    <Input type="text" {...field} placeholder={t("Default Currency")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -113,9 +115,9 @@ export default function page() {
               name="defaultDateFormat"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Default DateFormat</FormLabel>
+                  <FormLabel>{t("Default DateFormat")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="text" {...field} placeholder="Default DateFormat" />
+                    <Input type="text" {...field} placeholder={t("Default DateFormat")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -126,9 +128,9 @@ export default function page() {
               name="defaultTimeZone"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Default TimeZone</FormLabel>
+                  <FormLabel>{t("Default TimeZone")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="text" {...field} placeholder="Default TimeZone" />
+                    <Input type="text" {...field} placeholder={t("Default TimeZone")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -139,9 +141,9 @@ export default function page() {
               name="numberOfImages"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Number Of Images</FormLabel>
+                  <FormLabel>{t("Number Of Images")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="number" {...field} placeholder="Number Of Images" />
+                    <Input type="number" {...field} placeholder={t("Number Of Images")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -152,9 +154,9 @@ export default function page() {
               name="address"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>{t("Address")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="text" {...field} placeholder="Address" />
+                    <Input type="text" {...field} placeholder={t("Address")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -165,9 +167,9 @@ export default function page() {
               name="postCode"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Post Code</FormLabel>
+                  <FormLabel>{t("Post Code")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="number" {...field} placeholder="Post Code" />
+                    <Input type="number" {...field} placeholder={t("Post Code")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -178,9 +180,9 @@ export default function page() {
               name="receiptSizeWidth"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Receipt Size Width</FormLabel>
+                  <FormLabel>{t("Receipt Size Width")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="number" {...field} placeholder="Receipt Size Width" />
+                    <Input type="number" {...field} placeholder={t("Receipt Size Width")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -191,9 +193,9 @@ export default function page() {
               name="vatNumber"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Vat Number</FormLabel>
+                  <FormLabel>{t("Vat Number")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="number" {...field} placeholder="Vat Number" />
+                    <Input type="number" {...field} placeholder={t("Vat Number")} />
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -204,15 +206,15 @@ export default function page() {
               name="website"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 sm:grid-cols-4  text-nowrap gap-2  place-items-center">
-                  <FormLabel>Website</FormLabel>
+                  <FormLabel>{t("Website")}</FormLabel>
                   <div className="w-full col-span-3">
-                    <Input type="text" {...field} placeholder="Website" />
+                    <Input type="text" {...field} placeholder={t("Website")} />
                     <FormMessage />
                   </div>
                 </FormItem>
               )}
             />
-             <Button className="fixed bottom-2 right-2">Save Changes</Button>
+             <Button className="fixed bottom-2 right-2">{t("Save Changes")}</Button>
           </form>
         </Form>
       </section>

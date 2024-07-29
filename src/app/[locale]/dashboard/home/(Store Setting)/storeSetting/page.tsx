@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -38,8 +39,9 @@ export default function page() {
   const submit = (value:z.infer<typeof StoreSettingsSchema>)=>{
     console.log(value);
   }
+  const t = useTranslations("StoreSetting");
   return (
-    <MainProviderPerants name="Store Setting">
+    <MainProviderPerants name={t("Store Setting")}>
       <section className="px-10 lg:px-40 py-9 bg-gray-400/10 rounded-md">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(submit)}>
@@ -48,7 +50,7 @@ export default function page() {
               name="enableCashOnDelivery"
               render={({ field }) => (
                 <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
-                  <FormLabel className="w-full">Enable Cash OnDelivery</FormLabel>
+                  <FormLabel className="w-full">{("Enable Cash OnDelivery")}</FormLabel>
                   <div className="w-full col-span-3">
                     <Switch {...field} />
                     <FormMessage />
@@ -239,7 +241,7 @@ export default function page() {
               )}
             />
 
-            <Button className="fixed bottom-2 right-2">Save Configuration</Button>
+            <Button className="fixed bottom-2 right-2">{t("Save Configuration")}</Button>
           </form>
         </Form>
       </section>

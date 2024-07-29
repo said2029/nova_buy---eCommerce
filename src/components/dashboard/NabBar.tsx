@@ -6,10 +6,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Archive, CircleX, LogOut, Menu, UserPen } from "lucide-react";
+import {
+  Archive,
+  BellRing,
+  CircleX,
+  LogOut,
+  Menu,
+  UserPen,
+} from "lucide-react";
 import { ModeToggle } from "./SelectTheme";
 import { Button } from "../ui/button";
 import clsx from "clsx";
+import Link from "next/link";
 
 export default function NabBar({
   toggelSidbat,
@@ -26,10 +34,10 @@ export default function NabBar({
             <Menu strokeWidth={1} />
           </Button>
         </nav>
-        <ul className="flex gap-3">
+        <ul className="flex justify-center items-center gap-3">
           <li>
             <DropdownMenu>
-              <DropdownMenuTrigger className="h-10">En</DropdownMenuTrigger>
+              <DropdownMenuTrigger className="h-10 font-thin opacity-90">En</DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>English</DropdownMenuItem>
                 <DropdownMenuItem>Arabic</DropdownMenuItem>
@@ -39,6 +47,22 @@ export default function NabBar({
           <li>
             <ModeToggle />
           </li>
+          <li className="relative flex items-center">
+            <DropdownMenu >
+              <DropdownMenuTrigger>
+                {/* <span className="absolute -top-1 -right-1 bg-red-400 text-[12px] px-1 rounded-full">
+                  1
+                </span> */}
+                <BellRing size={20} strokeWidth={1.5} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>
+                  
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </li>
+
           <li>
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -51,9 +75,14 @@ export default function NabBar({
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className=" py-1 mt-2 rounded-lg text-end w-36 mx-3">
-                <DropdownMenuItem className="flex gap-2 cursor-pointer font-medium">
-                  <Archive strokeWidth={1} size={20} />
-                  dashboard/home
+                <DropdownMenuItem>
+                  <Link
+                    className="flex gap-2 cursor-pointer font-medium"
+                    href="/dashboard/home"
+                  >
+                    <Archive strokeWidth={1} size={20} />
+                    Dashboard
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="flex gap-2 cursor-pointer font-medium">
                   <UserPen size={20} strokeWidth={1} />

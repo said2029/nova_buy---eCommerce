@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import Tag_Hr from "./Tag";
 import { Switch } from "@/components/ui/switch";
+import { useTranslations } from "next-intl";
 
 type ContactUsFormValues = z.infer<typeof contact_us_schema>;
 
@@ -60,11 +61,12 @@ export default function ContactUs() {
   const submit = (data: ContactUsFormValues) => {
     console.log(data);
   };
+  const t =useTranslations("storeCustomizations");
 
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-2">
       <h1 className="font-semibold text-2xl pl-4 border-s-4 border-blue-400">
-        Contact Us
+        {t("Contact Us")}
       </h1>
       <section className="px-4 md:px-10">
         <Form {...form}>

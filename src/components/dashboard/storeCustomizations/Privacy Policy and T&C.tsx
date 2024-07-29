@@ -17,6 +17,7 @@ import Upload_Image from "../utils/Upload_Image";
 import { Input } from "@/components/ui/input";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 const TextEditor = dynamic(() => import("../utils/RichText_editor"), {
   ssr: false,
 });
@@ -40,6 +41,7 @@ export default function Privacy_Policy_and_TC() {
       },
     },
   });
+  const t =useTranslations("storeCustomizations");
 
   const submit = (value: schemaP_T) => {
     console.log(value);
@@ -47,7 +49,7 @@ export default function Privacy_Policy_and_TC() {
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-2">
       <h1 className="font-semibold text-2xl pl-4 border-s-4 border-red-400">
-        Privacy Policy and T&C
+        {t("Privacy Policy and T&C")}
       </h1>
       <section className="px-4 md:px-10">
         <Form {...form}>

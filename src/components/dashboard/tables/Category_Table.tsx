@@ -13,9 +13,14 @@ import { Button } from "@/components/ui/button";
 import { Edit2Icon, Trash, ZoomIn } from "lucide-react";
 import Avater_Image from "../utils/Avater_Image";
 import { Switch } from "@/components/ui/switch";
+import { useTranslations } from "next-intl";
 
-
-export default function Category_Table() {
+export default function Category_Table({
+  openEdit,
+}: {
+  openEdit?: () => void;
+}) {
+  const t = useTranslations("table");
 
   return (
     <div>
@@ -23,11 +28,11 @@ export default function Category_Table() {
         <TableHeader className="bg-gray-500/10">
           <TableRow>
             <TableHead>ID</TableHead>
-            <TableHead>ICON</TableHead>
-            <TableHead>NAME</TableHead>
-            <TableHead> DESCRIPTION</TableHead>
-            <TableHead>PUBLISHED</TableHead>
-            <TableHead>ACTIONS</TableHead>
+            <TableHead>{t("ICON")}</TableHead>
+            <TableHead>{t("NAME")}</TableHead>
+            <TableHead> {t("DESCRIPTION")}</TableHead>
+            <TableHead>{t("PUBLISHED")}</TableHead>
+            <TableHead>{t("ACTIONS")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="border-2 border-red-400">
@@ -42,7 +47,7 @@ export default function Category_Table() {
               <Switch className="border-2 border-red-400" />
             </TableCell>
             <TableCell>
-              <Button size={"icon"} variant={"ghost"}>
+              <Button onClick={openEdit} size={"icon"} variant={"ghost"}>
                 <Edit2Icon strokeWidth={1} />
               </Button>
               <Button size={"icon"} variant={"ghost"}>
@@ -60,7 +65,7 @@ export default function Category_Table() {
               colSpan={2}
               className="text-gray-600/80 dark:text-gray-200/80"
             >
-              SHOWING 1-8 OF 171
+              {("SHOWING")} 1-8 OF 171
             </TableCell>
             <TableCell colSpan={4}>
               <PaginationComponent />
