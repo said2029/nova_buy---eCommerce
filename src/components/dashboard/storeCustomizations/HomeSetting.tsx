@@ -22,6 +22,8 @@ import { MultiSelectTest } from "../utils/MultiSelelecor";
 import { Textarea } from "@/components/ui/textarea";
 import { PlusCircleIcon, Trash } from "lucide-react";
 import { useTranslations } from "next-intl";
+import clsx from "clsx";
+import axios from "axios";
 
 const Menu_Editor = [
   "categories",
@@ -120,8 +122,15 @@ export default function HomeSetting() {
     name: "footerBlocks",
   });
 
-  const submit = (value: z.infer<typeof HomeSettingSchema>) => {
+  const submit = async (value: z.infer<typeof HomeSettingSchema>) => {
     console.log(value);
+    try {
+      const data = await axios.post("/api/store_customiza", {
+        HomeSetting: value,
+      });
+    } catch (error: any) {
+      console.log(error?.message);
+    }
   };
   const t = useTranslations("storeCustomizations");
 
@@ -229,7 +238,7 @@ export default function HomeSetting() {
                   </Button>
                   {fields.map((fields, index) => {
                     return (
-                      <TabsTrigger value={`Slider ${index + 1}`}>
+                      <TabsTrigger key={index} value={`Slider ${index + 1}`}>
                         Slider {index + 1}
                       </TabsTrigger>
                     );
@@ -1319,7 +1328,13 @@ export default function HomeSetting() {
               />
             </section>
 
-            <Button className="fixed bottom-2 right-2">Save Changes</Button>
+            <Button
+              className={clsx("fixed bottom-2 right-2", {
+                "opacity-20": form.formState.isSubmitting,
+              })}
+            >
+              Save Changes
+            </Button>
           </form>
         </Form>
       </section>

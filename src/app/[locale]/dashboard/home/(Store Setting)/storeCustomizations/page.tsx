@@ -7,10 +7,18 @@ import HomeSetting from "@/components/dashboard/storeCustomizations/HomeSetting"
 import Privacy_Policy_and_TC from "@/components/dashboard/storeCustomizations/Privacy Policy and T&C";
 import SEOSettingsPage from "@/components/dashboard/storeCustomizations/SEO_Setting";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AxiosClient from "@/lib/axios/AxiosClient";
 import { getTranslations } from "next-intl/server";
 
 export default async function page() {
-  const t =await getTranslations("storeCustomizations")
+  const t = await getTranslations("storeCustomizations");
+
+  // try {
+  //   const HomeSettingData = await AxiosClient.get("/store_customiza");
+  // } catch (error:any) {
+  //   console.log(error?.message);
+  // }
+
   return (
     <MainProviderPerants name={t("Store Customizations")}>
       <Tabs defaultValue="HomeSetting">
@@ -28,17 +36,14 @@ export default async function page() {
           >
             {t("About US")}
           </TabsTrigger>
-          <TabsTrigger
-            className="h-12 bg-gray-200/10 rounded-md"
-            value="FAQs"
-          >
+          <TabsTrigger className="h-12 bg-gray-200/10 rounded-md" value="FAQs">
             {t("FAQs")}
           </TabsTrigger>
           <TabsTrigger
             className="h-12 bg-gray-200/10 rounded-md"
             value="Privacy_Policy_and_TC"
           >
-           {t("Privacy Policy and T&C")}
+            {t("Privacy Policy and T&C")}
           </TabsTrigger>
           <TabsTrigger
             className="h-12 bg-gray-200/10 rounded-md"
@@ -66,11 +71,21 @@ export default async function page() {
         <TabsContent value={t("About US")}>
           <About_Us />
         </TabsContent>
-        <TabsContent value="FAQs"><FAQs/></TabsContent>
-        <TabsContent value="Privacy_Policy_and_TC"><Privacy_Policy_and_TC/></TabsContent>
-        <TabsContent value="ContactUs"><ContactUs/></TabsContent>
-        <TabsContent value="Checkout"><CheckoutSetting/></TabsContent>
-        <TabsContent value="SEOSettings"><SEOSettingsPage/></TabsContent>
+        <TabsContent value="FAQs">
+          <FAQs />
+        </TabsContent>
+        <TabsContent value="Privacy_Policy_and_TC">
+          <Privacy_Policy_and_TC />
+        </TabsContent>
+        <TabsContent value="ContactUs">
+          <ContactUs />
+        </TabsContent>
+        <TabsContent value="Checkout">
+          <CheckoutSetting />
+        </TabsContent>
+        <TabsContent value="SEOSettings">
+          <SEOSettingsPage />
+        </TabsContent>
       </Tabs>
     </MainProviderPerants>
   );
