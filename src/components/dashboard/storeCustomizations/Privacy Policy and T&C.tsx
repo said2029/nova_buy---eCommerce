@@ -16,14 +16,19 @@ import { Switch } from "@/components/ui/switch";
 import Upload_Image from "../utils/Upload_Image";
 import { Input } from "@/components/ui/input";
 import dynamic from "next/dynamic";
-import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import axios from "axios";
+import ButtonLoading from "../buttons/ButtonLoading";
 const TextEditor = dynamic(() => import("../utils/RichText_editor"), {
   ssr: false,
 });
 
 type schemaP_T = z.infer<typeof Privacy_TC_schema>;
-export default function Privacy_Policy_and_TC() {
+export default function Privacy_Policy_and_TC({
+  defaultData,
+}: {
+  defaultData: any;
+}) {
   const form = useForm<schemaP_T>({
     resolver: zodResolver(Privacy_TC_schema),
     defaultValues: {
@@ -41,10 +46,16 @@ export default function Privacy_Policy_and_TC() {
       },
     },
   });
-  const t =useTranslations("storeCustomizations");
+  const t = useTranslations("storeCustomizations");
 
-  const submit = (value: schemaP_T) => {
-    console.log(value);
+  const submit = async (data: schemaP_T) => {
+    try {
+      await axios.post("/api/store_customiza", {
+        PrivacyTCSchema: data,
+      });
+    } catch (error: any) {
+      console.log(error?.message);
+    }
   };
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-2">
@@ -63,7 +74,12 @@ export default function Privacy_Policy_and_TC() {
                   <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -126,7 +142,12 @@ export default function Privacy_Policy_and_TC() {
                   <FormItem className="grid grid-cols-4 text-nowrap gap-6  place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())}  {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -178,7 +199,10 @@ export default function Privacy_Policy_and_TC() {
                 )}
               />
             </section>
-            <Button className="fixed bottom-2 right-2">Save Changes</Button>
+            <ButtonLoading
+              name="Save Changes"
+              loading={form.formState.isSubmitting}
+            />
           </form>
         </Form>
       </section>

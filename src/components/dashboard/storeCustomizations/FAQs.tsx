@@ -16,34 +16,16 @@ import { Button } from "@/components/ui/button";
 import Tag_Hr from "./Tag";
 import { faqs_schema } from "@/Types";
 import { Switch } from "@/components/ui/switch";
-import { Trash2 } from "lucide-react";
+import { PlusCircle, Trash2 } from "lucide-react";
+import axios from "axios";
+import ButtonLoading from "../buttons/ButtonLoading";
 
 type FaqsFormValues = z.infer<typeof faqs_schema>;
 
-export default function FAQs() {
+export default function FAQs({ defaultData }: { defaultData: any }) {
   const form = useForm<FaqsFormValues>({
     resolver: zodResolver(faqs_schema),
-    defaultValues: {
-      pageHeader: {
-        enable: "false",
-        pageHeaderBackground: "",
-        pageTitle: "",
-      },
-      leftColumn: {
-        enable: "false",
-        leftImage: "",
-      },
-      faqs: {
-        enable: "false",
-        faq: [
-          { faqTitle: "", faqDescription: "" },
-          { faqTitle: "", faqDescription: "" },
-          { faqTitle: "", faqDescription: "" },
-          { faqTitle: "", faqDescription: "" },
-          { faqTitle: "", faqDescription: "" },
-        ],
-      },
-    },
+    defaultValues: defaultData,
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -51,8 +33,14 @@ export default function FAQs() {
     name: "faqs.faq",
   });
 
-  const submit = (data: FaqsFormValues) => {
-    console.log(data);
+  const submit = async (data: FaqsFormValues) => {
+    try {
+      await axios.post("/api/store_customiza", {
+        FaqsSchema: data,
+      });
+    } catch (error: any) {
+      console.log(error?.message);
+    }
   };
 
   return (
@@ -72,7 +60,12 @@ export default function FAQs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -121,7 +114,12 @@ export default function FAQs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -146,79 +144,108 @@ export default function FAQs() {
               />
             </section>
 
-            <div className="flex justify-between w-full items-center">
-            <Tag_Hr name="FAQs" />
-            <Button
+            <div className="flex justify-between min-h-12 w-full items-center">
+              <Tag_Hr name="FAQs" />
+              <Button
+                variant="ghost"
+                size="icon"
                 type="button"
                 onClick={() => append({ faqTitle: "", faqDescription: "" })}
               >
-                Add FAQ
+                <PlusCircle />
               </Button>
             </div>
 
             <section>
-              <FormField
-                control={form.control}
-                name="faqs.enable"
-                render={({ field }) => (
-                  <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
-                    <FormLabel className="w-full">Enable</FormLabel>
-                    <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
-                      <FormMessage />
+              {fields.length >= 1 ? (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="faqs.enable"
+                    render={({ field }) => (
+                      <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                        <FormLabel className="w-full">Enable</FormLabel>
+                        <div className="w-full col-span-3">
+                          <Switch
+                            onCheckedChange={(value) =>
+                              field.onChange(value.toString())
+                            }
+                            {...field}
+                          />
+                          <FormMessage />
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                  {fields.map((field, index) => (
+                    <div key={field.id} className="mb-4">
+                      <FormField
+                        control={form.control}
+                        name={`faqs.faq.${index}.faqTitle`}
+                        render={({ field }) => (
+                          <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                            <FormLabel className="w-full">FAQ Title</FormLabel>
+                            <div className="w-full col-span-3">
+                              <div className="flex gap-4">
+                                <Input
+                                  type="text"
+                                  {...field}
+                                  placeholder="FAQ Title"
+                                />{" "}
+                                <Button
+                                  size="icon"
+                                  type="button"
+                                  onClick={() => remove(index)}
+                                  variant="destructive"
+                                >
+                                  <Trash2 />
+                                </Button>
+                              </div>
+                              <FormMessage />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name={`faqs.faq.${index}.faqDescription`}
+                        render={({ field }) => (
+                          <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
+                            <FormLabel className="w-full">
+                              FAQ Description
+                            </FormLabel>
+                            <div className="w-full col-span-3">
+                              <Textarea
+                                {...field}
+                                placeholder="FAQ Description"
+                              />
+                              <FormMessage />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
                     </div>
-                  </FormItem>
-                )}
-              />
-              {fields.map((field, index) => (
-                <div key={field.id} className="mb-4">
-                  <FormField
-                    control={form.control}
-                    name={`faqs.faq.${index}.faqTitle`}
-                    render={({ field }) => (
-                      <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
-                        <FormLabel className="w-full">FAQ Title</FormLabel>
-                        <div className="w-full col-span-3">
-                          <div className="flex gap-4">
-                            <Input
-                              type="text"
-                              {...field}
-                              placeholder="FAQ Title"
-                            />{" "}
-                            <Button
-                              size="icon"
-                              type="button"
-                              onClick={() => remove(index)}
-                              variant="destructive"
-                            >
-                              <Trash2 />
-                            </Button>
-                          </div>
-                          <FormMessage />
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`faqs.faq.${index}.faqDescription`}
-                    render={({ field }) => (
-                      <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
-                        <FormLabel className="w-full">
-                          FAQ Description
-                        </FormLabel>
-                        <div className="w-full col-span-3">
-                          <Textarea {...field} placeholder="FAQ Description" />
-                          <FormMessage />
-                        </div>
-                      </FormItem>
-                    )}
-                  />
+                  ))}
+                </>
+              ) : (
+                <div className="flex justify-center items-center min-h-40">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    type="button"
+                    className="w-60 h-60"
+                    onClick={() => append({ faqTitle: "", faqDescription: "" })}
+                  >
+                    <PlusCircle size={60}/>
+                  </Button>
                 </div>
-              ))}
+              )}
             </section>
 
-            <Button className="fixed bottom-2 right-2">Save Changes</Button>
+            <ButtonLoading
+              name="Save Changes"
+              loading={form.formState.isSubmitting}
+            />
           </form>
         </Form>
       </section>

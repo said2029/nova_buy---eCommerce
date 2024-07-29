@@ -12,12 +12,13 @@ import { getTranslations } from "next-intl/server";
 
 export default async function page() {
   const t = await getTranslations("storeCustomizations");
+  let HomeSettingData:any = {};
 
-  // try {
-  //   const HomeSettingData = await AxiosClient.get("/store_customiza");
-  // } catch (error:any) {
-  //   console.log(error?.message);
-  // }
+  try {
+    HomeSettingData = await AxiosClient.get("/store_customiza");
+  } catch (error: any) {
+    console.log(error?.message);
+  }
 
   return (
     <MainProviderPerants name={t("Store Customizations")}>
@@ -66,25 +67,25 @@ export default async function page() {
         </TabsList>
 
         <TabsContent value="HomeSetting">
-          <HomeSetting />
+          <HomeSetting defaultData={HomeSettingData?.data?.HomeSetting}/>
         </TabsContent>
-        <TabsContent value={t("About US")}>
-          <About_Us />
+        <TabsContent value="About US">
+          <About_Us defaultData={HomeSettingData?.data?.AboutUsSchema}/>
         </TabsContent>
         <TabsContent value="FAQs">
-          <FAQs />
+          <FAQs defaultData={HomeSettingData?.data?.FaqsSchema}/>
         </TabsContent>
         <TabsContent value="Privacy_Policy_and_TC">
-          <Privacy_Policy_and_TC />
+          <Privacy_Policy_and_TC defaultData={HomeSettingData?.data?.PrivacyTCSchema}/>
         </TabsContent>
         <TabsContent value="ContactUs">
-          <ContactUs />
+          <ContactUs defaultData={HomeSettingData?.data?.ContactUsSchema}/>
         </TabsContent>
         <TabsContent value="Checkout">
-          <CheckoutSetting />
+          <CheckoutSetting defaultData={HomeSettingData?.data?.CheckoutSchema}/>
         </TabsContent>
         <TabsContent value="SEOSettings">
-          <SEOSettingsPage />
+          <SEOSettingsPage defaultData={HomeSettingData?.data?.SEOSchema}/>
         </TabsContent>
       </Tabs>
     </MainProviderPerants>

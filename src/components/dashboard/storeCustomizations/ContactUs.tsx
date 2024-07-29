@@ -13,55 +13,30 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import Tag_Hr from "./Tag";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
+import axios from "axios";
+import ButtonLoading from "../buttons/ButtonLoading";
 
 type ContactUsFormValues = z.infer<typeof contact_us_schema>;
 
-export default function ContactUs() {
+export default function ContactUs({ defaultData }: { defaultData: any }) {
   const form = useForm<ContactUsFormValues>({
     resolver: zodResolver(contact_us_schema),
-    defaultValues: {
-      pageHeader: {
-        enable: "false",
-        backgroundImage: "",
-        pageTitle: "",
-      },
-      emailUsBox: {
-        enable: "false",
-        title: "",
-        email: "",
-        text: "",
-      },
-      callUsBox: {
-        enable: "false",
-        title: "",
-        phone: "",
-        text: "",
-      },
-      addressBox: {
-        enable: "false",
-        title: "",
-        address: "",
-      },
-      middleLeftColumn: {
-        enable: "false",
-        middleLeftImage: "",
-      },
-      contactForm: {
-        enable: "false",
-        contactFormTitle: "",
-        contactFormDescription: "",
-      },
-    },
+    defaultValues: defaultData,
   });
 
-  const submit = (data: ContactUsFormValues) => {
-    console.log(data);
+  const submit = async (data: ContactUsFormValues) => {
+    try {
+      await axios.post("/api/store_customiza", {
+        ContactUsSchema: data,
+      });
+    } catch (error: any) {
+      console.log(error?.message);
+    }
   };
-  const t =useTranslations("storeCustomizations");
+  const t = useTranslations("storeCustomizations");
 
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-2">
@@ -80,7 +55,12 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -127,7 +107,12 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -183,7 +168,12 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -239,7 +229,12 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -282,7 +277,12 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -316,7 +316,12 @@ export default function ContactUs() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch onCheckedChange={value=> field.onChange(value.toString())} {...field} />
+                      <Switch
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -359,8 +364,10 @@ export default function ContactUs() {
               />
             </section>
 
-            <Button className="fixed bottom-2 right-2">Save Changes</Button>
-
+            <ButtonLoading
+              name="Save Changes"
+              loading={form.formState.isSubmitting}
+            />
           </form>
         </Form>
       </section>

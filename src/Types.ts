@@ -108,13 +108,13 @@ const HomeSettingSchema = z.object({
 
 const About_us_schema = z.object({
   pageHeader: z.object({
-    enable: z.string(),
+    enable: z.boolean().optional(),
     pageHeaderBackground: z.string().optional(),
     pageTitle: z.string().optional(),
   }),
 
   aboutPage: z.object({
-    enable: z.string(),
+    enable: z.boolean().optional(),
     topTitle: z.string().optional(),
     topDescription: z.string().optional(),
     boxOneTitle: z.string().optional(),
@@ -126,19 +126,19 @@ const About_us_schema = z.object({
   }),
 
   pageTopContentRight: z.object({
-    enable: z.string(),
+    enable: z.boolean().optional(),
     topContentRightImage: z.string().optional(),
   }),
 
   contentSection: z.object({
-    enable: z.string(),
+    enable: z.boolean().optional(),
     firstParagraph: z.string().optional(),
     secondParagraph: z.string().optional(),
     contentImage: z.string().optional(),
   }),
 
   ourTeam: z.object({
-    enableThisBlock: z.string(),
+    enableThisBlock: z.boolean().optional(),
     ourTeamTitle: z.string().optional(),
     ourTeamDescription: z.string().optional(),
     member: z.array(
@@ -153,18 +153,18 @@ const About_us_schema = z.object({
 
 const faqs_schema = z.object({
   pageHeader: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     pageHeaderBackground: z.string().optional(),
     pageTitle: z.string().optional(),
   }),
 
   leftColumn: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     leftImage: z.string().optional(),
   }),
 
   faqs: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     faq: z.array(
       z.object({
         faqTitle: z.string().optional(),
@@ -176,38 +176,38 @@ const faqs_schema = z.object({
 
 const contact_us_schema = z.object({
   pageHeader: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     backgroundImage: z.string().optional(),
     pageTitle: z.string().optional(),
   }),
 
   emailUsBox: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     title: z.string().optional(),
     email: z.string().email().optional(),
     text: z.string().optional(),
   }),
 
   callUsBox: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     title: z.string().optional(),
     phone: z.string().optional(), // Consider using z.string().regex(...) for phone number validation
     text: z.string().optional(),
   }),
 
   addressBox: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     title: z.string().optional(),
     address: z.string().optional(),
   }),
 
   middleLeftColumn: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     middleLeftImage: z.string().optional(),
   }),
 
   contactForm: z.object({
-    enable: z.string(),
+    enable: z.string().optional(),
     contactFormTitle: z.string().optional(),
     contactFormDescription: z.string().optional(),
   }),

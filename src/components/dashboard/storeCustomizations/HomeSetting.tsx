@@ -24,6 +24,7 @@ import { PlusCircleIcon, Trash } from "lucide-react";
 import { useTranslations } from "next-intl";
 import clsx from "clsx";
 import axios from "axios";
+import ButtonLoading from "../buttons/ButtonLoading";
 
 const Menu_Editor = [
   "categories",
@@ -39,74 +40,10 @@ const Menu_Editor = [
   "logout",
   "checkout",
 ];
-export default function HomeSetting() {
+export default function HomeSetting({ defaultData }: { defaultData: any }) {
   const form = useForm<z.infer<typeof HomeSettingSchema>>({
     resolver: zodResolver(HomeSettingSchema),
-    defaultValues: {
-      sliderHero: [
-        {
-          sliderImages: "",
-          sliderTitle: "",
-          sliderDescription: "",
-          sliderButtonName: "",
-          sliderButtonLink: "",
-        },
-        {
-          sliderImages: "",
-          sliderTitle: "",
-          sliderDescription: "",
-          sliderButtonName: "",
-          sliderButtonLink: "",
-        },
-        {
-          sliderImages: "",
-          sliderTitle: "",
-          sliderDescription: "",
-          sliderButtonName: "",
-          sliderButtonLink: "",
-        },
-        {
-          sliderImages: "",
-          sliderTitle: "",
-          sliderDescription: "",
-          sliderButtonName: "",
-          sliderButtonLink: "",
-        },
-        {
-          sliderImages: "",
-          sliderTitle: "",
-          sliderDescription: "",
-          sliderButtonName: "",
-          sliderButtonLink: "",
-        },
-      ],
-      footerBlocks: [
-        {
-          active: "",
-          title: "",
-          link1: "",
-          link2: "",
-          link3: "",
-          link4: "",
-        },
-        {
-          active: "",
-          title: "",
-          link1: "",
-          link2: "",
-          link3: "",
-          link4: "",
-        },
-        {
-          active: "",
-          title: "",
-          link1: "",
-          link2: "",
-          link3: "",
-          link4: "",
-        },
-      ],
-    },
+    defaultValues: defaultData,
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -122,11 +59,10 @@ export default function HomeSetting() {
     name: "footerBlocks",
   });
 
-  const submit = async (value: z.infer<typeof HomeSettingSchema>) => {
-    console.log(value);
+  const submit = async (data: z.infer<typeof HomeSettingSchema>) => {
     try {
-      const data = await axios.post("/api/store_customiza", {
-        HomeSetting: value,
+      await axios.post("/api/store_customiza", {
+        HomeSetting: data,
       });
     } catch (error: any) {
       console.log(error?.message);
@@ -372,10 +308,10 @@ export default function HomeSetting() {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
+                        defaultChecked={field.value == "true"}
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
                       />
                       <FormMessage />
                     </div>
@@ -432,7 +368,7 @@ export default function HomeSetting() {
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
+                        defaultChecked={field.value == "true"}
                       />
                       <FormMessage />
                     </div>
@@ -514,7 +450,7 @@ export default function HomeSetting() {
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
+                        defaultChecked={field.value == "true"}
                       />
                       <FormMessage />
                     </div>
@@ -590,7 +526,7 @@ export default function HomeSetting() {
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
+                        defaultChecked={field.value == "true"}
                       />
                       <FormMessage />
                     </div>
@@ -700,7 +636,7 @@ export default function HomeSetting() {
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
+                        defaultChecked={field.value == "true"}
                       />
                       <FormMessage />
                     </div>
@@ -775,7 +711,7 @@ export default function HomeSetting() {
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
+                        defaultChecked={field.value == "true"}
                       />
                       <FormMessage />
                     </div>
@@ -931,7 +867,7 @@ export default function HomeSetting() {
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
+                        defaultChecked={field.value == "true"}
                       />
                       <FormMessage />
                     </div>
@@ -1012,7 +948,7 @@ export default function HomeSetting() {
                                 onCheckedChange={(value) =>
                                   field.onChange(value.toString())
                                 }
-                                {...field}
+                                defaultChecked={field.value == "true"}
                               />
                               <FormMessage />
                             </div>
@@ -1101,7 +1037,7 @@ export default function HomeSetting() {
                           onCheckedChange={(value) =>
                             field.onChange(value.toString())
                           }
-                          {...field}
+                          defaultChecked={field.value == "true"}
                         />
                         <FormMessage />
                       </div>
@@ -1178,7 +1114,7 @@ export default function HomeSetting() {
                           onCheckedChange={(value) =>
                             field.onChange(value.toString())
                           }
-                          {...field}
+                          defaultChecked={field.value == "true"}
                         />
                         <FormMessage />
                       </div>
@@ -1266,7 +1202,7 @@ export default function HomeSetting() {
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
+                        defaultChecked={field.value == "true"}
                       />
                       <FormMessage />
                     </div>
@@ -1306,7 +1242,7 @@ export default function HomeSetting() {
                         onCheckedChange={(value) =>
                           field.onChange(value.toString())
                         }
-                        {...field}
+                        defaultChecked={field.value == "true"}
                       />
                       <FormMessage />
                     </div>
@@ -1327,14 +1263,10 @@ export default function HomeSetting() {
                 )}
               />
             </section>
-
-            <Button
-              className={clsx("fixed bottom-2 right-2", {
-                "opacity-20": form.formState.isSubmitting,
-              })}
-            >
-              Save Changes
-            </Button>
+            <ButtonLoading
+              name="Save Changes"
+              loading={form.formState.isSubmitting}
+            />
           </form>
         </Form>
       </section>

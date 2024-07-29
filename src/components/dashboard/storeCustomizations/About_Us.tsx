@@ -18,72 +18,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Trash2, X } from "lucide-react";
 import { useTranslations } from "next-intl";
+import axios from "axios";
+import { Switch } from "@/components/ui/switch";
+import ButtonLoading from "../buttons/ButtonLoading";
 
 type AboutUsFormValues = z.infer<typeof About_us_schema>;
 
-export default function page() {
+export default function page({ defaultData }: { defaultData: any }) {
   const form = useForm<AboutUsFormValues>({
     resolver: zodResolver(About_us_schema),
-    defaultValues: {
-      pageHeader: {
-        enable: "",
-        pageHeaderBackground: "",
-        pageTitle: "",
-      },
-      aboutPage: {
-        enable: "",
-        topTitle: "",
-        topDescription: "",
-        boxOneTitle: "",
-        boxOneSubtitle: "",
-        boxOneDescription: "",
-        boxTwoTitle: "",
-        boxTwoSubtitle: "",
-        boxTwoDescription: "",
-      },
-      pageTopContentRight: {
-        enable: "",
-        topContentRightImage: "",
-      },
-      contentSection: {
-        enable: "",
-        firstParagraph: "",
-        secondParagraph: "",
-        contentImage: "",
-      },
-      ourTeam: {
-        enableThisBlock: "",
-        ourTeamTitle: "",
-        ourTeamDescription: "",
-        member: [
-          {
-            ourTeamOneImage: "",
-            ourTeamOneTitle: "",
-            ourTeamOneSubTitle: "",
-          },
-          {
-            ourTeamOneImage: "",
-            ourTeamOneTitle: "",
-            ourTeamOneSubTitle: "",
-          },
-          {
-            ourTeamOneImage: "",
-            ourTeamOneTitle: "",
-            ourTeamOneSubTitle: "",
-          },
-          {
-            ourTeamOneImage: "",
-            ourTeamOneTitle: "",
-            ourTeamOneSubTitle: "",
-          },
-          {
-            ourTeamOneImage: "",
-            ourTeamOneTitle: "",
-            ourTeamOneSubTitle: "",
-          },
-        ],
-      },
-    },
+    defaultValues: defaultData,
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -91,8 +35,14 @@ export default function page() {
     name: "ourTeam.member",
   });
 
-  const submit = (data: AboutUsFormValues) => {
-    console.log(data);
+  const submit = async (data: AboutUsFormValues) => {
+    try {
+      await axios.post("/api/store_customiza", {
+        AboutUsSchema: data,
+      });
+    } catch (error: any) {
+      console.log(error?.message);
+    }
   };
   const t = useTranslations("storeCustomizations");
 
@@ -113,7 +63,10 @@ export default function page() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Input type="text" {...field} placeholder="Enable" />
+                      <Switch
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -129,9 +82,9 @@ export default function page() {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Upload_Image
+                        onChange={field.onChange}
                         name="pageHeader.pageHeaderBackground"
                         value={field.value}
-                        onChange={field.onChange}
                       />
                       <FormMessage />
                     </div>
@@ -162,7 +115,10 @@ export default function page() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Input type="text" {...field} placeholder="Enable" />
+                      <Switch
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -303,7 +259,10 @@ export default function page() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Input type="text" {...field} placeholder="Enable" />
+                      <Switch
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -319,9 +278,9 @@ export default function page() {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Upload_Image
+                        onChange={field.onChange}
                         name="pageTopContentRight.topContentRightImage"
                         value={field.value}
-                        onChange={field.onChange}
                       />
                       <FormMessage />
                     </div>
@@ -339,7 +298,10 @@ export default function page() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Input type="text" {...field} placeholder="Enable" />
+                      <Switch
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
+                      />
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -379,9 +341,9 @@ export default function page() {
                     <FormLabel className="w-full">Content Image</FormLabel>
                     <div className="w-full col-span-3">
                       <Upload_Image
+                        onChange={field.onChange}
                         name="contentSection.contentImage"
                         value={field.value}
-                        onChange={field.onChange}
                       />
                       <FormMessage />
                     </div>
@@ -399,10 +361,9 @@ export default function page() {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable This Block</FormLabel>
                     <div className="w-full col-span-3">
-                      <Input
-                        type="text"
-                        {...field}
-                        placeholder="Enable This Block"
+                      <Switch
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
                       <FormMessage />
                     </div>
@@ -485,9 +446,9 @@ export default function page() {
                           </FormLabel>
                           <div className="w-full col-span-3">
                             <Upload_Image
+                              onChange={field.onChange}
                               name={`ourTeam.member.${index}.ourTeamOneImage`}
                               value={field.value}
-                              onChange={field.onChange}
                             />
                             <FormMessage />
                           </div>
@@ -538,8 +499,10 @@ export default function page() {
                 ))}
               </Tabs>
             </section>
-
-            <Button className="fixed bottom-2 right-2">Save Changes</Button>
+            <ButtonLoading
+              name="Save Changes"
+              loading={form.formState.isSubmitting}
+            />
           </form>
         </Form>
       </section>

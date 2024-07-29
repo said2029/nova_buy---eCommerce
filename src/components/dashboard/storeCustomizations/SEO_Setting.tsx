@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { SEO_schema } from "@/Types"; // Adjust the path according to your project
 import Upload_Image from "../utils/Upload_Image";
 import {
@@ -15,26 +14,28 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { useTranslations } from "next-intl";
+import axios from "axios";
+import ButtonLoading from "../buttons/ButtonLoading";
 
 type SEOFormValues = z.infer<typeof SEO_schema>;
 
-export default function SEOSettingsPage() {
+export default function SEOSettingsPage({ defaultData }: { defaultData: any }) {
   const form = useForm<SEOFormValues>({
     resolver: zodResolver(SEO_schema),
-    defaultValues: {
-      faviconIcon: "",
-      metaTitle: "",
-      metaDescription: "",
-      metaUrl: "",
-      metaKeywords: "",
-    },
+    defaultValues: defaultData,
   });
 
-  const submit = (data: SEOFormValues) => {
-    console.log(data);
+  const submit = async (data: SEOFormValues) => {
+    try {
+      await axios.post("/api/store_customiza", {
+        SEOSchema: data,
+      });
+    } catch (error: any) {
+      console.log(error?.message);
+    }
   };
 
-  const t =useTranslations("storeCustomizations");
+  const t = useTranslations("storeCustomizations");
 
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-4">
@@ -103,7 +104,7 @@ export default function SEOSettingsPage() {
             />
             <FormField
               control={form.control}
-              name="metaKeywords"
+              name="metaUrl"
               render={({ field }) => (
                 <FormItem className="grid  grid-cols-1 md:grid-cols-4 text-nowrap gap-6  place-items-center">
                   <FormLabel className="w-full">Meta Title</FormLabel>
@@ -114,8 +115,10 @@ export default function SEOSettingsPage() {
                 </FormItem>
               )}
             />
-            <Button className="fixed bottom-2 right-2">Save Changes</Button>
-
+            <ButtonLoading
+              name="Save Changes"
+              loading={form.formState.isSubmitting}
+            />
           </form>
         </Form>
       </section>
