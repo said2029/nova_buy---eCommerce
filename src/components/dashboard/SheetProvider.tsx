@@ -16,14 +16,18 @@ export function SheetControlle({
   icon,
   size,
   variant,
-  SheetTriggerRef
+  onOpenChange,
+  onClick,
+  SheetTriggerRef,
 }: {
   children: ReactNode;
   buttonName?: string;
   tital?: string;
-  SheetTriggerRef?:LegacyRef<HTMLButtonElement> | undefined,
+  SheetTriggerRef?: LegacyRef<HTMLButtonElement> | undefined;
   icon?: ReactNode;
   size?: "icon" | "default" | "sm" | "lg" | null | undefined;
+  onOpenChange?: (open: boolean) => void;
+  onClick?: () => void;
   variant?:
     | "default"
     | "destructive"
@@ -35,9 +39,9 @@ export function SheetControlle({
     | undefined;
 }) {
   return (
-    <Sheet>
+    <Sheet onOpenChange={onOpenChange}>
       <SheetTrigger ref={SheetTriggerRef} asChild>
-        <Button size={size} className="h-12" variant={variant}>
+        <Button onClick={onClick} size={size} className="h-12" variant={variant}>
           {icon ? icon : <Plus />}
           {buttonName}
         </Button>
