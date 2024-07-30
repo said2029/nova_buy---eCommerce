@@ -21,10 +21,13 @@ import { useTranslations } from "next-intl";
 import axios from "axios";
 import { Switch } from "@/components/ui/switch";
 import ButtonLoading from "../buttons/ButtonLoading";
+import { Store_customiza_Update } from "@/Actions/quires";
+import { useToast } from "@/components/ui/use-toast";
 
 type AboutUsFormValues = z.infer<typeof About_us_schema>;
 
 export default function page({ defaultData }: { defaultData: any }) {
+  const {toast} = useToast();
   const form = useForm<AboutUsFormValues>({
     resolver: zodResolver(About_us_schema),
     defaultValues: defaultData,
@@ -37,11 +40,17 @@ export default function page({ defaultData }: { defaultData: any }) {
 
   const submit = async (data: AboutUsFormValues) => {
     try {
-      await axios.post("/api/store_customiza", {
-        AboutUsSchema: data,
-      });
+      await Store_customiza_Update({AboutUsSchema:data});
+      toast({
+        title: "Changes Saved",
+        description: "The changes have been saved successfully.",
+      })
     } catch (error: any) {
       console.log(error?.message);
+      toast({
+        title: "Error Saving Changes",
+        description: "An error occurred while saving the changes. Please try again.",
+      })
     }
   };
   const t = useTranslations("storeCustomizations");

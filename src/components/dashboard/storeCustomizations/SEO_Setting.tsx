@@ -16,10 +16,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { useTranslations } from "next-intl";
 import axios from "axios";
 import ButtonLoading from "../buttons/ButtonLoading";
+import { Store_customiza_Update } from "@/Actions/quires";
+import { useToast } from "@/components/ui/use-toast";
 
 type SEOFormValues = z.infer<typeof SEO_schema>;
 
 export default function SEOSettingsPage({ defaultData }: { defaultData: any }) {
+  const {toast} = useToast();
+
   const form = useForm<SEOFormValues>({
     resolver: zodResolver(SEO_schema),
     defaultValues: defaultData,
@@ -27,11 +31,19 @@ export default function SEOSettingsPage({ defaultData }: { defaultData: any }) {
 
   const submit = async (data: SEOFormValues) => {
     try {
-      await axios.post("/api/store_customiza", {
-        SEOSchema: data,
-      });
+      await Store_customiza_Update({SEOSchema:data});
+      toast({
+        title: "SEO Settings Updated",
+        description: "Your SEO settings have been updated successfully.",
+        duration: 2000,
+      })
     } catch (error: any) {
       console.log(error?.message);
+      toast({
+        title: "Error Updating SEO Settings",
+        description: "There was an error updating your SEO settings. Please try again later.",
+        duration: 2000,
+      })
     }
   };
 

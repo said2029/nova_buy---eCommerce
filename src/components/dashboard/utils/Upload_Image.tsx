@@ -60,14 +60,15 @@ export default function Upload_Image({
           "bg-background/70 rounded-md h-full border-2 overflow-hidden border-dashed flex flex-col justify-center items-center",
           {
             "opacity-20": isUplading,
+            "pointer-events-none": isUplading,
           }
         )}
       >
         {value && !multiImages ? (
           <Image
             className="aspect-auto"
-            width={130}
-            height={130}
+            width={230}
+            height={230}
             alt="Image"
             src={value}
           />

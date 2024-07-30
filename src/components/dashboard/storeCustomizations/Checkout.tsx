@@ -9,10 +9,13 @@ import { useTranslations } from "next-intl";
 import axios from "axios";
 import { Form } from "@/components/ui/form";
 import ButtonLoading from "../buttons/ButtonLoading";
+import { Store_customiza_Update } from "@/Actions/quires";
+import { useToast } from "@/components/ui/use-toast";
 
 type CheckoutFormValues = z.infer<typeof checkout_schema>;
 
 export default function CheckoutPage({ defaultData }: { defaultData: any }) {
+  const {toast} = useToast();
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkout_schema),
     defaultValues: defaultData,
@@ -22,11 +25,19 @@ export default function CheckoutPage({ defaultData }: { defaultData: any }) {
 
   const submit = async (data: CheckoutFormValues) => {
     try {
-      await axios.post("/api/store_customiza", {
-        CheckoutSchema: data,
-      });
+      await Store_customiza_Update({CheckoutSchema:data});
+      toast({
+        title: "Checkout successful",
+        description: "Your checkout has been Updated.",
+        duration: 2000,
+      })
     } catch (error: any) {
       console.log(error?.message);
+      toast({
+        title: "Error",
+        description: "An error occurred while updating the checkout.",
+        duration: 2000,
+      })
     }
   };
 

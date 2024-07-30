@@ -29,22 +29,22 @@ const HomeSettingSchema = z.object({
       })
     )
     .default([]),
-  superDiscountCouponIsActive: z.string().default(""),
+  superDiscountCouponIsActive: z.boolean().optional().default(false),
   superDiscountCouponsCode: z.array(z.string().default("")).default([]),
   superDiscountTitle: z.string().default(""),
 
-  promotionBannerIsActive: z.string().default(""),
+  promotionBannerIsActive: z.boolean().optional().default(false),
   promotionBannerTitle: z.string().default(""),
   promotionBannerDescription: z.string().default(""),
   promotionBannerButtonName: z.string().default(""),
   promotionBannerButtonLink: z.string().default(""),
 
-  popularProductsIsActive: z.string().default(""),
+  popularProductsIsActive: z.boolean().optional().default(false),
   popularProductsDiscriotion: z.string().default(""),
   popularProductsTitle: z.string().default(""),
   popularProductsProductsLimit: z.string().default(""),
 
-  quickDeliveryIsActive: z.string().default(""),
+  quickDeliveryIsActive: z.boolean().optional().default(false),
   quickDeliverySectionSubTitle: z.string().default(""),
   quickDeliverySectionTitle: z.string().default(""),
   quickDeliverySectionDescription: z.string().default(""),
@@ -52,12 +52,12 @@ const HomeSettingSchema = z.object({
   quickDeliverySectionButtonLink: z.string().default(""),
   quickDeliverySectionImage: z.string().default(""),
 
-  latestDiscountedProductsIsActive: z.string().default(""),
+  latestDiscountedProductsIsActive: z.boolean().optional().default(false),
   latestDiscountedProductsTitle: z.string().default(""),
   latestDiscountedProductsDescription: z.string().default(""),
   latestDiscountedProductsLimit: z.string().default(""),
 
-  getYourDailyNeedsIsActive: z.string().default(""),
+  getYourDailyNeedsIsActive: z.boolean().optional().default(false),
   getYourDailyNeedsTitle: z.string().default(""),
   getYourDailyNeedsDescription: z.string().default(""),
   getYourDailyNeedsTitleImageLeft: z.string().default(""),
@@ -67,7 +67,7 @@ const HomeSettingSchema = z.object({
   getYourDailyNeedsTitleButton2Image: z.string().default(""),
   getYourDailyNeedsTitleButton2Link: z.string().default(""),
 
-  featurePromoIsActive: z.string().default(""),
+  featurePromoIsActive: z.boolean().optional().default(false),
   featurePromoSectionFreeShipping: z.string().default(""),
   featurePromoSectionSupport: z.string().default(""),
   featurePromoSectionSecurePayment: z.string().default(""),
@@ -76,7 +76,7 @@ const HomeSettingSchema = z.object({
   footerBlocks: z
     .array(
       z.object({
-        active: z.string().default(""),
+        active: z.boolean().optional().default(false),
         title: z.string().default(""),
         link1: z.string().default(""),
         link2: z.string().default(""),
@@ -86,13 +86,13 @@ const HomeSettingSchema = z.object({
     )
     .default([]),
   footerBlock: z.object({
-    active: z.string().default(""),
+    active: z.boolean().optional().default(false),
     footerLogo: z.string().default(""),
     address: z.string().default(""),
     phone: z.string().default(""),
     email: z.string().default(""),
     socialLinks: z.object({
-      active: z.string().default(""),
+      active: z.boolean().optional().default(false),
       facebook: z.string().default(""),
       twitter: z.string().default(""),
       pinterest: z.string().default(""),
@@ -100,9 +100,9 @@ const HomeSettingSchema = z.object({
       whatsApp: z.string().default(""),
     }),
   }),
-  paymentMethodActive: z.string().default(""),
+  paymentMethodActive: z.boolean().optional().default(false),
   paymentMethodImage: z.string().default(""),
-  footerBottomContactActive: z.string().default(""),
+  footerBottomContactActive: z.boolean().optional().default(false),
   footerBottomContactNumber: z.string().default(""),
 });
 
@@ -153,18 +153,18 @@ const About_us_schema = z.object({
 
 const faqs_schema = z.object({
   pageHeader: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     pageHeaderBackground: z.string().optional(),
     pageTitle: z.string().optional(),
   }),
 
   leftColumn: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     leftImage: z.string().optional(),
   }),
 
   faqs: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     faq: z.array(
       z.object({
         faqTitle: z.string().optional(),
@@ -176,38 +176,38 @@ const faqs_schema = z.object({
 
 const contact_us_schema = z.object({
   pageHeader: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     backgroundImage: z.string().optional(),
     pageTitle: z.string().optional(),
   }),
 
   emailUsBox: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     title: z.string().optional(),
     email: z.string().email().optional(),
     text: z.string().optional(),
   }),
 
   callUsBox: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     title: z.string().optional(),
     phone: z.string().optional(), // Consider using z.string().regex(...) for phone number validation
     text: z.string().optional(),
   }),
 
   addressBox: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     title: z.string().optional(),
     address: z.string().optional(),
   }),
 
   middleLeftColumn: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     middleLeftImage: z.string().optional(),
   }),
 
   contactForm: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     contactFormTitle: z.string().optional(),
     contactFormDescription: z.string().optional(),
   }),
@@ -259,14 +259,14 @@ const SEO_schema = z.object({
 
 const Privacy_TC_schema = z.object({
   privacyPolicy: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     background: z.string().optional(), 
     title: z.string().optional(), 
     pageContent: z.string().optional(), 
   }),
 
   termsAndConditions: z.object({
-    enable: z.string().optional(),
+    enable: z.boolean().optional(),
     background: z.string().optional(), 
     title: z.string().optional(), 
     pageContent: z.string().optional(), 

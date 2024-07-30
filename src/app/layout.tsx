@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/Providers/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({
@@ -32,6 +33,7 @@ export default async function RootLayout({
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>
+        <Toaster/>
       </body>
     </html>
   );

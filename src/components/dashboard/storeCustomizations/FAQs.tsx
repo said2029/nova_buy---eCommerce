@@ -1,5 +1,5 @@
 "use client";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Upload_Image from "../utils/Upload_Image";
@@ -19,10 +19,14 @@ import { Switch } from "@/components/ui/switch";
 import { PlusCircle, Trash2 } from "lucide-react";
 import axios from "axios";
 import ButtonLoading from "../buttons/ButtonLoading";
+import { Store_customiza_Update } from "@/Actions/quires";
+import { useToast } from "@/components/ui/use-toast";
 
 type FaqsFormValues = z.infer<typeof faqs_schema>;
 
 export default function FAQs({ defaultData }: { defaultData: any }) {
+  const {toast} = useToast();
+
   const form = useForm<FaqsFormValues>({
     resolver: zodResolver(faqs_schema),
     defaultValues: defaultData,
@@ -35,11 +39,19 @@ export default function FAQs({ defaultData }: { defaultData: any }) {
 
   const submit = async (data: FaqsFormValues) => {
     try {
-      await axios.post("/api/store_customiza", {
-        FaqsSchema: data,
-      });
+      await Store_customiza_Update({FaqsSchema:data});
+      toast({
+        title: "FAQs updated successfully",
+        description: "The FAQs page settings have been updated.",
+        duration: 2000,
+      })
     } catch (error: any) {
       console.log(error?.message);
+      toast({
+        title: "Failed to update FAQs",
+        description: "An error occurred while updating the FAQs page settings.",
+        duration: 2000,
+      })
     }
   };
 
@@ -60,12 +72,13 @@ export default function FAQs({ defaultData }: { defaultData: any }) {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch
+                    <Switch
+                        defaultChecked={field.value}
                         onCheckedChange={(value) =>
-                          field.onChange(value.toString())
+                          field.onChange(value)
                         }
-                        {...field}
                       />
+
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -114,11 +127,11 @@ export default function FAQs({ defaultData }: { defaultData: any }) {
                   <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
-                      <Switch
+                    <Switch
+                        defaultChecked={field.value}
                         onCheckedChange={(value) =>
-                          field.onChange(value.toString())
+                          field.onChange(value)
                         }
-                        {...field}
                       />
                       <FormMessage />
                     </div>
@@ -166,12 +179,13 @@ export default function FAQs({ defaultData }: { defaultData: any }) {
                       <FormItem className="grid grid-cols-1 md:grid-cols-4 text-nowrap gap-6 place-items-center">
                         <FormLabel className="w-full">Enable</FormLabel>
                         <div className="w-full col-span-3">
-                          <Switch
-                            onCheckedChange={(value) =>
-                              field.onChange(value.toString())
-                            }
-                            {...field}
-                          />
+                        <Switch
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) =>
+                          field.onChange(value.toString())
+                        }
+                      />
+
                           <FormMessage />
                         </div>
                       </FormItem>

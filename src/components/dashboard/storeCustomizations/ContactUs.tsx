@@ -16,12 +16,15 @@ import { Textarea } from "@/components/ui/textarea";
 import Tag_Hr from "./Tag";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
-import axios from "axios";
 import ButtonLoading from "../buttons/ButtonLoading";
+import { Store_customiza_Update } from "@/Actions/quires";
+import { useToast } from "@/components/ui/use-toast";
 
 type ContactUsFormValues = z.infer<typeof contact_us_schema>;
 
 export default function ContactUs({ defaultData }: { defaultData: any }) {
+  const {toast} = useToast();
+
   const form = useForm<ContactUsFormValues>({
     resolver: zodResolver(contact_us_schema),
     defaultValues: defaultData,
@@ -29,11 +32,19 @@ export default function ContactUs({ defaultData }: { defaultData: any }) {
 
   const submit = async (data: ContactUsFormValues) => {
     try {
-      await axios.post("/api/store_customiza", {
-        ContactUsSchema: data,
-      });
+      await Store_customiza_Update({ContactUsSchema:data});
+      toast({
+        title: "Contact Us Form Submitted",
+        description: "Your contact us form has been submitted successfully.",
+        duration: 2000,
+      })
     } catch (error: any) {
       console.log(error?.message);
+      toast({
+        title: "Error Occurred",
+        description: "An error occurred while submitting your contact us form.",
+        duration: 2000,
+      })
     }
   };
   const t = useTranslations("storeCustomizations");
@@ -56,10 +67,8 @@ export default function ContactUs({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value.toString())
-                        }
-                        {...field}
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
                       <FormMessage />
                     </div>
@@ -108,10 +117,8 @@ export default function ContactUs({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value.toString())
-                        }
-                        {...field}
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
                       <FormMessage />
                     </div>
@@ -169,10 +176,8 @@ export default function ContactUs({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value.toString())
-                        }
-                        {...field}
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
                       <FormMessage />
                     </div>
@@ -230,10 +235,8 @@ export default function ContactUs({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value.toString())
-                        }
-                        {...field}
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
                       <FormMessage />
                     </div>
@@ -278,10 +281,8 @@ export default function ContactUs({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value.toString())
-                        }
-                        {...field}
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
                       <FormMessage />
                     </div>
@@ -317,10 +318,8 @@ export default function ContactUs({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value.toString())
-                        }
-                        {...field}
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
                       <FormMessage />
                     </div>

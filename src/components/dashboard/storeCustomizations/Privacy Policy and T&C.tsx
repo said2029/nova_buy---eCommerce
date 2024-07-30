@@ -19,42 +19,42 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import axios from "axios";
 import ButtonLoading from "../buttons/ButtonLoading";
+import { Store_customiza_Update } from "@/Actions/quires";
+import { useToast } from "@/components/ui/use-toast";
 const TextEditor = dynamic(() => import("../utils/RichText_editor"), {
   ssr: false,
 });
 
 type schemaP_T = z.infer<typeof Privacy_TC_schema>;
 export default function Privacy_Policy_and_TC({
+  
   defaultData,
 }: {
   defaultData: any;
 }) {
+  
+  const {toast} = useToast();
   const form = useForm<schemaP_T>({
     resolver: zodResolver(Privacy_TC_schema),
-    defaultValues: {
-      privacyPolicy: {
-        enable: "false",
-        background: "",
-        title: "",
-        pageContent: "",
-      },
-      termsAndConditions: {
-        enable: "false",
-        background: "",
-        title: "",
-        pageContent: "",
-      },
-    },
+    defaultValues: defaultData,
   });
   const t = useTranslations("storeCustomizations");
 
   const submit = async (data: schemaP_T) => {
     try {
-      await axios.post("/api/store_customiza", {
-        PrivacyTCSchema: data,
-      });
+      await Store_customiza_Update({PrivacyTCSchema:data});
+      toast({
+        title: "Privacy Policy and T&C updated successfully",
+        description: "Your Privacy Policy and T&C settings have been updated successfully.",
+        duration: 2000,
+      })
     } catch (error: any) {
       console.log(error?.message);
+      toast({
+        title: "Failed to update Privacy Policy and T&C",
+        description: "An error occurred while updating your Privacy Policy and T&C settings.",
+        duration: 2000,
+      })
     }
   };
   return (
@@ -75,11 +75,10 @@ export default function Privacy_Policy_and_TC({
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value.toString())
-                        }
-                        {...field}
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
+
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -94,6 +93,7 @@ export default function Privacy_Policy_and_TC({
                     <div className="w-full col-span-3">
                       <Upload_Image
                         onChange={field.onChange}
+                        value={field.value}
                         name="privacyPolicy.background"
                       />
                       <FormMessage />
@@ -143,11 +143,10 @@ export default function Privacy_Policy_and_TC({
                     <FormLabel className="w-full">Enable</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value.toString())
-                        }
-                        {...field}
+                        defaultChecked={field.value}
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
+
                       <FormMessage />
                     </div>
                   </FormItem>
@@ -161,6 +160,7 @@ export default function Privacy_Policy_and_TC({
                     <FormLabel className="w-full">background Image</FormLabel>
                     <div className="w-full col-span-3">
                       <Upload_Image
+                        value={field.value}
                         onChange={field.onChange}
                         name="privacyPolicy.background"
                       />
