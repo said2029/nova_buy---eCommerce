@@ -71,8 +71,8 @@ export default function page() {
       try {
         const data = await OurStaff_Create(value);
         toast({
-          title: "Success",
-          description: "Staff Added Successfully",
+          title: t("Success"),
+          description: t("Staff Added Successfully"),
           duration: 2000,
         });
         dispatch(addStaff(data));
@@ -80,7 +80,7 @@ export default function page() {
         ref_SheetButton.current?.click();
       } catch (error: any) {
         toast({
-          title: "Error",
+          title: t("Error"),
           description: error?.message,
           duration: 2000,
           variant: "destructive",
@@ -90,8 +90,8 @@ export default function page() {
       try {
         const data=await OurStaff_Update(value);
         toast({
-          title: "Success",
-          description: "Staff Updated Successfully",
+          title: t("Success"),
+          description: t("Staff Updated Successfully"),
           duration: 2000,
         });
         dispatch(updateStaff(data));
@@ -99,7 +99,7 @@ export default function page() {
         ref_SheetButton.current?.click();
       } catch (error: any) {
         toast({
-          title: "Error",
+          title: t("Error"),
           description: error?.message,
           duration: 2000,
           variant: "destructive",

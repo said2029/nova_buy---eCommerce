@@ -64,13 +64,15 @@
     "Search": "Search...."
   },
   "OrderPage": {
-    "Search": "Search...",
+    "search by product Name": "search by product Name",
     "Status": "Status",
     "Order limits": "Order limits",
     "Method": "Method",
     "Start Date": "Start Date",
     "End Date": "End Date",
-    "Filter": "Filter"
+    "Filter": "Filter",
+    "Restart": "Restart",
+    "Success": "Success"
   },
   "Our staff": {
     "Our staff": "Our staff",
@@ -82,7 +84,11 @@
     "Contact Number": "Contact Number",
     "Filter": "Filter",
     "Restart": "Restart",
-    "Update Staff": "Update Staff"
+    "Update Staff": "Update Staff",
+    "Success": "Success",
+    "Staff Updated Successfully": "Staff Updated Successfully",
+    "Staff Added Successfully": "Staff Added Successfully",
+    "Error": "Error"
   },
   "SettingPage": {
     "Setting": "Setting",
@@ -145,6 +151,10 @@
     "CONTACT": "CONTACT",
     "JOINING DATE": "JOINING DATE",
     "ROLE": "ROLE",
-    "PHONE": "PHONE"
+    "PHONE": "PHONE",
+    "Status updated successfully": "Status updated successfully",
+    "Error updating status": "Error updating status",
+    "Success": "Success"
+
   }
 }
