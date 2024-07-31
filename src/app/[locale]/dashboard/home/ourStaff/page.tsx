@@ -28,6 +28,8 @@ import { useRef, useState } from "react";
 import { OurStaff_Create, OurStaff_Update } from "@/Actions/quires";
 import { useToast } from "@/components/ui/use-toast";
 import ButtonLoading from "@/components/dashboard/buttons/ButtonLoading";
+import { useDispatch } from "react-redux";
+import { addStaff, updateStaff } from "@/Redux/Actions/OurStaff";
 
 const formSchema = z.object({
   image: z.string().min(0),
@@ -41,6 +43,7 @@ const formSchema = z.object({
 
 export default function page() {
   const { toast } = useToast();
+  const dispatch = useDispatch();
   const [ModeForm, setModeForm] = useState<"create" | "update">("create");
   const t = useTranslations("Our staff");
   const ref_SheetButton = useRef<HTMLButtonElement>(null);
@@ -66,12 +69,13 @@ export default function page() {
   const submit = async (value: z.infer<typeof formSchema>) => {
     if (ModeForm == "create") {
       try {
-        await OurStaff_Create(value);
+        const data = await OurStaff_Create(value);
         toast({
           title: "Success",
           description: "Staff Added Successfully",
           duration: 2000,
         });
+        dispatch(addStaff(data));
         formAddStaff.reset();
         ref_SheetButton.current?.click();
       } catch (error: any) {
@@ -84,12 +88,13 @@ export default function page() {
       }
     } else {
       try {
-        await OurStaff_Update(value);
+        const data=await OurStaff_Update(value);
         toast({
           title: "Success",
           description: "Staff Updated Successfully",
           duration: 2000,
         });
+        dispatch(updateStaff(data));
         formAddStaff.reset();
         ref_SheetButton.current?.click();
       } catch (error: any) {
@@ -105,10 +110,10 @@ export default function page() {
 
   const OpenUpdateStaff = (staff: z.infer<typeof formSchema> | any) => {
     // code for update staff
-    formAddStaff.setValue("email", staff?.email);
     formAddStaff.setValue("image", staff.image);
     formAddStaff.setValue("name", staff.name);
     formAddStaff.setValue("phone", staff.phone);
+    formAddStaff.setValue("email", staff.email);
     formAddStaff.setValue("password", staff.password);
     formAddStaff.setValue("role", staff.role);
     formAddStaff.setValue("_id", staff._id);

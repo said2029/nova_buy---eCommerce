@@ -7,7 +7,7 @@ import HomeSetting from "@/components/dashboard/storeCustomizations/HomeSetting"
 import Privacy_Policy_and_TC from "@/components/dashboard/storeCustomizations/Privacy Policy and T&C";
 import SEOSettingsPage from "@/components/dashboard/storeCustomizations/SEO_Setting";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import AxiosClient from "@/lib/axios/AxiosClient";
+import Fetch from "@/lib/axios/AxiosClient";
 import { getTranslations } from "next-intl/server";
 
 export default async function page() {
@@ -15,7 +15,7 @@ export default async function page() {
   let HomeSettingData:any = {};
 
   try {
-    HomeSettingData = await AxiosClient.get("/store_customiza");
+    HomeSettingData = await Fetch.get("/store_customiza");
   } catch (error: any) {
     console.log(error?.message);
   }
@@ -67,25 +67,25 @@ export default async function page() {
         </TabsList>
 
         <TabsContent value="HomeSetting">
-          <HomeSetting defaultData={HomeSettingData?.data?.HomeSetting}/>
+          <HomeSetting defaultData={HomeSettingData?.HomeSetting}/>
         </TabsContent>
         <TabsContent value="About US">
-          <About_Us defaultData={HomeSettingData?.data?.AboutUsSchema}/>
+          <About_Us defaultData={HomeSettingData?.AboutUsSchema}/>
         </TabsContent>
         <TabsContent value="FAQs">
-          <FAQs defaultData={HomeSettingData?.data?.FaqsSchema}/>
+          <FAQs defaultData={HomeSettingData?.FaqsSchema}/>
         </TabsContent>
         <TabsContent value="Privacy_Policy_and_TC">
-          <Privacy_Policy_and_TC defaultData={HomeSettingData?.data?.PrivacyTCSchema}/>
+          <Privacy_Policy_and_TC defaultData={HomeSettingData?.PrivacyTCSchema}/>
         </TabsContent>
         <TabsContent value="ContactUs">
-          <ContactUs defaultData={HomeSettingData?.data?.ContactUsSchema}/>
+          <ContactUs defaultData={HomeSettingData?.ContactUsSchema}/>
         </TabsContent>
         <TabsContent value="Checkout">
-          <CheckoutSetting defaultData={HomeSettingData?.data?.CheckoutSchema}/>
+          <CheckoutSetting defaultData={HomeSettingData?.CheckoutSchema}/>
         </TabsContent>
         <TabsContent value="SEOSettings">
-          <SEOSettingsPage defaultData={HomeSettingData?.data?.SEOSchema}/>
+          <SEOSettingsPage defaultData={HomeSettingData?.SEOSchema}/>
         </TabsContent>
       </Tabs>
     </MainProviderPerants>

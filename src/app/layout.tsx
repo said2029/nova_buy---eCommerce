@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/Providers/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Toaster } from "@/components/ui/toaster";
+import ReduxProvider from "@/Providers/ReduxProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({
@@ -19,21 +20,23 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: {locale}
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
-  params: {locale: string};
+  params: { locale: string };
 }>) {
   const messages = await getMessages();
   return (
     <html lang={locale}>
       <body className={roboto.className + " bg-gray-200/80 dark:bg-slate-900"}>
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider attribute="class" defaultTheme="system">
-            {children}
-          </ThemeProvider>
+          <ReduxProvider>
+            <ThemeProvider attribute="class" defaultTheme="system">
+              {children}
+            </ThemeProvider>
+          </ReduxProvider>
         </NextIntlClientProvider>
-        <Toaster/>
+        <Toaster />
       </body>
     </html>
   );

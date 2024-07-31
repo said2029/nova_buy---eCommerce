@@ -11,7 +11,7 @@ import { Edit2Icon, Trash, ZoomIn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import {
   OurStaff_Delete,
   OurStaff_Get_all,
@@ -20,7 +20,10 @@ import {
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import Loadiner from "@/components/ui/Loadiner";
-import { revalidateTag } from "next/cache";
+import { useDispatch } from "react-redux";
+import { addNewStaff } from "@/Redux/Actions/OurStaff";
+import { useSelector } from "react-redux";
+import { ReduxSelector } from "@/Redux/store";
 
 export default function OurStaff_Table({
   openEdit,
@@ -33,17 +36,17 @@ export default function OurStaff_Table({
   };
 }) {
   const { toast } = useToast();
-  const [dataStaff, setDataStaff] = useState([]);
+  const dataStaff = useSelector(ReduxSelector).OurStaff.Staff;
   const [isLoading, setisLoading] = useState(true);
   const t = useTranslations("table");
+  const dispatch = useDispatch();
 
   const getAllStaff = async () => {
     try {
       setisLoading(true);
-      setDataStaff([]);
       const data = await OurStaff_Get_all(quiresFilter);
-      setDataStaff(data);
       setisLoading(false);
+      dispatch(addNewStaff(data));
     } catch (error) {
       setisLoading(false);
     }
@@ -60,12 +63,17 @@ export default function OurStaff_Table({
           title: "success",
           description: "Staff deleted successfully",
         });
-        revalidateTag("dataStaff");
-      } catch (error) {
+        const coby_data = [...dataStaff];
+        coby_data.splice(
+          dataStaff.findIndex((item: any) => item._id == id),
+          1
+        );
+        dispatch(addNewStaff(coby_data));
+      } catch (error: any) {
         toast({
           title: "error",
-          description: "Failed to delete staff",
-          variant:"destructive"
+          description: error.message,
+          variant: "destructive",
         });
       }
     }
@@ -88,7 +96,7 @@ export default function OurStaff_Table({
         </TableHeader>
         {dataStaff && (
           <TableBody className="border-2 border-red-400">
-            {dataStaff.map((item: any, index) => {
+            {dataStaff.map((item: any, index: number) => {
               return (
                 <TableRow key={item._id} className="border-0 border-red-400">
                   <TableCell>{item.name}</TableCell>
@@ -124,7 +132,7 @@ export default function OurStaff_Table({
                           });
                           const newStaff: any = [...dataStaff];
                           newStaff[index].is_activait = value;
-                          setDataStaff(newStaff);
+                          dispatch(addNewStaff(newStaff));
                         } catch (error) {
                           setisLoading(true);
                           toast({
