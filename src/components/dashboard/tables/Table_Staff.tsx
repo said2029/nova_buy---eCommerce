@@ -24,6 +24,7 @@ import { useDispatch } from "react-redux";
 import { addNewStaff } from "@/Redux/Actions/OurStaff";
 import { useSelector } from "react-redux";
 import { ReduxSelector } from "@/Redux/store";
+import moment from "moment";
 
 export default function OurStaff_Table({
   openEdit,
@@ -102,7 +103,9 @@ export default function OurStaff_Table({
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.email}</TableCell>
                   <TableCell>{item.phone}</TableCell>
-                  <TableCell>{item.createdAt}</TableCell>
+                  <TableCell>
+                    {moment(item.createdAt).format("MMMM Do YYYY")}
+                  </TableCell>
                   <TableCell>{item.role}</TableCell>
                   <TableCell>
                     <Badge

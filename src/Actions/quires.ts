@@ -87,7 +87,6 @@ const OurStaff_Get_all = async (quires?: {
   );
   return data;
 };
-
 //  Orders
 const Orders_Get_All = async (quires: {
   search: string;
@@ -111,6 +110,34 @@ const Order_Update = (id: string, body: any) => {
   const data = Fetch.put(`/order/update/${id}`, { body: JSON.stringify(body) });
   return data;
 };
+
+//  users
+const User_Get_All = async (quiers: { page: number; search: string }) => {
+  try {
+    const data = await Fetch.get(
+      `/user?page=${quiers.page}&search=${quiers.search}`
+    );
+    return data;
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+const User_Update = async (id: string, value: any) => {
+  const data = await Fetch.put(`/user/update/${id}`, {
+    body: JSON.stringify(value),
+  });
+  return data;
+};
+
+const User_Delete = async (id: string) => {
+  try {
+    await Fetch.delete(`/user/delete/${id}`);
+  } catch (error) {
+    throw error;
+  }
+}
+
 export {
   Setting_Store_Update,
   Store_customiza_Update,
@@ -123,4 +150,7 @@ export {
   OurStaff_Delete,
   Orders_Get_All,
   Order_Update,
+  User_Get_All,
+  User_Update,
+  User_Delete
 };

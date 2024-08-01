@@ -1,11 +1,14 @@
 import { configureStore, createSelector } from "@reduxjs/toolkit";
 import OurStaff from "./Actions/OurStaff";
 import OrdersSlice from "./Actions/Orders";
+import User from "./Actions/User"
 
 const store = configureStore({
   reducer: {
     OurStaff,
     OrdersSlice,
+    User
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -16,8 +19,8 @@ const store = configureStore({
 
 const ReduxSelector = createSelector(
   (state: any) => state,
-  ({ OurStaff, OrdersSlice }) => {
-    return { OurStaff, OrdersSlice };
+  ({ OurStaff, OrdersSlice,User }) => {
+    return { OurStaff, OrdersSlice,User };
   }
 );
 export { ReduxSelector };

@@ -28,6 +28,7 @@ import { ReduxSelector } from "@/Redux/store";
 import { addDataOrder, updateOrder } from "@/Redux/Actions/Orders";
 import clsx from "clsx";
 import Loadiner from "@/components/ui/Loadiner";
+import moment from "moment";
 
 export default function Order_Table({ FilterData }: { FilterData: any }) {
   const { toast } = useToast();
@@ -106,7 +107,7 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
                       className="border-0 border-red-400"
                     >
                       <TableCell>{item.InvocId}</TableCell>
-                      <TableCell>{item.createdAt.split("T")[0]}</TableCell>
+                      <TableCell>{moment(item.createdAt).format("MMMM Do YYYY")}</TableCell>
                       <TableCell>{item?.userDetals[0]?.fullName}</TableCell>
                       <TableCell>{item.paymentMethod}</TableCell>
                       <TableCell>${item.totalAmount}</TableCell>

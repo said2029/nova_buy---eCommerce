@@ -5,7 +5,7 @@ import UplaodImage from "@/lib/Cloudinary";
 import clsx from "clsx";
 import { Upload } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { ReactEventHandler, useEffect, useState } from "react";
 
 export default function Upload_Image({
   onChange,
@@ -14,7 +14,7 @@ export default function Upload_Image({
   name,
 }: {
   onChange: any;
-  value?: any;
+  value?: string | Array<string>;
   multiImages?: boolean;
   name: string;
 }) {
@@ -52,6 +52,8 @@ export default function Upload_Image({
     setIsloading(false);
   };
 
+  const ImageSrc: string | undefined = Array.isArray(value) ? value[0] : value;
+
   return (
     <div className="h-44 w-full relative">
       <Label
@@ -70,7 +72,14 @@ export default function Upload_Image({
             width={230}
             height={230}
             alt="Image"
-            src={value}
+            onErrorCapture={() => {
+              onChange("");
+            }}
+            src={
+              ImageSrc?.includes("http://") || ImageSrc?.includes("https://")
+                ? ImageSrc
+                : ""
+            }
           />
         ) : (
           <>

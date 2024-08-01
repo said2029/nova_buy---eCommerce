@@ -57,11 +57,16 @@
     "Users": "Users",
     "email": "email",
     "phone": "phone",
-    "Update Coupon": "Update Coupon",
+    "Update User": "Update User",
     "address": "address",
     "fullName": "fullName",
     "Restart": "Restart",
-    "Search": "Search...."
+    "Search": "Search....",
+    "User Updated Successfully": "User Updated Successfully",
+    "UPDATE USER": "Update User",
+    "User Image": "User Image",
+    "User Deleted Successfully":"User Deleted Successfully",
+    "DELETE USER":"DELETE USER"
   },
   "OrderPage": {
     "search by product Name": "search by product Name",
