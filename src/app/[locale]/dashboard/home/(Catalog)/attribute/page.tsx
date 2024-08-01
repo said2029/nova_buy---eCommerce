@@ -41,6 +41,9 @@ const AttributeSchema = z.object({
 export default function page() {
   const { toast } = useToast();
   const t = useTranslations("Attributes");
+  const [filterQuerys, setFilterQueris] = useState<{ search: string }>({
+    search: "",
+  });
   const [ModeForm, setModeForm] = useState<"create" | "update">("create");
   const SheetController = useRef<any>(null);
 
@@ -105,16 +108,24 @@ export default function page() {
 
   const submit = async (value: z.infer<typeof AttributeSchema>) => {
     if (ModeForm == "create") {
-      CreateAttribute(value);
+      await CreateAttribute(value);
     } else {
-      UpdateAttribute(value);
+      await UpdateAttribute(value);
     }
   };
 
   return (
     <MainProviderPerants name="Attributes">
       <section className="bg-gray-400/10 flex-wrap sm:flex-nowrap rounded-md w-full py-5 px-3 flex gap-2">
-        <Input placeholder={t("Search")} />
+        <Input
+          onChange={(value) =>
+            setFilterQueris({
+              ...filterQuerys,
+              search: value.currentTarget.value,
+            })
+          }
+          placeholder={t("Search")}
+        />
         <SheetControlle
           onClick={() => {
             setModeForm("create");
@@ -229,7 +240,7 @@ export default function page() {
         <Button className="h-12">{t("Restart")}</Button>
       </section>
       <section className="bg-gray-400/10 flex-wrap mt-5 sm:flex-nowrap rounded-md w-full py-5 px-3 flex gap-2">
-        <Attribute_Table openEdit={handleUpdateOpen} />
+        <Attribute_Table filterQueris={filterQuerys} openEdit={handleUpdateOpen} />
       </section>
     </MainProviderPerants>
   );
