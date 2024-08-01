@@ -65,8 +65,8 @@
     "User Updated Successfully": "User Updated Successfully",
     "UPDATE USER": "Update User",
     "User Image": "User Image",
-    "User Deleted Successfully":"User Deleted Successfully",
-    "DELETE USER":"DELETE USER"
+    "User Deleted Successfully": "User Deleted Successfully",
+    "DELETE USER": "DELETE USER"
   },
   "OrderPage": {
     "search by product Name": "search by product Name",
@@ -159,7 +159,27 @@
     "PHONE": "PHONE",
     "Status updated successfully": "Status updated successfully",
     "Error updating status": "Error updating status",
-    "Success": "Success"
-
+    "Success": "Success",
+    "Option": "Option"
+  },
+  "Attributes": {
+    "Add Attribute": "Add Attributes",
+    "Options": "Options",
+    "Option Name": "Color or Size ...",
+    "Search": "Search...",
+    "Restart": "Restart",
+    "Add Option": "Add Option",
+    "Published":"Published",
+    "Attribute Name":"Attribute Name",
+    "Success_Message":"Attribute Created Successfully",
+    "Success_Message_updated":"Attribute Updated Successfully",
+    "Error_updating":"Error updating attribute",
+    "Success":"Success",
+    "Error_Message":"Attribute Created Faild?",
+    "Update Attribute":"Update Attribute",
+    "Option Attribute":"Option Attribute",
+    "":"",
+    "":"",
+    "":""
   }
 }

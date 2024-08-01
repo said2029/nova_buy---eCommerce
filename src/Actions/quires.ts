@@ -1,6 +1,7 @@
 "use server";
 
 import Fetch from "@/lib/axios/AxiosClient";
+import { threadId } from "worker_threads";
 
 //  setting store
 
@@ -136,7 +137,56 @@ const User_Delete = async (id: string) => {
   } catch (error) {
     throw error;
   }
+};
+
+// Attribute
+const Attribute_all=async(quires:{search:string})=>{
+  try {
+    const data = await Fetch.get(`/attribute/?search=${quires.search}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
+
+const Attribute_Create = async (value: any) => {
+  try {
+    const data = await Fetch.post("/attribute/create", {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Attribute_Update = async (id: string, value: any) => {
+  try {
+    const data = await Fetch.put(`/attribute/update/${id}`, {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Attribute_Delete = async (id: string) => {
+  try {
+    await Fetch.delete(`/attribute/${id}`);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Attribute_ById = async (id: string) => {
+  try {
+    const data = await Fetch.get(`/attribute/${id}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export {
   Setting_Store_Update,
@@ -152,5 +202,10 @@ export {
   Order_Update,
   User_Get_All,
   User_Update,
-  User_Delete
+  User_Delete,
+  Attribute_Create,
+  Attribute_Update,
+  Attribute_Delete,
+  Attribute_ById,
+  Attribute_all
 };

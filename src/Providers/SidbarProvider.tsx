@@ -2,16 +2,16 @@
 import NabBar from "@/components/dashboard/NabBar";
 import Sidbar from "@/components/dashboard/Sidbar";
 import { motion } from "framer-motion";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 export default function SidbarProvider({ children }: { children: ReactNode }) {
   const [sidbarOpen, setSidbarOpen] = useState(false);
   const toggleSidbar = () => {
     setSidbarOpen(!sidbarOpen);
   };
-  let mql: any = null;
+  let mql = useRef<boolean>();
   useEffect(() => {
     if (window) {
-      mql = window?.matchMedia("(max-width: 1024px)");
+      mql.current = window?.matchMedia("(max-width: 1024px)").matches;
     }
   }, []);
 
@@ -29,7 +29,7 @@ export default function SidbarProvider({ children }: { children: ReactNode }) {
           },
         }}
         initial="closed"
-        animate={mql?.matches == false && sidbarOpen ? "open" : "closed"}
+        animate={mql.current == false && sidbarOpen ? "open" : "closed"}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
         <NabBar sidbarOpen={sidbarOpen} toggelSidbat={toggleSidbar} />

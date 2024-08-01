@@ -97,6 +97,9 @@ export default function Sidbar({
                     <Link href={"/dashboard/home/subCategory"}>SubCategory</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
+                    <Link href={"/dashboard/home/attribute"}>Attribute</Link>
+                  </li>
+                  <li className="hover:opacity-55 duration-300 cursor-pointer">
                     <Link href={"/dashboard/home/coupon"}>Coupon</Link>
                   </li>
                 </ul>
