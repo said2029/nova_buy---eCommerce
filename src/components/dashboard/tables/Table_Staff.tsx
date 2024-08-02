@@ -53,7 +53,10 @@ export default function OurStaff_Table({
     }
   };
   useEffect(() => {
-    getAllStaff();
+    const set = setTimeout(() => {
+      getAllStaff();
+    }, 1000);
+    return () => clearTimeout(set);
   }, [quiresFilter]);
 
   const deleteStaff = async (id: string) => {

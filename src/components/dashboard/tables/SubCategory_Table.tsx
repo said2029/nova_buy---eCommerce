@@ -111,8 +111,11 @@ export default function SubCategory_Table({
   }, [page]);
 
   useEffect(() => {
-    setPage(0);
-    Get_data();
+    const set = setTimeout(() => {
+      setPage(0);
+      Get_data();
+    }, 1000);
+    return () => clearTimeout(set);
   }, [filter]);
   return (
     <div className="relative">

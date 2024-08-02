@@ -276,6 +276,50 @@ const Subcategories_Delete = async (id: string) => {
   }
 };
 
+// categorys
+
+const Categorys_Get_all = async (queris: { search: String; page: number }) => {
+  try {
+    const data = await Fetch.get(
+      `/category?search=${queris.search}&page=${queris.page}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Categorys_Create = async (value: any) => {
+  try {
+    const data = await Fetch.post("/category/create", {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Categorys_Update = async (id: string, value: any) => {
+  try {
+    const data = await Fetch.put(`/category/${id}`, {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+const Categorys_Delete = async (id: string) => {
+  try {
+    const data = await Fetch.delete(`/category/${id}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export {
   Setting_Store_Update,
   Store_customiza_Update,
@@ -304,4 +348,8 @@ export {
   Subcategories_Create,
   Subcategories_Update,
   Subcategories_Delete,
+  Categorys_Get_all,
+  Categorys_Create,
+  Categorys_Update,
+  Categorys_Delete
 };

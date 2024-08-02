@@ -34,19 +34,25 @@ export function MultiSelectTest({
   valueSelect = [],
   onChange,
   options = [],
+  tryAgane,
 }: {
   name?: string;
-  valueSelect: Array<String>;
-  onChange: (value: Array<String>) => void;
-  options: Array<String>;
+  valueSelect: Array<{ name: string; value: string }>;
+  onChange: (value: Array<{ name: string; value: string }>) => void;
+  options: Array<{ name: string; value: string }>;
+  tryAgane?: () => void;
 }) {
-  const [tags, setTags] = useState<Array<String>>(valueSelect);
+  const [tags, setTags] =
+    useState<Array<{ name: string; value: string }>>(valueSelect);
 
-  const slelect = (name: String) => {
-    if (tags.includes(name)) {
-      tags.splice(tags.indexOf(name), 1);
+  const Select = (item: any) => {
+    if (tags.some((i) => i.name == item.name)) {
+      tags.splice(
+        tags.findIndex((i) => i.name == item.name),
+        1
+      );
     } else {
-      tags.push(name);
+      tags.push(item);
     }
     setTags(tags);
     onChange(tags);
@@ -57,18 +63,22 @@ export function MultiSelectTest({
         <div className="bg-background border w-full min-h-10 flex gap-1 py-3 px-2 flex-wrap justify-center items-center rounded-md">
           {tags && tags.length >= 1
             ? tags.map((item, i) => {
-                return <Badge key={i}>{item}</Badge>;
+                return <Badge key={i}>{item.name}</Badge>;
               })
-            : `Select ${name}`}
+            : `Select`}
         </div>
       </PopoverTrigger>
       <PopoverContent>
         <Command className="rounded-lg border shadow-md relative">
           <CommandInput placeholder="Type a command or search..." />
           <CommandList aria-disabled={false}>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty className="flex flex-col gap-4 items-center justify-center">
+              No results found.
+              <Button onClick={tryAgane}>Try Agane?</Button>
+            </CommandEmpty>
             <CommandGroup>
               {options.map((item, i) => {
+                const Incloud = tags.some((tg) => tg.value == item.value);
                 return (
                   <CommandItem
                     key={i}
@@ -76,14 +86,14 @@ export function MultiSelectTest({
                   >
                     <Button
                       className={clsx("w-full flex items-center", {
-                        "justify-between": tags.includes(item),
-                        "bg-teal-400": tags.includes(item),
-                        "hover:bg-teal-300": tags.includes(item),
+                        "justify-between": Incloud,
+                        "bg-teal-400": Incloud,
+                        "hover:bg-teal-300": Incloud,
                       })}
-                      onClick={() => slelect(item)}
+                      onClick={() => Select(item)}
                     >
-                      {tags.includes(item) && <Check strokeWidth={1} />}
-                      {item}
+                      {Incloud && <Check strokeWidth={1} />}
+                      {item.name}
                     </Button>
                   </CommandItem>
                 );
@@ -95,5 +105,3 @@ export function MultiSelectTest({
     </Popover>
   );
 }
-
-

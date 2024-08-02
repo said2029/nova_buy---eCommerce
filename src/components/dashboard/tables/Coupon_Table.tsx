@@ -44,7 +44,7 @@ export default function Coupon_Table({
   const Get_Coupons = async () => {
     try {
       setLoading(true);
-      const data = await Coupon_Get_All({...filter,page});
+      const data = await Coupon_Get_All({ ...filter, page });
       dispatch(setCoupon(data));
       setLoading(false);
     } catch (error: any) {
@@ -106,8 +106,11 @@ export default function Coupon_Table({
   }, [page]);
 
   useEffect(() => {
-    setPage(0);
-    Get_Coupons();
+    const set = setTimeout(() => {
+      setPage(0);
+      Get_Coupons();
+    }, 1000);
+    return () => clearTimeout(set);
   }, [filter]);
 
   return (

@@ -80,7 +80,10 @@ export default function Attribute_Table({
   };
 
   useEffect(() => {
-    Get_Data();
+    const set = setTimeout(() => {
+      Get_Data();
+    }, 1000);
+    return () => clearTimeout(set);
   }, [filterQueris.search]);
 
   return (

@@ -125,7 +125,15 @@ export default function User_Table({ searchFilter }: { searchFilter: string }) {
 
   useEffect(() => {
     Get_User();
-  }, [page, searchFilter]);
+  }, [page]);
+
+  useEffect(() => {
+    const set = setTimeout(() => {
+      setPage(0);
+      Get_User();
+    }, 1000);
+    return () => clearTimeout(set);
+  }, [searchFilter]);
   return (
     <div className="relative">
       <Table
@@ -155,7 +163,9 @@ export default function User_Table({ searchFilter }: { searchFilter: string }) {
               return (
                 <TableRow key={item._id} className="border-0 border-red-400">
                   <TableCell>{index}</TableCell>
-                  <TableCell>{moment(item.createdAt).format("MMMM Do YYYY") }</TableCell>
+                  <TableCell>
+                    {moment(item.createdAt).format("MMMM Do YYYY")}
+                  </TableCell>
                   <TableCell>{item.fullName}</TableCell>
                   <TableCell>{item.email}</TableCell>
                   <TableCell>{item.phoneNumber}</TableCell>

@@ -56,7 +56,15 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
   };
   useEffect(() => {
     FetchData();
-  }, [FilterData, page]);
+  }, [page]);
+
+  useEffect(() => {
+    const set = setTimeout(() => {
+      setPage(0);
+      FetchData();
+    }, 1000);
+    return () => clearTimeout(set);
+  }, [FilterData]);
 
   const UpdateStatus = async (id: string, body: any) => {
     try {
