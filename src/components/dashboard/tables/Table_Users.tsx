@@ -67,6 +67,7 @@ export default function User_Table({ searchFilter }: { searchFilter: string }) {
       setIsLoading(true);
       const data = await User_Get_All({ page: page, search: searchFilter });
       dispatch(setUsers(data));
+      setPage(0);
       setIsLoading(false);
     } catch (error: any) {
       setIsLoading(false);

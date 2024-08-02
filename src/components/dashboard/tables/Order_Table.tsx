@@ -43,6 +43,7 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
       setisLoading(true);
       const respons = await Orders_Get_All({ ...FilterData, page: page });
       dispatch(addDataOrder(respons));
+      setPage(0);
       setisLoading(false);
     } catch (error: any) {
       toast({
@@ -54,7 +55,6 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
     }
   };
   useEffect(() => {
-    console.log(page);
     FetchData();
   }, [FilterData, page]);
 
@@ -98,8 +98,8 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
         </TableHeader>
         {!isLoading && (
           <>
-            <TableBody className="border-2 border-red-400">
-              {Orders &&
+            <TableBody className="border-2 border-red-400 text-nowrap">
+              {Orders?.orders.length >= 1 &&
                 Orders.orders.map((item: any, index: number) => {
                   return (
                     <TableRow
@@ -107,7 +107,9 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
                       className="border-0 border-red-400"
                     >
                       <TableCell>{item.InvocId}</TableCell>
-                      <TableCell>{moment(item.createdAt).format("MMMM Do YYYY")}</TableCell>
+                      <TableCell>
+                        {moment(item.createdAt).format("MMMM Do YYYY")}
+                      </TableCell>
                       <TableCell>{item?.userDetals[0]?.fullName}</TableCell>
                       <TableCell>{item.paymentMethod}</TableCell>
                       <TableCell>${item.totalAmount}</TableCell>
@@ -164,9 +166,8 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
                   colSpan={6}
                   className="text-gray-600/80 dark:text-gray-200/80"
                 >
-                  {t("SHOWING")} {Orders.orders.length} OF{" "}
-                  {/* get liength of pages */}
-                  {Orders.totalOrder}
+                  {t("SHOWING")} {page + 1} OF{" "}
+                  {Math.ceil(Orders.totalOrder / Orders.limit)}
                 </TableCell>
                 <TableCell colSpan={6}>
                   <PaginationComponent

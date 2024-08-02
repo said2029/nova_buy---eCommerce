@@ -140,14 +140,14 @@ const User_Delete = async (id: string) => {
 };
 
 // Attribute
-const Attribute_all=async(quires:{search:string})=>{
+const Attribute_all = async (quires: { search: string }) => {
   try {
     const data = await Fetch.get(`/attribute/?search=${quires.search}`);
     return data;
   } catch (error) {
     throw error;
   }
-}
+};
 
 const Attribute_Create = async (value: any) => {
   try {
@@ -187,6 +187,94 @@ const Attribute_ById = async (id: string) => {
     throw error;
   }
 };
+// coupons
+const Coupon_Get_All = async (queris: { search: ""; page: number }) => {
+  try {
+    const data = await Fetch.get(
+      `/coupon?search=${queris.search}&page=${queris.page}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+const Coupon_Create = async (value: any) => {
+  try {
+    const data = await Fetch.post("/coupon/create", {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Coupon_Update = async (id: string, value: any) => {
+  try {
+    const data = await Fetch.put(`/coupon/update/${id}`, {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Coupon_Delete = async (id: string) => {
+  try {
+    const data = await Fetch.delete(`/coupon/${id}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// subCategories
+
+const Subcategories_Get_all = async (queris: {
+  search: string;
+  page: number;
+}) => {
+  try {
+    const data = await Fetch.get(
+      `/sub_category?search=${queris.search}&page=${queris.page}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Subcategories_Create = async (value: any) => {
+  try {
+    const data = await Fetch.post("/sub_category/create", {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Subcategories_Update = async (id: string, value: any) => {
+  try {
+    const data = await Fetch.put(`/sub_category/${id}`, {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const Subcategories_Delete = async (id: string) => {
+  try {
+    const data = await Fetch.delete(`/sub_category/${id}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export {
   Setting_Store_Update,
@@ -207,5 +295,13 @@ export {
   Attribute_Update,
   Attribute_Delete,
   Attribute_ById,
-  Attribute_all
+  Attribute_all,
+  Coupon_Get_All,
+  Coupon_Create,
+  Coupon_Update,
+  Coupon_Delete,
+  Subcategories_Get_all,
+  Subcategories_Create,
+  Subcategories_Update,
+  Subcategories_Delete,
 };

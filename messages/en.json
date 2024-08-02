@@ -39,7 +39,11 @@
     "subCategory Title": "SubCategory Title",
     "Filter": "Filter",
     "Display Name": "Display Name",
-    "Restart": "Restart"
+    "Restart": "Restart",
+    "Success": "Success",
+    "Success_Message": "Subcategory has been created successfully.",
+    "Update_subCategory": "Update subCategory"
+
   },
   "Coupon": {
     "Coupon": "Coupon",
@@ -50,7 +54,15 @@
     "Coupon Name": "Coupon Name",
     "Coupon Code": "Coupon Code",
     "Coupon Time End": "Coupon Time End",
-    "Coupon discount": "Coupon discount"
+    "Coupon discount": "Coupon discount",
+    "Coupon_Message_Success":"Coupon has been created successfully.",
+    "Coupon_Message_ConfermDelete":"Are you sure you want to delete this coupon? This action cannot be undone.",
+    "Coupon Created":"Coupon Created",
+    "Update Coupon":"Update Coupon",
+    "":"",
+    "":"",
+    "":"",
+    "":""
   },
   "UserPage": {
     "Filter": "Filter",
@@ -160,7 +172,8 @@
     "Status updated successfully": "Status updated successfully",
     "Error updating status": "Error updating status",
     "Success": "Success",
-    "Option": "Option"
+    "Option": "Option",
+    "Coupon_Message_ConfermDelete":"Are you sure you want to delete this coupon? This action cannot be undone."
   },
   "Attributes": {
     "Add Attribute": "Add Attributes",

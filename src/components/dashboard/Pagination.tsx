@@ -7,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import clsx from "clsx";
 
 export default function PaginationComponent({
   numberOfPage = 1,
@@ -22,26 +23,32 @@ export default function PaginationComponent({
   return (
     <Pagination className="flex justify-end">
       <PaginationContent>
-        {numberOfPage != 0 && (
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => onChangePage(numberOfPage - 1)}
-              className="hover:opacity-70 duration-300 cursor-pointer"
-            />
-          </PaginationItem>
-        )}
+        <PaginationItem
+          className={clsx("", {
+            "opacity-60": numberOfPage <= 0,
+            "pointer-events-none": numberOfPage <= 0,
+          })}
+        >
+          <PaginationPrevious
+            onClick={() => onChangePage(numberOfPage - 1)}
+            className="hover:opacity-70 duration-300 cursor-pointer"
+          />
+        </PaginationItem>
 
         <PaginationItem>
           <PaginationLink>{numberOfPage + 1}</PaginationLink>
         </PaginationItem>
-        {((numberOfPage + 1)*limit) < maxPage && (
-          <PaginationItem>
-            <PaginationNext
-              onClick={() => onChangePage(numberOfPage + 1)}
-              className="hover:opacity-70 duration-300 cursor-pointer"
-            />
-          </PaginationItem>
-        )}
+        <PaginationItem
+          className={clsx("", {
+            "opacity-60": (numberOfPage + 1) * limit > maxPage,
+            "pointer-events-none": (numberOfPage + 1) * limit > maxPage,
+          })}
+        >
+          <PaginationNext
+            onClick={() => onChangePage(numberOfPage + 1)}
+            className="hover:opacity-70 duration-300 cursor-pointer"
+          />
+        </PaginationItem>
       </PaginationContent>
     </Pagination>
   );
