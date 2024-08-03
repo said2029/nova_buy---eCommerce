@@ -1,4 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Categorys_Get_all } from "@/Actions/quires";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+export const Get_Categories_Redux = createAsyncThunk(
+  "Get_Categories_Redux/Category",
+  async () => {
+    return await Categorys_Get_all({page:0,search:""});
+  }
+);
 
 const Category = createSlice({
   name: "Category",
@@ -33,8 +41,16 @@ const Category = createSlice({
       );
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(Get_Categories_Redux.fulfilled, (state, action) => {
+      state.categories = action.payload.body;
+      state.count = action.payload.count;
+      state.limit = action.payload.limit;
+    });
+  }
 });
 
-export const { setCategories, addCategory, updateCategory, removeCategory } = Category.actions;
+export const { setCategories, addCategory, updateCategory, removeCategory } =
+  Category.actions;
 
 export default Category.reducer;

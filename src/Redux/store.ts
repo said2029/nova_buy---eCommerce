@@ -6,6 +6,7 @@ import Attribute from "./Actions/Attribute";
 import Coupon from "./Actions/Coupon";
 import subCategury from "./Actions/SubCategory";
 import Category from "./Actions/Category";
+import product from "./Actions/Products";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     Coupon,
     subCategury,
     Category,
+    product
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -34,6 +36,7 @@ const ReduxSelector = createSelector(
     Coupon,
     subCategury,
     Category,
+    product
   }) => {
     return {
       OurStaff,
@@ -43,6 +46,7 @@ const ReduxSelector = createSelector(
       Coupon,
       subCategury,
       Category,
+      product
     };
   }
 );

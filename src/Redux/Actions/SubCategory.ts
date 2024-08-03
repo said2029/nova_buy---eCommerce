@@ -1,5 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Subcategories_Get_all } from "@/Actions/quires";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+export const Get_SubCategories = createAsyncThunk(
+  "subCategurySlice/Get_SubCategories",
+  async () => {
+    return await Subcategories_Get_all({ search: "", page: 0 });
+  }
+);
 const subCategury = createSlice({
   name: "subCategurySlice",
   initialState: {
@@ -34,6 +41,13 @@ const subCategury = createSlice({
       );
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(Get_SubCategories.fulfilled, (state, action) => {
+      state.subCateguries = action.payload.body;
+      state.limit = action.payload.limit;
+      state.count = action.payload.count;
+    });
+  },
 });
 
 export const {
@@ -42,5 +56,6 @@ export const {
   updateSubCateguries,
   removeSubCateguries,
 } = subCategury.actions;
+
 
 export default subCategury.reducer;

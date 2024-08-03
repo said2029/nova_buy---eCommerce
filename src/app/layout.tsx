@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Toaster } from "@/components/ui/toaster";
 import ReduxProvider from "@/Providers/ReduxProvider";
+import FetchApitProvider from "@/Providers/FetchApitProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({
@@ -28,12 +29,17 @@ export default async function RootLayout({
   const messages = await getMessages();
   return (
     <html lang={locale}>
+      <head>
+        <script src="http://localhost:3000"></script>
+      </head>
       <body className={roboto.className + " bg-gray-200/80 dark:bg-slate-900"}>
         <NextIntlClientProvider messages={messages}>
           <ReduxProvider>
-            <ThemeProvider attribute="class" defaultTheme="system">
-              {children}
-            </ThemeProvider>
+            <FetchApitProvider>
+              <ThemeProvider attribute="class" defaultTheme="system">
+                {children}
+              </ThemeProvider>
+            </FetchApitProvider>
           </ReduxProvider>
         </NextIntlClientProvider>
         <Toaster />

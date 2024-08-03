@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import PaginationComponent from "../Pagination";
 import { Button } from "@/components/ui/button";
-import { Edit2Icon, Trash, ZoomIn } from "lucide-react";
+import { FilePenLine, Trash, ZoomIn } from "lucide-react";
 import Avater_Image from "../utils/Avater_Image";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
@@ -175,7 +175,7 @@ export default function Coupon_Table({
                   </TableCell>
                   <TableCell>
                     <Button size={"icon"} variant={"ghost"}>
-                      <Edit2Icon
+                      <FilePenLine
                         onClick={() => openEdit(item)}
                         strokeWidth={1}
                       />

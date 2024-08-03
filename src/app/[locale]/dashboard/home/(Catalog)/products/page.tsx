@@ -21,30 +21,87 @@ import * as zod from "zod";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { ReduxSelector } from "@/Redux/store";
+import { Product_Create } from "@/Actions/quires";
+import { useDispatch } from "react-redux";
+import { addProduct } from "@/Redux/Actions/Products";
+import { useToast } from "@/components/ui/use-toast";
+import ButtonLoading from "@/components/dashboard/buttons/ButtonLoading";
+import { Textarea } from "@/components/ui/textarea";
 
 const fromshcema = zod.object({
   titel: zod.string(),
   discription: zod.string(),
   salePrice: zod.string(),
   category: zod.string(),
-  subCategory: zod.array(zod.string()),
+  subCategory: zod.array(
+    zod.object({
+      name: zod.string(),
+      value: zod.string(),
+    })
+  ),
   stock: zod.string(),
   images: zod.array(zod.string()).min(1),
   colors: zod.array(zod.string()).default([]),
   size: zod.array(zod.string()).default([]),
   price: zod.string(),
+  _id: zod.string().optional(),
 });
 
 export default function page() {
   const t = useTranslations("productPage");
+  const [ModeForm, setModeForm] = useState<"create" | "update">("create");
+  const { subCategury, Category } = useSelector(ReduxSelector);
+  const dispatch = useDispatch();
+  const { toast } = useToast();
+  const [filter, set_filter] = useState<{
+    search?: string;
+    isActive?: string;
+    PriceSort?: number;
+    category?: string;
+  }>({ PriceSort: 1, search: "", isActive: undefined, category: undefined });
   const form = useForm<zod.infer<typeof fromshcema>>({
     resolver: zodResolver(fromshcema),
   });
+  const [singlCategorySelect, setSinglCategorySelect] = useState<any>({});
+  const ref_SheetButton = useRef<HTMLButtonElement>(null);
+  const CategoryOptions = Category.categories.map((item: any) => {
+    return { name: item.name, value: item._id };
+  });
 
-  const submit = (value: zod.infer<typeof fromshcema>) => {
-    console.log(value);
-    form.reset();
+  const Create = async (value: any) => {
+    try {
+      const sub = value.subCategory.map((item: any) => {
+        return item.value;
+      });
+      const data = await Product_Create({ ...value, subCategory: sub });
+      data.subCategory = value.subCategory;
+      dispatch(addProduct(data));
+      toast({
+        title: t("Success"),
+        description: t("Product_Created_Success"),
+        duration: 3000,
+      });
+      ref_SheetButton.current?.click();
+    } catch (error: any) {
+      toast({
+        title: t("Error"),
+        description: error?.message,
+        duration: 3000,
+      });
+    }
+  };
+
+  const submit = async (value: zod.infer<typeof fromshcema>) => {
+    if (ModeForm === "create") {
+      await Create(value);
+    } else {
+      // // Update Product
+      // await Product_Update(value);
+      // ref_SheetButton.current?.click();
+    }
   };
 
   const endDrag = (res: any) => {
@@ -57,33 +114,70 @@ export default function page() {
     form.setValue("images", temp);
   };
 
-  const ref_SheetButton = useRef<HTMLButtonElement>(null);
+  const SetCategorySelect = () => {
+    setSinglCategorySelect(
+      Category.categories.find(
+        (item: any) => item._id == form.getValues("category")
+      )
+    );
+  };
 
   return (
     <MainProviderPerants name="Products">
       <section>
-        <div className="bg-gray-400/10 w-full py-5 px-4 rounded-md flex flex-wrap gap-5">
+        <div className="bg-gray-400/10 w-full py-5 px-4 flex-wrap sm:flex-nowrap rounded-md flex gap-5">
           <Input
-            className="flex-grow sm:max-w-72 xl:max-w-[50%]"
+            onChange={(value) =>
+              set_filter({ ...filter, search: value.currentTarget.value })
+            }
+            className="flex-grow"
             type="text"
             placeholder={t("Search")}
           />
           <Selector
+            onChange={(value) => {
+              set_filter({
+                ...filter,
+                category: CategoryOptions.find(
+                  (item: any) => item.value == value
+                ).name,
+              });
+            }}
             defaultName="Categoy"
-            className="flex-grow sm:max-w-28"
+            className="flex-grow "
             name="Category"
-            options={["1", "dsf"]}
+            options={CategoryOptions}
           />
           <Selector
-            defaultName="Price"
-            className="flex-grow sm:max-w-28"
+            onChange={(value) => {
+              console.log("   filter  ");
+              if (value == "true" || value == "false") {
+                set_filter({ ...filter, isActive: value });
+              } else {
+                set_filter({ ...filter, PriceSort: +value });
+              }
+            }}
+            defaultName={"Price"}
+            className="flex-grow"
             name="Price"
-            options={["Low To High", "High To Low", "Published", "UnPublished"]}
+            options={[
+              { name: "Low To High", value: "1" },
+              { name: "High To Low", value: "-1" },
+              { name: "Published", value: "true" },
+              { name: "UnPublished", value: "false" },
+            ]}
           />
           <span className="flex-grow hidden md:block"></span>
           <SheetControlle
+            onClick={() => {
+              setModeForm("create");
+              form.reset();
+              SetCategorySelect();
+            }}
             SheetTriggerRef={ref_SheetButton}
-            tital={t("Add Product")}
+            tital={
+              ModeForm === "create" ? t("Add Product") : t("Update Product")
+            }
             buttonName={t("Add Product")}
           >
             <Form {...form}>
@@ -178,7 +272,7 @@ export default function page() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder={t("Discription")} {...field} />
+                        <Textarea placeholder={t("Discription")} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -228,7 +322,7 @@ export default function page() {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder={t("Price")}
+                          placeholder={t("stock")}
                           {...field}
                         />
                       </FormControl>
@@ -244,9 +338,12 @@ export default function page() {
                       <FormControl>
                         <Selector
                           defaultName="Category"
-                          options={["1", "dsf"]}
+                          options={CategoryOptions}
                           value={field.value}
-                          onChange={field.onChange}
+                          onChange={(value) => {
+                            field.onChange(value);
+                            SetCategorySelect();
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -260,7 +357,11 @@ export default function page() {
                     <FormItem>
                       <FormControl>
                         <MultiSelectTest
-                          options={["1", "dsf"]}
+                          options={singlCategorySelect?.all_sub_Categories?.map(
+                            (item: any) => {
+                              return { name: item.name, value: item._id };
+                            }
+                          )}
                           name="SubCategory"
                           valueSelect={field.value}
                           onChange={field.onChange}
@@ -270,21 +371,53 @@ export default function page() {
                     </FormItem>
                   )}
                 />
-
-                <Button type="submit" className="w-full">
-                  {t("Add Product")}
-                </Button>
+                <ButtonLoading
+                  className="static w-full"
+                  loading={form.formState.isSubmitting}
+                  name={
+                    ModeForm === "create"
+                      ? t("Add Product")
+                      : t("Update Product")
+                  }
+                />
               </form>
             </Form>
           </SheetControlle>
-          <Button className="h-12">{t("Filter")} </Button>
-          <Button className="h-12">{t("Filter")} </Button>
+          <Button
+            onClick={() => {
+              set_filter({
+                search: "",
+                category: undefined,
+                isActive: undefined,
+                PriceSort: 1,
+              });
+            }}
+            className="h-12"
+          >
+            {t("Restar")}{" "}
+          </Button>
         </div>
         <div className="mt-8 p-4 bg-gray-400/10 rounded-md">
           <Products_Table
-            openEdit={() => {
-              console.log("click button");
+            filter={filter}
+            openEdit={(item:any) => {
               ref_SheetButton.current?.click();
+              setModeForm("update");
+              form.setValue("discription", item.discription);
+              form.setValue("_id", item._id);
+              form.setValue("titel", item.titel);
+              form.setValue("price", item.price);
+              form.setValue("salePrice", item.salePrice.$numberDecimal);
+              form.setValue("stock", item.stock);
+              form.setValue("images", item.images);
+              form.setValue("category", item.category[0]._id);
+              console.log(item.salePrice);
+              SetCategorySelect();
+              const sub = item.sub_categories.map((item:any)=>{
+                return {name:item.name,value:item._id}
+              })
+              form.setValue("subCategory", sub);
+
             }}
           />
         </div>

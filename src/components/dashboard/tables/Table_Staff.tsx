@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit2Icon, Trash, ZoomIn } from "lucide-react";
+import { FilePenLine, Trash, ZoomIn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
@@ -159,7 +159,7 @@ export default function OurStaff_Table({
                       size={"icon"}
                       variant={"ghost"}
                     >
-                      <Edit2Icon strokeWidth={1} />
+                      <FilePenLine strokeWidth={1} />
                     </Button>
                     <Button
                       onClick={() => deleteStaff(item._id)}

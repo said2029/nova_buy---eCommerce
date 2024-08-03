@@ -74,7 +74,7 @@ export function MultiSelectTest({
           <CommandList aria-disabled={false}>
             <CommandEmpty className="flex flex-col gap-4 items-center justify-center">
               No results found.
-              <Button onClick={tryAgane}>Try Agane?</Button>
+              {tryAgane && <Button onClick={tryAgane}>Try Agane?</Button>}
             </CommandEmpty>
             <CommandGroup>
               {options.map((item, i) => {

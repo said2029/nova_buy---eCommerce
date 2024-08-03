@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import PaginationComponent from "../Pagination";
 import { Button } from "@/components/ui/button";
-import { Edit2Icon, Trash } from "lucide-react";
+import { FilePenLine, Trash } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
 import { useDispatch } from "react-redux";
@@ -159,7 +159,7 @@ export default function SubCategory_Table({
                       size={"icon"}
                       variant={"ghost"}
                     >
-                      <Edit2Icon strokeWidth={1} />
+                      <FilePenLine strokeWidth={1} />
                     </Button>
                     <Button
                       onClick={() => {

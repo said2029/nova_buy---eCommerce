@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { Edit2Icon, Trash, ZoomIn } from "lucide-react";
+import { FilePenLine, Trash, ZoomIn } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -188,7 +188,7 @@ export default function User_Table({ searchFilter }: { searchFilter: string }) {
                       }}
                       size="icon"
                       tital="User"
-                      icon={<Edit2Icon strokeWidth={1} />}
+                      icon={<FilePenLine strokeWidth={1} />}
                     >
                       <Form {...form}>
                         <form

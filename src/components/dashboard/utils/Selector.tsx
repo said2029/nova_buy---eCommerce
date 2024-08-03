@@ -5,6 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+import { useState } from "react";
 
 export default function Selector({
   options,
@@ -14,24 +15,32 @@ export default function Selector({
   onChange,
   value,
 }: {
-  options: Array<string>;
+  options: Array<string> | Array<{ value: any; name: string }>;
   defaultName?: string;
   name?: string;
   className?: string;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
   value?: string;
 }) {
+
   return (
-    <Select onValueChange={onChange} name={name}>
-      <SelectTrigger className={className}>
-        {value ? value : defaultName}
-      </SelectTrigger>
+    
+    <Select
+      onValueChange={(value) => {
+        let value2: any = value;
+        value2 = options?.find((item: any) => item.value == value) || value;
+        onChange(value2?.value || value);
+      }}
+      name={name}
+      defaultValue={value}
+    >
+      <SelectTrigger className={className}>{defaultName}</SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {options.map((item, i) => {
+          {options.map((item: any, i) => {
             return (
-              <SelectItem key={i} value={item}>
-                {item}
+              <SelectItem key={i} value={item?.value ? item.value : item}>
+                {item.name || item}
               </SelectItem>
             );
           })}

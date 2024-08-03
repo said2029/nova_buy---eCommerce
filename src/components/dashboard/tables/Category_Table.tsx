@@ -10,14 +10,14 @@ import {
 } from "@/components/ui/table";
 import PaginationComponent from "../Pagination";
 import { Button } from "@/components/ui/button";
-import { Edit2Icon, Trash, ZoomIn } from "lucide-react";
+import { FilePenLine, Trash, ZoomIn } from "lucide-react";
 import Avater_Image from "../utils/Avater_Image";
 import { Switch } from "@/components/ui/switch";
 import { useTranslations } from "next-intl";
 import { useSelector } from "react-redux";
 import { ReduxSelector } from "@/Redux/store";
 import { useEffect, useState } from "react";
-import { Categorys_Delete, Categorys_Get_all } from "@/Actions/quires";
+import { Categorys_Delete, Categorys_Get_all, Categorys_Update } from "@/Actions/quires";
 import { useDispatch } from "react-redux";
 import { removeCategory, setCategories } from "@/Redux/Actions/Category";
 import { useToast } from "@/components/ui/use-toast";
@@ -43,6 +43,26 @@ export default function Category_Table({
       setLoading(true);
       const data = await Categorys_Get_all({ ...filter, page });
       dispatch(setCategories(data));
+      setLoading(false);
+    } catch (error: any) {
+      setLoading(false);
+      toast({
+        title: t("ERROR"),
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleUpdate =async (id:string,body:any) => {
+    try {
+      setLoading(true);
+      await Categorys_Update(id, body);
+      toast({
+        title: t("UPDATE"),
+        description: t("Category updated successfully"),
+        duration: 3000,
+      });
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
@@ -122,7 +142,7 @@ export default function Category_Table({
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.description}</TableCell>
                   <TableCell>
-                    <Switch defaultChecked={item.is_active} />
+                    <Switch onCheckedChange={(value)=>handleUpdate(item._id,{is_active:value})} defaultChecked={item.is_active} />
                   </TableCell>
                   <TableCell>
                     <Button
@@ -130,7 +150,7 @@ export default function Category_Table({
                       size={"icon"}
                       variant={"ghost"}
                     >
-                      <Edit2Icon strokeWidth={1} />
+                      <FilePenLine strokeWidth={1} />
                     </Button>
                     <Button
                       onClick={() => {

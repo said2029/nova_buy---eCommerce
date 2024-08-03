@@ -309,7 +309,7 @@ const Categorys_Update = async (id: string, value: any) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 const Categorys_Delete = async (id: string) => {
   try {
@@ -318,7 +318,35 @@ const Categorys_Delete = async (id: string) => {
   } catch (error) {
     throw error;
   }
-}
+};
+
+// product
+const Product_Get_All = async (queris: {
+  search?: string;
+  isActive?: string;
+  PriceSort?: number;
+  page?: number;
+  category?:string
+}) => {
+  try {
+    const data = await Fetch.get(
+      `/product?search=${queris?.search}&isActive=${queris?.isActive}&PriceSort=${queris?.PriceSort}&page=${queris?.page}&category=${queris.category}`
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+const Product_Create = async (value: any) => {
+  try {
+    const data = await Fetch.post("/product/create", {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export {
   Setting_Store_Update,
@@ -351,5 +379,7 @@ export {
   Categorys_Get_all,
   Categorys_Create,
   Categorys_Update,
-  Categorys_Delete
+  Categorys_Delete,
+  Product_Get_All,
+  Product_Create
 };

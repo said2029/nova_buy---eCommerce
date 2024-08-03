@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { addCategory, updateCategory } from "@/Redux/Actions/Category";
+import { ReduxSelector } from "@/Redux/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -53,23 +54,7 @@ export default function page() {
     resolver: zodResolver(CategorySchema),
   });
   const ref_SheetButton = useRef<HTMLButtonElement>(null);
-  const [SubCategories, setSubCategories] = useState([]);
-
-  const get_subCategorys = async () => {
-    try {
-      const data = await Subcategories_Get_all({ search: "", page: 0 });
-      const array = data.body.map((item: any) => {
-        return { name: item.name, value: item._id };
-      });
-      setSubCategories(array);
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: "Error_Message",
-        variant: "destructive",
-      });
-    }
-  };
+  const SubCategories = useSelector(ReduxSelector).subCategury.subCateguries;
 
   const Create = async (value: any) => {
     try {
@@ -128,11 +113,6 @@ export default function page() {
       await update(value);
     }
   };
-
-  useEffect(() => {
-    get_subCategorys();
-  }, []);
-
   return (
     <MainProviderPerants name="Category">
       <section className="bg-gray-400/10 rounded-md w-full flex-wrap sm:flex-nowrap py-5 px-3 flex gap-2">
@@ -209,11 +189,12 @@ export default function page() {
                   <FormItem>
                     <FormControl>
                       <MultiSelectTest
-                        tryAgane={get_subCategorys}
                         name="SubCategories"
                         valueSelect={field.value}
                         onChange={field.onChange}
-                        options={SubCategories}
+                        options={SubCategories.map((item:any)=>{
+                          return { value: item._id, name: item.name };
+                        })}
                       />
                     </FormControl>
                     <FormMessage />

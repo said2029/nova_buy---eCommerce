@@ -20,7 +20,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { removeAttribute, setAttributes } from "@/Redux/Actions/Attribute";
 import { ReduxSelector } from "@/Redux/store";
 import clsx from "clsx";
-import { Edit2Icon, Trash } from "lucide-react";
+import { FilePenLine, Trash } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -149,7 +149,7 @@ export default function Attribute_Table({
                       size={"icon"}
                       variant={"ghost"}
                     >
-                      <Edit2Icon strokeWidth={1} />
+                      <FilePenLine strokeWidth={1} />
                     </Button>
                     <Button
                       onClick={() => Delete(item._id)}
