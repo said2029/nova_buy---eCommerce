@@ -1,4 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Attribute_all } from "@/Actions/quires";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+export const Get_Attribute = createAsyncThunk(
+  "Get_Attribute/AttributeSlice",
+  async () => {
+    return await Attribute_all({ search: "" });
+  }
+);
 
 const AttributeSlice = createSlice({
   name: "attributes",
@@ -29,6 +37,11 @@ const AttributeSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(Get_Attribute.fulfilled, (state, action) => {
+      state.attributes = action.payload;
+    });
+  }
 });
 
 export const { setAttributes, addAttribute, removeAttribute, updateAttribute } =

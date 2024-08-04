@@ -260,17 +260,53 @@ const SEO_schema = z.object({
 const Privacy_TC_schema = z.object({
   privacyPolicy: z.object({
     enable: z.boolean().optional(),
-    background: z.string().optional(), 
-    title: z.string().optional(), 
-    pageContent: z.string().optional(), 
+    background: z.string().optional(),
+    title: z.string().optional(),
+    pageContent: z.string().optional(),
   }),
 
   termsAndConditions: z.object({
     enable: z.boolean().optional(),
-    background: z.string().optional(), 
-    title: z.string().optional(), 
-    pageContent: z.string().optional(), 
+    background: z.string().optional(),
+    title: z.string().optional(),
+    pageContent: z.string().optional(),
   }),
+});
+//#endregion
+
+// product
+const fromShcema_Product = z.object({
+  titel: z.string(),
+  discription: z.string(),
+  salePrice: z.string(),
+  category: z.string(),
+  subCategory: z.array(
+    z.object({
+      name: z.string(),
+      value: z.string(),
+    })
+  ),
+  stock: z.string(),
+  images: z.array(z.string()).min(1),
+  colors: z.array(z.string()).default([]),
+  size: z.array(z.string()).default([]),
+  price: z.number(),
+  _id: z.string().optional(),
+  attribute: z
+    .array(
+      z.object({
+        attribute_id: z.string(),
+        values: z.array(
+          z.object({
+            name:z.string().optional(),
+            salePrice: z.string(),
+            price: z.string(),
+            stock: z.string(),
+          })
+        ),
+      })
+    )
+    .optional(),
 });
 
 export {
@@ -280,7 +316,6 @@ export {
   contact_us_schema,
   checkout_schema,
   SEO_schema,
-  Privacy_TC_schema
+  Privacy_TC_schema,
+  fromShcema_Product,
 };
-
-//#endregion

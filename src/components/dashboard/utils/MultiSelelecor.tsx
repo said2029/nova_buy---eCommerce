@@ -37,7 +37,7 @@ export function MultiSelectTest({
   tryAgane,
 }: {
   name?: string;
-  valueSelect: Array<{ name: string; value: string }>;
+  valueSelect: Array<{ name: string; value: string }> | undefined;
   onChange: (value: Array<{ name: string; value: string }>) => void;
   options: Array<{ name: string; value: string }>;
   tryAgane?: () => void;

@@ -348,6 +348,27 @@ const Product_Create = async (value: any) => {
   }
 };
 
+const Product_Update = async (id: string, value: any) => {
+  try {
+    const data = await Fetch.put(`/product/${id}`, {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+const Product_Delete = async (id: string) => {
+  try {
+    const data = await Fetch.delete(`/product/${id}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 export {
   Setting_Store_Update,
   Store_customiza_Update,
@@ -381,5 +402,7 @@ export {
   Categorys_Update,
   Categorys_Delete,
   Product_Get_All,
-  Product_Create
+  Product_Create,
+  Product_Update,
+  Product_Delete
 };

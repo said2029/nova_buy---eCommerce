@@ -17,8 +17,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { ReduxSelector } from "@/Redux/store";
 import { useCallback, useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { Product_Get_All } from "@/Actions/quires";
-import { setProducts } from "@/Redux/Actions/Products";
+import {
+  Product_Delete,
+  Product_Get_All,
+  Product_Update,
+} from "@/Actions/quires";
+import {
+  removeProduct,
+  setProducts,
+  updateProduct,
+} from "@/Redux/Actions/Products";
 import clsx from "clsx";
 import { Switch } from "@/components/ui/switch";
 import Avater_Image from "../utils/Avater_Image";
@@ -34,9 +42,10 @@ export default function Products_Table({
     PriceSort?: number;
     category?: string;
   };
-  openEdit: (item:any) => void;
+  openEdit: (item: any) => void;
 }) {
   const t = useTranslations("table");
+  const t_product = useTranslations("productPage");
   const dispatch = useDispatch();
   const Data = useSelector(ReduxSelector).product;
   const [isLoading, setLoading] = useState(true);
@@ -58,10 +67,51 @@ export default function Products_Table({
       });
     }
   };
+  const handleDelete = async (id: string) => {
+    try {
+      if (confirm(t("Coupon_Message_ConfermDelete"))) {
+        setLoading(true);
+        const data = await Product_Delete(id);
+        dispatch(removeProduct(id));
+        toast({
+          title: "DELETE",
+          description: t_product("Product_deleted_successfully"),
+        });
+        setLoading(false);
+      }
+    } catch (error: any) {
+      setLoading(false);
+      toast({
+        title: "Error deleting product",
+        description: error?.message,
+        variant: "destructive",
+      });
+    }
+  };
+  const handleSwitch = async (id: string, value: any) => {
+    try {
+      setLoading(true);
+      const data = await Product_Update(id, value);
+      dispatch(updateProduct({ isActive: data?.isActive }));
+      toast({
+        title: "Success",
+        description: t_product("Product_Message_Update"),
+      });
+      setLoading(false);
+    } catch (error: any) {
+      setLoading(false);
+      toast({
+        title: "Error updating product",
+        description: error?.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  
   useEffect(() => {
     Get_Data();
   }, [page]);
-
   useEffect(() => {
     const set = setTimeout(() => {
       setPage(0);
@@ -72,10 +122,12 @@ export default function Products_Table({
 
   return (
     <div className="relative">
-      <Table className={clsx("rounded-xl overflow-hidden border-2 border-red-400",{
-        "opacity-60": isLoading,
-        "pointer-events-none": isLoading,
-      })}>
+      <Table
+        className={clsx("rounded-xl overflow-hidden border-2 border-red-400", {
+          "opacity-60": isLoading,
+          "pointer-events-none": isLoading,
+        })}
+      >
         <TableHeader className="bg-gray-500/10">
           <TableRow>
             <TableHead>{t("ICON")}</TableHead>
@@ -116,18 +168,30 @@ export default function Products_Table({
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Switch defaultChecked={item.isActive} />
+                    <Switch
+                      onCheckedChange={(value) => {
+                        handleSwitch(item._id, { isActive: value });
+                      }}
+                      defaultChecked={item.isActive}
+                    />
                   </TableCell>
                   <TableCell className="flex flex-nowrap">
                     <Button size={"icon"} variant={"ghost"}>
-                      <FilePenLine onClick={()=>openEdit(item)} strokeWidth={1} />
+                      <FilePenLine
+                        onClick={() => openEdit(item)}
+                        strokeWidth={1}
+                      />
                     </Button>
-                    <Button size={"icon"} variant={"ghost"}>
+                    <Button
+                      onClick={() => handleDelete(item._id)}
+                      size={"icon"}
+                      variant={"ghost"}
+                    >
                       <Trash className="text-red-500" strokeWidth={1} />
                     </Button>
-                    <Button size={"icon"} variant={"ghost"}>
+                    {/* <Button size={"icon"} variant={"ghost"}>
                       <ZoomIn strokeWidth={1} />
-                    </Button>
+                    </Button> */}
                   </TableCell>
                 </TableRow>
               );

@@ -21,39 +21,36 @@ import * as zod from "zod";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { ReduxSelector } from "@/Redux/store";
-import { Product_Create } from "@/Actions/quires";
+import { Product_Create, Product_Update } from "@/Actions/quires";
 import { useDispatch } from "react-redux";
-import { addProduct } from "@/Redux/Actions/Products";
+import { addProduct, updateProduct } from "@/Redux/Actions/Products";
 import { useToast } from "@/components/ui/use-toast";
 import ButtonLoading from "@/components/dashboard/buttons/ButtonLoading";
 import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
+import Add_Attribute_Form from "./_components/add_attribute_form";
+import { fromShcema_Product as fromshcema} from "@/Types";
 
-const fromshcema = zod.object({
-  titel: zod.string(),
-  discription: zod.string(),
-  salePrice: zod.string(),
-  category: zod.string(),
-  subCategory: zod.array(
-    zod.object({
-      name: zod.string(),
-      value: zod.string(),
-    })
-  ),
-  stock: zod.string(),
-  images: zod.array(zod.string()).min(1),
-  colors: zod.array(zod.string()).default([]),
-  size: zod.array(zod.string()).default([]),
-  price: zod.string(),
-  _id: zod.string().optional(),
-});
 
 export default function page() {
   const t = useTranslations("productPage");
   const [ModeForm, setModeForm] = useState<"create" | "update">("create");
-  const { subCategury, Category } = useSelector(ReduxSelector);
+  const [Combination, setCombination] = useState<boolean>(false);
+  const { Category } = useSelector(ReduxSelector);
+  const [AttributeSelect, setAttributeSelect] = useState<
+    Array<{
+      attribute: { name: string; value: string };
+      salePrice?: string;
+      price?: string;
+      stock?: string;
+      values?: Array<{ name: string; value: string }>;
+    }>
+  >([]);
+
   const dispatch = useDispatch();
   const { toast } = useToast();
   const [filter, set_filter] = useState<{
@@ -93,14 +90,39 @@ export default function page() {
       });
     }
   };
+  const Update = async (value: any) => {
+    try {
+      const sub = value.subCategory.map((item: any) => {
+        return item.value;
+      });
+      const data = await Product_Update(value!._id, {
+        ...value,
+        subCategory: sub,
+      });
+      data.subCategory = value.subCategory;
+      dispatch(updateProduct(data));
+      ref_SheetButton.current?.click();
+      toast({
+        title: t("Success"),
+        description: t("Product_Message_Update"),
+        duration: 3000,
+      });
+    } catch (error: any) {
+      toast({
+        title: t("Error"),
+        description: error?.message,
+        duration: 3000,
+        variant: "destructive",
+      });
+    }
+  };
 
   const submit = async (value: zod.infer<typeof fromshcema>) => {
     if (ModeForm === "create") {
       await Create(value);
     } else {
       // // Update Product
-      // await Product_Update(value);
-      // ref_SheetButton.current?.click();
+      await Update(value);
     }
   };
 
@@ -180,208 +202,250 @@ export default function page() {
             }
             buttonName={t("Add Product")}
           >
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(submit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="images"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <>
-                          <Upload_Image
-                            name={Math.random().toString()}
-                            multiImages={true}
-                            value={field.value}
-                            onChange={field.onChange}
-                          />
-                          <DragDropContext onDragEnd={endDrag}>
-                            <Droppable direction="horizontal" droppableId="1">
-                              {(provided) => (
-                                <div
-                                  ref={provided.innerRef}
-                                  {...provided.droppableProps}
-                                  className="flex gap-1 flex-wrap  justify-around items-center"
+            <section className="flex justify-end items-center mb-6 gap-3">
+              <p>Combination</p>
+              <Switch
+                onCheckedChange={(value) => {
+                  setCombination(value);
+                }}
+              />
+            </section>
+            <Tabs>
+              <TabsList defaultValue="1">
+                <TabsTrigger
+                  defaultChecked={true}
+                  className="px-9 py-2 rounded-md"
+                  value="1"
+                >
+                  {t("Product_Info")}
+                </TabsTrigger>
+                {Combination && (
+                  <TabsTrigger className="px-9 py-2 rounded-md " value="2">
+                    {t("Combination")}
+                  </TabsTrigger>
+                )}
+              </TabsList>
+              <TabsContent value="1">
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(submit)}
+                    className="space-y-4"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="images"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <>
+                              <Upload_Image
+                                name={Math.random().toString()}
+                                multiImages={true}
+                                value={field.value}
+                                onChange={field.onChange}
+                              />
+                              <DragDropContext onDragEnd={endDrag}>
+                                <Droppable
+                                  direction="horizontal"
+                                  droppableId="1"
                                 >
-                                  {field?.value?.map((item, i) => {
-                                    return (
-                                      <Draggable
-                                        key={i}
-                                        draggableId={i.toString()}
-                                        index={i}
-                                      >
-                                        {(provided2) => (
-                                          <span
-                                            className="w-24 h-25 border relative border-dashed border-gray-400"
-                                            {...provided2.dragHandleProps}
-                                            {...provided2.draggableProps}
-                                            ref={provided2.innerRef}
+                                  {(provided) => (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.droppableProps}
+                                      className="flex gap-1 flex-wrap  justify-around items-center"
+                                    >
+                                      {field?.value?.map((item, i) => {
+                                        return (
+                                          <Draggable
+                                            key={i}
+                                            draggableId={i.toString()}
+                                            index={i}
                                           >
-                                            <Button
-                                              onClick={() => {
-                                                form.setValue(
-                                                  "images",
-                                                  field.value.filter(
-                                                    (_, index) => index !== i
-                                                  )
-                                                );
-                                              }}
-                                              type="button"
-                                              size={"sm"}
-                                              className="absolute top-1 right-1 bg-red-400"
-                                            >
-                                              <X size={16} />
-                                            </Button>
-                                            <Image
-                                              src={item}
-                                              width={512}
-                                              height={512}
-                                              alt={item}
-                                            />
-                                          </span>
-                                        )}
-                                      </Draggable>
-                                    );
-                                  })}
-                                  {provided.placeholder}
-                                </div>
+                                            {(provided2) => (
+                                              <span
+                                                className="w-24 h-25 border relative border-dashed border-gray-400"
+                                                {...provided2.dragHandleProps}
+                                                {...provided2.draggableProps}
+                                                ref={provided2.innerRef}
+                                              >
+                                                <Button
+                                                  onClick={() => {
+                                                    form.setValue(
+                                                      "images",
+                                                      field.value.filter(
+                                                        (_, index) =>
+                                                          index !== i
+                                                      )
+                                                    );
+                                                  }}
+                                                  type="button"
+                                                  size={"sm"}
+                                                  className="absolute top-1 right-1 bg-red-400"
+                                                >
+                                                  <X size={16} />
+                                                </Button>
+                                                <Image
+                                                  src={item}
+                                                  width={512}
+                                                  height={512}
+                                                  alt={item}
+                                                />
+                                              </span>
+                                            )}
+                                          </Draggable>
+                                        );
+                                      })}
+                                      {provided.placeholder}
+                                    </div>
+                                  )}
+                                </Droppable>
+                              </DragDropContext>
+                            </>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="titel"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input placeholder={t("Title")} {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="discription"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Textarea
+                              placeholder={t("Discription")}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="flex gap-2">
+                      <FormField
+                        control={form.control}
+                        name="salePrice"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input
+                                className="min-w-full"
+                                step={0.1}
+                                type="number"
+                                placeholder={t("Sale Price")}
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="price"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input
+                                step={0.1}
+                                type="number"
+                                placeholder={t("Price")}
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <FormField
+                      control={form.control}
+                      name="stock"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder={t("stock")}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="category"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Selector
+                              defaultName="Category"
+                              options={CategoryOptions}
+                              value={field.value}
+                              onChange={(value) => {
+                                field.onChange(value);
+                                SetCategorySelect();
+                              }}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="subCategory"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <MultiSelectTest
+                              options={singlCategorySelect?.all_sub_Categories?.map(
+                                (item: any) => {
+                                  return { name: item.name, value: item._id };
+                                }
                               )}
-                            </Droppable>
-                          </DragDropContext>
-                        </>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="titel"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder={t("Title")} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="discription"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Textarea placeholder={t("Discription")} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="flex gap-2">
-                  <FormField
-                    control={form.control}
-                    name="salePrice"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            step={0.1}
-                            type="number"
-                            placeholder={t("Sale Price")}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="price"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Input
-                            step={0.1}
-                            type="number"
-                            placeholder={t("Price")}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <FormField
-                  control={form.control}
-                  name="stock"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder={t("stock")}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="category"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Selector
-                          defaultName="Category"
-                          options={CategoryOptions}
-                          value={field.value}
-                          onChange={(value) => {
-                            field.onChange(value);
-                            SetCategorySelect();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="subCategory"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <MultiSelectTest
-                          options={singlCategorySelect?.all_sub_Categories?.map(
-                            (item: any) => {
-                              return { name: item.name, value: item._id };
-                            }
-                          )}
-                          name="SubCategory"
-                          valueSelect={field.value}
-                          onChange={field.onChange}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <ButtonLoading
-                  className="static w-full"
-                  loading={form.formState.isSubmitting}
-                  name={
-                    ModeForm === "create"
-                      ? t("Add Product")
-                      : t("Update Product")
-                  }
-                />
-              </form>
-            </Form>
+                              name="SubCategory"
+                              valueSelect={field.value}
+                              onChange={field.onChange}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <ButtonLoading
+                      className="static w-full"
+                      loading={form.formState.isSubmitting}
+                      name={
+                        ModeForm === "create"
+                          ? t("Add Product")
+                          : t("Update Product")
+                      }
+                    />
+                  </form>
+                </Form>
+              </TabsContent>
+              {Combination && (
+                <TabsContent className="flex gap-5" value="2">
+                  <Add_Attribute_Form form={form} AttributeSelect={AttributeSelect} setAttributeSelect={setAttributeSelect}/>
+                </TabsContent>
+              )}
+            </Tabs>
           </SheetControlle>
           <Button
             onClick={() => {
@@ -400,7 +464,7 @@ export default function page() {
         <div className="mt-8 p-4 bg-gray-400/10 rounded-md">
           <Products_Table
             filter={filter}
-            openEdit={(item:any) => {
+            openEdit={(item: any) => {
               ref_SheetButton.current?.click();
               setModeForm("update");
               form.setValue("discription", item.discription);
@@ -413,11 +477,10 @@ export default function page() {
               form.setValue("category", item.category[0]._id);
               console.log(item.salePrice);
               SetCategorySelect();
-              const sub = item.sub_categories.map((item:any)=>{
-                return {name:item.name,value:item._id}
-              })
+              const sub = item.sub_categories.map((item: any) => {
+                return { name: item.name, value: item._id };
+              });
               form.setValue("subCategory", sub);
-
             }}
           />
         </div>

@@ -46,7 +46,7 @@ export function SheetControlle({
           {buttonName}
         </Button>
       </SheetTrigger>
-      <SheetContent className="sm:max-w-[425px] overflow-auto">
+      <SheetContent className="sm:max-w-[600px] resize overflow-auto">
         <SheetHeader className="mb-5">
           <SheetTitle>{tital}</SheetTitle>
         </SheetHeader>
