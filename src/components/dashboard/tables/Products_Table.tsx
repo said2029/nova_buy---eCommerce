@@ -155,7 +155,7 @@ export default function Products_Table({
                   <TableCell>{item.titel}</TableCell>
                   <TableCell>{item.category[0].name}</TableCell>
                   <TableCell> ${item.price}</TableCell>
-                  <TableCell> ${item.salePrice.$numberDecimal}</TableCell>
+                  <TableCell> ${item.salePrice}</TableCell>
                   <TableCell>{item.stock}</TableCell>
                   <TableCell>
                     <Badge

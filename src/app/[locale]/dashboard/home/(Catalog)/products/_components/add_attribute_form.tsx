@@ -1,11 +1,11 @@
 import { MultiSelectTest } from "@/components/dashboard/utils/MultiSelelecor";
 import { ReduxSelector } from "@/Redux/store";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { fromShcema_Product } from "@/Types";
 import * as zod from "zod";
-import { FormField } from "@/components/ui/form";
+import { FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -22,7 +22,7 @@ export default function Add_Attribute_Form({
   setAttributeSelect,
   form,
 }: {
-  AttributeSelect: any;
+  AttributeSelect: Array<any>;
   setAttributeSelect: any;
   form?: UseFormReturn<zod.infer<typeof fromShcema_Product>>;
 }) {
@@ -32,31 +32,24 @@ export default function Add_Attribute_Form({
     control: form?.control,
   });
 
-  useEffect(() => {
-    Change();
-  }, [AttributeSelect]);
+  // useEffect(() => {
+  // }, []);
 
   const Change = () => {
     const body = AttributeSelect.map((item: any) => {
       const attri = Attribute.attributes.find(
         (item1: any) => item1._id == item.attribute.value
       );
-      console.log(item?.values);
       return {
         attribute_id: item.attribute.value,
         values: item?.values?.map((i: any) => {
           return {
-            value: i,
-            salePrice: item?.salePrice || attri.salePrice,
-            price: item?.price || attri.priceprice,
-            stock: item?.stock || attri.stock,
+            name: i.name,
           };
         }),
       };
     });
-
     form?.setValue("attribute", body);
-    console.log("body      >", body);
   };
 
   return (
@@ -66,12 +59,16 @@ export default function Add_Attribute_Form({
           valueSelect={AttributeSelect.map((item: any) => item.attribute)}
           onChange={(value) => {
             setAttributeSelect(
-              value.map((item) => {
+              value.map((item, index) => {
                 return {
                   attribute: item,
+                  ...(AttributeSelect[index]?.values && {
+                    values: AttributeSelect[index]?.values,
+                  }),
                 };
               })
             );
+            console.log("AttributeSelect  ", AttributeSelect);
           }}
           options={Attribute?.attributes.map((item: any) => {
             return { value: item._id, name: item.name };
@@ -94,6 +91,7 @@ export default function Add_Attribute_Form({
                   values: value,
                 };
                 setAttributeSelect(newAttri);
+                Change();
               }}
               options={Attribute.attributes
                 .find((item1: any) => item1._id == item.attribute.value)
@@ -118,8 +116,8 @@ export default function Add_Attribute_Form({
             {fields?.map((item2, index1: number) => {
               return item2?.values?.map((item: any, index2: number) => {
                 return (
-                  <TableRow key={item.value.value}>
-                    <TableCell>{item.value.name}</TableCell>
+                  <TableRow key={item.name}>
+                    <TableCell>{item.name}</TableCell>
                     <TableCell>
                       <FormField
                         control={form?.control}

@@ -278,7 +278,7 @@ const Privacy_TC_schema = z.object({
 const fromShcema_Product = z.object({
   titel: z.string(),
   discription: z.string(),
-  salePrice: z.string(),
+  salePrice: z.string().optional(),
   category: z.string(),
   subCategory: z.array(
     z.object({
@@ -286,22 +286,20 @@ const fromShcema_Product = z.object({
       value: z.string(),
     })
   ),
-  stock: z.string(),
+  stock: z.string().optional(),
   images: z.array(z.string()).min(1),
-  colors: z.array(z.string()).default([]),
-  size: z.array(z.string()).default([]),
-  price: z.number(),
+  price: z.string().optional(),
   _id: z.string().optional(),
   attribute: z
     .array(
       z.object({
-        attribute_id: z.string(),
+        attribute_id: z.string().optional(),
         values: z.array(
           z.object({
-            name:z.string().optional(),
-            salePrice: z.string(),
-            price: z.string(),
-            stock: z.string(),
+            name: z.string().optional(),
+            salePrice: z.string().optional(),
+            price: z.string().optional(),
+            stock: z.string().optional(),
           })
         ),
       })

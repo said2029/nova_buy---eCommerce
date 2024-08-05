@@ -33,37 +33,36 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import Add_Attribute_Form from "./_components/add_attribute_form";
-import { fromShcema_Product as fromshcema} from "@/Types";
-
+import { fromShcema_Product as fromshcema } from "@/Types";
+import clsx from "clsx";
 
 export default function page() {
   const t = useTranslations("productPage");
   const [ModeForm, setModeForm] = useState<"create" | "update">("create");
   const [Combination, setCombination] = useState<boolean>(false);
   const { Category } = useSelector(ReduxSelector);
-  const [AttributeSelect, setAttributeSelect] = useState<
-    Array<{
-      attribute: { name: string; value: string };
-      salePrice?: string;
-      price?: string;
-      stock?: string;
-      values?: Array<{ name: string; value: string }>;
-    }>
-  >([]);
+  const [singlCategorySelect, setSinglCategorySelect] = useState<any>({});
+  const ref_SheetButton = useRef<HTMLButtonElement>(null);
 
   const dispatch = useDispatch();
   const { toast } = useToast();
+
   const [filter, set_filter] = useState<{
     search?: string;
     isActive?: string;
     PriceSort?: number;
     category?: string;
   }>({ PriceSort: 1, search: "", isActive: undefined, category: undefined });
+  const [AttributeSelect, setAttributeSelect] = useState<
+    Array<{
+      attribute: { name: string; value: string };
+      values?: Array<{ name: string; value: string }>;
+    }>
+  >([]);
+
   const form = useForm<zod.infer<typeof fromshcema>>({
     resolver: zodResolver(fromshcema),
   });
-  const [singlCategorySelect, setSinglCategorySelect] = useState<any>({});
-  const ref_SheetButton = useRef<HTMLButtonElement>(null);
   const CategoryOptions = Category.categories.map((item: any) => {
     return { name: item.name, value: item._id };
   });
@@ -95,9 +94,13 @@ export default function page() {
       const sub = value.subCategory.map((item: any) => {
         return item.value;
       });
+      const Attri = value.attribute.map((attr:any)=>{
+        return {name:attr.name}
+      })
       const data = await Product_Update(value!._id, {
         ...value,
         subCategory: sub,
+        Attrubute:Attri
       });
       data.subCategory = value.subCategory;
       dispatch(updateProduct(data));
@@ -118,10 +121,10 @@ export default function page() {
   };
 
   const submit = async (value: zod.infer<typeof fromshcema>) => {
+    console.log(value);
     if (ModeForm === "create") {
       await Create(value);
     } else {
-      // // Update Product
       await Update(value);
     }
   };
@@ -172,7 +175,6 @@ export default function page() {
           />
           <Selector
             onChange={(value) => {
-              console.log("   filter  ");
               if (value == "true" || value == "false") {
                 set_filter({ ...filter, isActive: value });
               } else {
@@ -195,6 +197,8 @@ export default function page() {
               setModeForm("create");
               form.reset();
               SetCategorySelect();
+              setAttributeSelect([]);
+              setCombination(false);
             }}
             SheetTriggerRef={ref_SheetButton}
             tital={
@@ -205,15 +209,16 @@ export default function page() {
             <section className="flex justify-end items-center mb-6 gap-3">
               <p>Combination</p>
               <Switch
+                defaultChecked={Combination}
                 onCheckedChange={(value) => {
                   setCombination(value);
                 }}
               />
             </section>
-            <Tabs>
-              <TabsList defaultValue="1">
+            <Tabs defaultChecked defaultValue="1">
+              <TabsList>
                 <TabsTrigger
-                  defaultChecked={true}
+                  defaultChecked
                   className="px-9 py-2 rounded-md"
                   value="1"
                 >
@@ -334,7 +339,12 @@ export default function page() {
                         </FormItem>
                       )}
                     />
-                    <div className="flex gap-2">
+                    <div
+                      className={clsx("flex gap-2", {
+                        "opacity-60": Combination,
+                        "pointer-events-none": Combination,
+                      })}
+                    >
                       <FormField
                         control={form.control}
                         name="salePrice"
@@ -442,7 +452,11 @@ export default function page() {
               </TabsContent>
               {Combination && (
                 <TabsContent className="flex gap-5" value="2">
-                  <Add_Attribute_Form form={form} AttributeSelect={AttributeSelect} setAttributeSelect={setAttributeSelect}/>
+                  <Add_Attribute_Form
+                    form={form}
+                    AttributeSelect={AttributeSelect}
+                    setAttributeSelect={setAttributeSelect}
+                  />
                 </TabsContent>
               )}
             </Tabs>
@@ -467,20 +481,46 @@ export default function page() {
             openEdit={(item: any) => {
               ref_SheetButton.current?.click();
               setModeForm("update");
+              setAttributeSelect([]);
               form.setValue("discription", item.discription);
-              form.setValue("_id", item._id);
-              form.setValue("titel", item.titel);
-              form.setValue("price", item.price);
-              form.setValue("salePrice", item.salePrice.$numberDecimal);
-              form.setValue("stock", item.stock);
-              form.setValue("images", item.images);
-              form.setValue("category", item.category[0]._id);
-              console.log(item.salePrice);
+              form.setValue("_id", item?._id);
+              form.setValue("titel", item?.titel);
+              form.setValue("price", item?.price);
+              form.setValue("salePrice", item?.salePrice);
+              form.setValue("stock", item?.stock);
+              form.setValue("images", item?.images);
+              form.setValue("category", item?.category[0]?._id);
               SetCategorySelect();
-              const sub = item.sub_categories.map((item: any) => {
-                return { name: item.name, value: item._id };
+              const sub = item?.sub_categories?.map((item: any) => {
+                return { name: item?.name, value: item._id };
               });
               form.setValue("subCategory", sub);
+
+              const Attribute = item?.attribute?.map(
+                (attri: any, index: number) => {
+                  return {
+                    attribute_id: attri?.attribute_id,
+                    attribute: {
+                      name: item?.Attrubute[index]?.name,
+                      value: attri?.attribute_id,
+                    },
+                    values: attri?.values?.map((v: any) => {
+                      return {
+                        name: v?.name,
+                        value: v?._id,
+                        salePrice: v?.salePrice,
+                        price: v?.price,
+                        stock: v?.stock,
+                      };
+                    }),
+                  };
+                }
+              );
+              form.setValue("attribute", Attribute);
+              setAttributeSelect(Attribute);
+              console.log("AttributeSelect  ",AttributeSelect);
+              setCombination(Attribute.length >= 1);
+
             }}
           />
         </div>
