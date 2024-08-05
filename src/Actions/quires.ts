@@ -388,7 +388,7 @@ export {
   Attribute_Update,
   Attribute_Delete,
   Attribute_ById,
-  Attribute_all,
+Attribute_all,
   Coupon_Get_All,
   Coupon_Create,
   Coupon_Update,

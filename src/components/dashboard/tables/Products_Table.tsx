@@ -149,7 +149,7 @@ export default function Products_Table({
                   key={item._id}
                   className="border-0 border-red-400 text-nowrap"
                 >
-                  <TableCell>
+                  <TableCell className="flex justify-center w-full">
                     <Avater_Image image={item.images[0]} />
                   </TableCell>
                   <TableCell>{item.titel}</TableCell>
@@ -175,7 +175,7 @@ export default function Products_Table({
                       defaultChecked={item.isActive}
                     />
                   </TableCell>
-                  <TableCell className="flex flex-nowrap">
+                  <TableCell className="flex flex-nowrap justify-center w-full">
                     <Button size={"icon"} variant={"ghost"}>
                       <FilePenLine
                         onClick={() => openEdit(item)}
@@ -189,9 +189,6 @@ export default function Products_Table({
                     >
                       <Trash className="text-red-500" strokeWidth={1} />
                     </Button>
-                    {/* <Button size={"icon"} variant={"ghost"}>
-                      <ZoomIn strokeWidth={1} />
-                    </Button> */}
                   </TableCell>
                 </TableRow>
               );

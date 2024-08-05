@@ -94,13 +94,13 @@ export default function page() {
       const sub = value.subCategory.map((item: any) => {
         return item.value;
       });
-      const Attri = value.attribute.map((attr:any)=>{
-        return {name:attr.name}
-      })
+      const Attri = value.attribute.map((attr: any) => {
+        return { name: attr.name };
+      });
       const data = await Product_Update(value!._id, {
         ...value,
         subCategory: sub,
-        Attrubute:Attri
+        Attrubute: Attri,
       });
       data.subCategory = value.subCategory;
       dispatch(updateProduct(data));
@@ -388,6 +388,7 @@ export default function page() {
                         <FormItem>
                           <FormControl>
                             <Input
+                            disabled={Combination}
                               type="number"
                               placeholder={t("stock")}
                               {...field}
@@ -518,9 +519,8 @@ export default function page() {
               );
               form.setValue("attribute", Attribute);
               setAttributeSelect(Attribute);
-              console.log("AttributeSelect  ",AttributeSelect);
+              console.log("AttributeSelect  ", AttributeSelect);
               setCombination(Attribute.length >= 1);
-
             }}
           />
         </div>
