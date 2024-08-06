@@ -57,6 +57,14 @@ const Global_Setting_Get = async () => {
 };
 
 // our staff
+const GetByEmail = async (email: string) => {
+  try {
+    const data = await Fetch.get(`/staff/get_email/${email}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 const OurStaff_Create = async (value: any) => {
   const data = await Fetch.post("/staff/create", {
     body: JSON.stringify(value),
@@ -188,7 +196,7 @@ const Attribute_ById = async (id: string) => {
   }
 };
 // coupons
-const Coupon_Get_All = async (queris: { search: ""; page: number }) => {
+const Coupon_Get_All = async (queris: { search: string; page: number }) => {
   try {
     const data = await Fetch.get(
       `/coupon?search=${queris.search}&page=${queris.page}`
@@ -326,7 +334,7 @@ const Product_Get_All = async (queris: {
   isActive?: string;
   PriceSort?: number;
   page?: number;
-  category?:string
+  category?: string;
 }) => {
   try {
     const data = await Fetch.get(
@@ -357,7 +365,7 @@ const Product_Update = async (id: string, value: any) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 const Product_Delete = async (id: string) => {
   try {
@@ -368,6 +376,46 @@ const Product_Delete = async (id: string) => {
   }
 };
 
+// dasboard
+const Dashboard_get = async () => {
+  try {
+    const data = await Fetch.get("/dasboard");
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// log In dashboard
+const sign_in_Dashboard = async (value: any) => {
+  try {
+    const data = await Fetch.post("/staff/login", {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// send Email
+
+const send_Email = async (value: {
+  from?: string;
+  to: string;
+  subject?: string;
+  text?: string;
+  html?: string;
+}) => {
+  try {
+    const data = await Fetch.post("/sendEmail/send", {
+      body: JSON.stringify(value),
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export {
   Setting_Store_Update,
@@ -379,6 +427,7 @@ export {
   OurStaff_Get_all,
   OurStaff_Update,
   OurStaff_Delete,
+  GetByEmail,
   Orders_Get_All,
   Order_Update,
   User_Get_All,
@@ -388,7 +437,7 @@ export {
   Attribute_Update,
   Attribute_Delete,
   Attribute_ById,
-Attribute_all,
+  Attribute_all,
   Coupon_Get_All,
   Coupon_Create,
   Coupon_Update,
@@ -404,5 +453,8 @@ Attribute_all,
   Product_Get_All,
   Product_Create,
   Product_Update,
-  Product_Delete
+  Product_Delete,
+  Dashboard_get,
+  sign_in_Dashboard,
+  send_Email,
 };

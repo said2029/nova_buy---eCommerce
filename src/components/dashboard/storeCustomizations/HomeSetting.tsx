@@ -23,8 +23,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { PlusCircleIcon, Trash } from "lucide-react";
 import { useTranslations } from "next-intl";
 import ButtonLoading from "../buttons/ButtonLoading";
-import { Store_customiza_Update } from "@/Actions/quires";
+import { Coupon_Get_All, Store_customiza_Update } from "@/Actions/quires";
 import { useToast } from "@/components/ui/use-toast";
+import { useSelector } from "react-redux";
+import { ReduxSelector } from "@/Redux/store";
+import { useDispatch } from "react-redux";
+import { setCoupon } from "@/Redux/Actions/Coupon";
 
 const Menu_Editor = [
   "categories",
@@ -45,7 +49,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
     resolver: zodResolver(HomeSettingSchema),
     defaultValues: defaultData,
   });
-  const {toast} = useToast();
+  const { toast } = useToast();
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -62,7 +66,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
 
   const submit = async (data: z.infer<typeof HomeSettingSchema>) => {
     try {
-      await Store_customiza_Update({HomeSetting:data});
+      await Store_customiza_Update({ HomeSetting: data });
       toast({
         title: "Home Setting Updated Successfully",
         description: "Changes saved successfully",
@@ -74,10 +78,12 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
         title: "Error Saving Home Setting",
         description: error?.message,
         duration: 2000,
-      })
+      });
     }
   };
   const t = useTranslations("storeCustomizations");
+  const { Coupon } = useSelector(ReduxSelector);
+  const dispatch = useDispatch();
 
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-2">
@@ -318,12 +324,9 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     <div className="w-full col-span-3">
                       <Switch
                         defaultChecked={field.value}
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
-                        
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
-                      <FormMessage {...field}/>
+                      <FormMessage {...field} />
                     </div>
                   </FormItem>
                 )}
@@ -351,9 +354,20 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Active Coupon Code</FormLabel>
                     <div className="w-full col-span-3">
                       <MultiSelectTest
+                        ApiSearch={true}
+                        onSearch={async (value) => {
+                          const body = await Coupon_Get_All({
+                            search: value,
+                            page: 0,
+                          });
+                          console.log(body);
+                          dispatch(setCoupon(body));
+                        }}
                         onChange={field.onChange}
                         valueSelect={field.value}
-                        options={["sdfsdf", "dsfsdfs"]}
+                        options={Coupon.coupon.map((item: any) => {
+                          return { name: item.name, value: item._id };
+                        })}
                         name="Coupons"
                       />
                       <FormMessage />
@@ -375,9 +389,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
+                        onCheckedChange={(value) => field.onChange(value)}
                         defaultChecked={field.value}
                       />
                       <FormMessage />
@@ -457,9 +469,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
+                        onCheckedChange={(value) => field.onChange(value)}
                         defaultChecked={field.value}
                       />
                       <FormMessage />
@@ -533,9 +543,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
+                        onCheckedChange={(value) => field.onChange(value)}
                         defaultChecked={field.value}
                       />
                       <FormMessage />
@@ -643,9 +651,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
+                        onCheckedChange={(value) => field.onChange(value)}
                         defaultChecked={field.value}
                       />
                       <FormMessage />
@@ -718,9 +724,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Show</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
+                        onCheckedChange={(value) => field.onChange(value)}
                         defaultChecked={field.value}
                       />
                       <FormMessage />
@@ -874,9 +878,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Show Promo Section</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
+                        onCheckedChange={(value) => field.onChange(value)}
                         defaultChecked={field.value}
                       />
                       <FormMessage />
@@ -1044,9 +1046,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                       <FormLabel className="w-full">Active</FormLabel>
                       <div className="w-full col-span-3">
                         <Switch
-                          onCheckedChange={(value) =>
-                            field.onChange(value)
-                          }
+                          onCheckedChange={(value) => field.onChange(value)}
                           defaultChecked={field.value}
                         />
                         <FormMessage />
@@ -1121,9 +1121,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                       <FormLabel className="w-full">Active</FormLabel>
                       <div className="w-full col-span-3">
                         <Switch
-                          onCheckedChange={(value) =>
-                            field.onChange(value)
-                          }
+                          onCheckedChange={(value) => field.onChange(value)}
                           defaultChecked={field.value}
                         />
                         <FormMessage />
@@ -1209,9 +1207,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     <FormLabel className="w-full">Show PaymentMethod</FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
+                        onCheckedChange={(value) => field.onChange(value)}
                         defaultChecked={field.value}
                       />
                       <FormMessage />
@@ -1249,9 +1245,7 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                     </FormLabel>
                     <div className="w-full col-span-3">
                       <Switch
-                        onCheckedChange={(value) =>
-                          field.onChange(value)
-                        }
+                        onCheckedChange={(value) => field.onChange(value)}
                         defaultChecked={field.value}
                       />
                       <FormMessage />

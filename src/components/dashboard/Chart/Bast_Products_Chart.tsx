@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { PolarArea } from "react-chartjs-2";
 
-export default function Bast_Products_Chart() {
+export default function Bast_Products_Chart({labels,Data}:{labels:[],Data:[]}) {
   const [chartData, SetchartData] = useState<ChartData<
     "polarArea",
     number[],
@@ -28,7 +28,7 @@ export default function Bast_Products_Chart() {
 
     );
     SetchartData({
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+      labels: labels,
       datasets: [
         {
           label: "Best Selling",
@@ -39,7 +39,7 @@ export default function Bast_Products_Chart() {
             "rgba(75, 192, 192, 0.2)",
             "rgba(153, 102, 2)",
           ],
-          data: [12, 590, 80, 81, 56],
+          data: Data,
           borderColor: "rgb(75, 192, 192)",
           borderWidth: 1,
           hoverBackgroundColor: "rgba(255,99,132,1)",

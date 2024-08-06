@@ -30,7 +30,11 @@ const HomeSettingSchema = z.object({
     )
     .default([]),
   superDiscountCouponIsActive: z.boolean().optional().default(false),
-  superDiscountCouponsCode: z.array(z.string().default("")).default([]),
+  superDiscountCouponsCode: z
+    .array(
+      z.object({ name: z.string().default(""), value: z.string().default("") })
+    )
+    .default([]),
   superDiscountTitle: z.string().default(""),
 
   promotionBannerIsActive: z.boolean().optional().default(false),

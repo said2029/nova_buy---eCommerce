@@ -8,6 +8,11 @@ export default createMiddleware({
   defaultLocale: "en",
 });
 
+//  log in
+function middleware(req: any, res: any) {
+  console.log(req.header);
+}
+
 export const config = {
   // Match only internationalized pathnames
   matcher: [

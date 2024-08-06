@@ -26,21 +26,26 @@ import {
 } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import clsx from "clsx";
+import { Input } from "@/components/ui/input";
 
 export function MultiSelectTest({
   name,
   valueSelect = [],
   onChange,
   options = [],
+  ApiSearch = false,
   tryAgane,
+  onSearch,
 }: {
   name?: string;
   valueSelect: Array<{ name: string; value: string }> | undefined;
   onChange: (value: Array<{ name: string; value: string }>) => void;
   options: Array<{ name: string; value: string }>;
   tryAgane?: () => void;
+  onSearch?: (search: string) => Promise<any>;
+  ApiSearch?: boolean;
 }) {
   const [tags, setTags] =
     useState<Array<{ name: string; value: string }>>(valueSelect);
@@ -57,6 +62,23 @@ export function MultiSelectTest({
     setTags(tags);
     onChange(tags);
   };
+
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [option, setOption] =
+    useState<Array<{ name: string; value: string }>>();
+
+  useEffect(() => {
+    setOption(options);
+    console.log("options", option);
+  }, [options]);
+  useEffect(() => {
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [timeoutId]);
+
   return (
     <Popover>
       <PopoverTrigger className="w-full">
@@ -69,15 +91,30 @@ export function MultiSelectTest({
         </div>
       </PopoverTrigger>
       <PopoverContent>
-        <Command className="rounded-lg border shadow-md relative">
-          <CommandInput placeholder="Type a command or search..." />
+        {ApiSearch && (
+          <Input
+            className="focus:border-none focus-visible:border-none"
+            onChange={async (value) => {
+              console.log(value.target?.value);
+              setTimeoutId(
+                setTimeout(async () => {
+                  if (onSearch) await onSearch(value.target?.value || "");
+                }, 1000)
+              );
+            }}
+            placeholder="Type a command or search..."
+          />
+        )}
+        <Command className="rounded-lg mt-4 border shadow-md relative">
+          {!ApiSearch && (
+            <CommandInput placeholder="Type a command or search..." />
+          )}
           <CommandList aria-disabled={false}>
             <CommandEmpty className="flex flex-col gap-4 items-center justify-center">
               No results found.
-              {tryAgane && <Button onClick={tryAgane}>Try Agane?</Button>}
             </CommandEmpty>
             <CommandGroup>
-              {options.map((item, i) => {
+              {option?.map((item, i) => {
                 const Incloud = tags.some((tg) => tg.value == item.value);
                 return (
                   <CommandItem

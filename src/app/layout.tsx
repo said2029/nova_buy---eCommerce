@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
+
 import "./globals.css";
 import { ThemeProvider } from "@/Providers/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
@@ -26,7 +27,9 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
+
   const messages = await getMessages();
+
   return (
     <html lang={locale}>
       <head>

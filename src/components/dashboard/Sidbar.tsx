@@ -19,6 +19,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { useTranslations } from "next-intl";
 
 export default function Sidbar({
   isOpen,
@@ -36,6 +37,7 @@ export default function Sidbar({
   useEffect(() => {
     animationControlle.start(isOpen ? "open" : "closed");
   }, [isOpen]);
+  const t = useTranslations("navBar");
   return (
     <motion.aside
       variants={{
@@ -76,31 +78,31 @@ export default function Sidbar({
         <ul className="space-y-7 opacity-75">
           <li>
             <Link className={li_class + li_class_border} href={"/dashboard/home"}>
-              <Table strokeWidth={1} /> Dashboard
+              <Table strokeWidth={1} /> {t("Dashboard")}
             </Link>
           </li>
           <li className={li_class_border}>
             <Collapsible>
               <CollapsibleTrigger className={li_class}>
                 <FolderKanban strokeWidth={1} />
-                Catalog
+                {t("Catalog")}
               </CollapsibleTrigger>
               <CollapsibleContent className="bg-slate-50/10 rounded-md p-1">
                 <ul className="px-6 flex flex-col gap-2 my-2">
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dashboard/home/products"}>Products</Link>
+                    <Link href={"/dashboard/home/products"}>{t("Products")}</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dashboard/home/categories"}>Category</Link>
+                    <Link href={"/dashboard/home/categories"}>{t("Category")}</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dashboard/home/subCategory"}>SubCategory</Link>
+                    <Link href={"/dashboard/home/subCategory"}>{t("SubCategory")}</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dashboard/home/attribute"}>Attribute</Link>
+                    <Link href={"/dashboard/home/attribute"}>{t("Attribute")}</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dashboard/home/coupon"}>Coupon</Link>
+                    <Link href={"/dashboard/home/coupon"}>{t("Coupon")}</Link>
                   </li>
                 </ul>
               </CollapsibleContent>
@@ -111,7 +113,7 @@ export default function Sidbar({
               className={li_class + li_class_border}
               href={"/dashboard/home/users"}
             >
-              <Users strokeWidth={1} /> Users
+              <Users strokeWidth={1} /> {t("Users")}
             </Link>
           </li>
           <li>
@@ -119,7 +121,7 @@ export default function Sidbar({
               className={li_class + li_class_border}
               href={"/dashboard/home/orders"}
             >
-              <Box strokeWidth={1} /> Orders
+              <Box strokeWidth={1} /> {t("Orders")}
             </Link>
           </li>
           <li>
@@ -127,7 +129,7 @@ export default function Sidbar({
               className={li_class + li_class_border}
               href={"/dashboard/home/ourStaff"}
             >
-              <UserCog strokeWidth={1} /> Our Staff
+              <UserCog strokeWidth={1} /> {t("Our Staff")}
             </Link>
           </li>
           <li>
@@ -135,25 +137,25 @@ export default function Sidbar({
               className={li_class + li_class_border}
               href={"/dashboard/home/setting"}
             >
-              <Settings strokeWidth={1} /> Settings
+              <Settings strokeWidth={1} /> {t("Settings")}
             </Link>
           </li>
           <li className={li_class_border}>
             <Collapsible>
               <CollapsibleTrigger className={li_class}>
                 <Settings2 />
-                Store Setting
+                {t("Store Setting")}
               </CollapsibleTrigger>
               <CollapsibleContent className="bg-slate-50/10 rounded-md p-1">
                 <ul className="px-6 flex flex-col gap-2 my-2">
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    View Store
+                    {t("View Store")}
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href={"/dashboard/home/storeCustomizations"}>Store Customizations</Link>
+                    <Link href={"/dashboard/home/storeCustomizations"}>{t("Store Customizations")}</Link>
                   </li>
                   <li className="hover:opacity-55 duration-300 cursor-pointer">
-                    <Link href="/dashboard/home/storeSetting">Store Setting</Link>
+                    <Link href="/dashboard/home/storeSetting">{t("Store Setting")}</Link>
                   </li>
                 </ul>
               </CollapsibleContent>

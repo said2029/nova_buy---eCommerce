@@ -106,7 +106,7 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
         </TableHeader>
         {!isLoading && (
           <>
-            <TableBody className="border-2 border-red-400 text-nowrap">
+            <TableBody className="border-2 text-center border-red-400 text-nowrap">
               {Orders?.orders.length >= 1 &&
                 Orders.orders.map((item: any, index: number) => {
                   return (
@@ -156,7 +156,7 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
                           </SelectContent>
                         </Select>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="flex justify-center">
                         <Button variant={"ghost"}>
                           <Printer strokeWidth={1} />
                         </Button>

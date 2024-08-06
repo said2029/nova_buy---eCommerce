@@ -1,11 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Coupon_Get_All } from "@/Actions/quires";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+export const fetch_get_coupons = createAsyncThunk(
+  "fetch_get_coupons/Coupon_Slice",
+  async () => {
+    return await Coupon_Get_All({ search: "", page: 0 });
+  }
+);
 
 const Coupon_Slice = createSlice({
   name: "coupon",
   initialState: {
     coupon: Array(),
-    count:0,
-    limit:10
+    count: 0,
+    limit: 10,
   },
   reducers: {
     setCoupon: (state, action) => {
@@ -22,12 +30,19 @@ const Coupon_Slice = createSlice({
       );
     },
     updateCoupon: (state, action) => {
-     const index = state.coupon.findIndex(
+      const index = state.coupon.findIndex(
         (coupon) => coupon._id === action.payload._id
       );
       if (index > -1)
         state.coupon[index] = { ...state.coupon[index], ...action.payload };
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(fetch_get_coupons.fulfilled, (state, action) => {
+      state.coupon = action.payload.coupons;
+      state.count = action.payload.count;
+      state.limit = action.payload.limit;
+    });
   },
 });
 

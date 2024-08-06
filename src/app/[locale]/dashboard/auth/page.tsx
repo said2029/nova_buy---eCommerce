@@ -5,6 +5,8 @@ import Sign_in_dashboard from "@/components/dashboard/auth/sign_in_dashboard";
 import Sign_up_dashboard from "@/components/dashboard/auth/Sign_up_dashboard";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+ 
+import {hasCookie} from "cookies-next";
 
 type AuthMode_schema = "sign_in" | "sign_up" | "forget" | "reset";
 
@@ -12,9 +14,11 @@ export default function page() {
   const [mode, setMode] = useState<AuthMode_schema>("sign_in");
   const PathParams = useSearchParams();
   const router = useRouter();
+  if(hasCookie("auth")){
+    router.replace("/dashboard/home");
+  }
   const handleMode = (mode: AuthMode_schema) => {
     router.push(`/dashboard/auth?mode=${mode}`);
-    console.log(PathParams.get("mode"));
   };
 
   useEffect(() => {
@@ -23,9 +27,11 @@ export default function page() {
     }
   }, [PathParams.get("mode")]);
 
+
+
   return (
     <div className="flex justify-center items-center w-full min-h-screen">
-      <section className="w-[400px] py-9 h-fit max-h-[500px] bg-background/70 backdrop-blur-md rounded-md">
+      <section className="w-[400px] py-9 h-fit max-h-fit bg-background/70 backdrop-blur-md rounded-md">
         {mode === "sign_in" && <Sign_in_dashboard setMode={handleMode} />}
         {mode === "sign_up" && <Sign_up_dashboard setMode={handleMode} />}
         {mode === "forget" && <Forget_password setMode={handleMode} />}

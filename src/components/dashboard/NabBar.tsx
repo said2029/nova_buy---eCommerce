@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   DropdownMenu,
@@ -5,27 +6,33 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { deleteCookie } from "cookies-next";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import {
-  Archive,
-  BellRing,
-  CircleX,
-  LogOut,
-  Menu,
-  UserPen,
-} from "lucide-react";
+import { Archive, BellRing, LogOut, Menu, UserPen } from "lucide-react";
 import { ModeToggle } from "./SelectTheme";
 import { Button } from "../ui/button";
 import clsx from "clsx";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function NabBar({
   toggelSidbat,
   sidbarOpen,
+  locale,
 }: {
   toggelSidbat: () => void;
   sidbarOpen: boolean;
+  locale: string;
 }) {
+  const t = useTranslations("navBar");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const HandleLang = (lg: string) => {
+    router.replace(`/${lg}/dashboard`);
+    router.refresh();
+  };
+
   return (
     <header className="w-full max-w-full h-16 px-5 py-2 bg-background flex dark:bg-slate-800 justify-between fixed top-0 left-0 z-10 ">
       <>
@@ -37,10 +44,16 @@ export default function NabBar({
         <ul className="flex justify-center items-center gap-3">
           <li>
             <DropdownMenu>
-              <DropdownMenuTrigger className="h-10 font-thin opacity-90">En</DropdownMenuTrigger>
+              <DropdownMenuTrigger className="h-10 uppercase  opacity-90">
+                {locale}
+              </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>English</DropdownMenuItem>
-                <DropdownMenuItem>Arabic</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => HandleLang("en")}>
+                  {t("English")}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => HandleLang("ar")}>
+                  {t("Arabic")}
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </li>
@@ -48,7 +61,7 @@ export default function NabBar({
             <ModeToggle />
           </li>
           <li className="relative flex items-center">
-            <DropdownMenu >
+            <DropdownMenu>
               <DropdownMenuTrigger>
                 {/* <span className="absolute -top-1 -right-1 bg-red-400 text-[12px] px-1 rounded-full">
                   1
@@ -56,9 +69,7 @@ export default function NabBar({
                 <BellRing size={20} strokeWidth={1.5} />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  
-                </DropdownMenuItem>
+                <DropdownMenuItem></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </li>
@@ -68,29 +79,44 @@ export default function NabBar({
               <DropdownMenuTrigger>
                 <Avatar>
                   <AvatarImage
-                    src="https://github.com/shadcn.png"
+                    src={
+                      localStorage?.getItem("userImage") ||
+                      "https://github.com/shadcn.png"
+                    }
                     alt="@shadcn"
                   />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className=" py-1 mt-2 rounded-lg text-end w-36 mx-3">
+              <DropdownMenuContent className=" py-1 mt-2 text-nowrap rounded-lg text-end w-36 mx-3">
                 <DropdownMenuItem>
                   <Link
                     className="flex gap-2 cursor-pointer font-medium"
                     href="/dashboard/home"
                   >
                     <Archive strokeWidth={1} size={20} />
-                    Dashboard
+                    {t("Dashboard")}
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex gap-2 cursor-pointer font-medium">
-                  <UserPen size={20} strokeWidth={1} />
-                  Edit Profile
+                <DropdownMenuItem>
+                  <Link
+                    className="flex gap-2 cursor-pointer font-medium"
+                    href="/dashboard/home/ourStaff"
+                  >
+                    <UserPen size={20} strokeWidth={1} />
+                    {t("Edit Profile")}
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex gap-2  cursor-pointer font-medium">
+                <DropdownMenuItem
+                  onClick={() => {
+                    deleteCookie("auth");
+                    localStorage.removeItem("userId");
+                    router.refresh();
+                  }}
+                  className="flex gap-2 cursor-pointer font-medium"
+                >
                   <LogOut size={20} strokeWidth={1} />
-                  Log Out
+                  {t("Log Out")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

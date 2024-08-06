@@ -16,7 +16,7 @@ import {
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
-export default function Order_Chart() {
+export default function Order_Chart({SaleData,OrderData,label}:{SaleData:[],OrderData:[],label:[]}) {
   const [chartData, SetchartData] = useState<ChartData<
     "line",
     number[],
@@ -34,12 +34,12 @@ export default function Order_Chart() {
       LineElement
     );
     SetchartData({
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
+      labels: label,
       datasets: [
         {
           label: "Selling",
           backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-          data: [12, 590, 80, 81, 56],
+          data: SaleData,
           borderColor: "rgb(75, 192, 192)",
           borderWidth: 1,
           hoverBorderWidth: 2,
@@ -50,7 +50,7 @@ export default function Order_Chart() {
         {
           label: "orders",
           backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-          data: [24, 32, 43, 12, 74],
+          data: OrderData,
           borderColor: "rgb(75, 192, 192)",
           borderWidth: 1,
           hoverBorderWidth: 2,

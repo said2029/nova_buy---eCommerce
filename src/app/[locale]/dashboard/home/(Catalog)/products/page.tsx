@@ -24,7 +24,11 @@ import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { ReduxSelector } from "@/Redux/store";
-import { Product_Create, Product_Update } from "@/Actions/quires";
+import {
+  Product_Create,
+  Product_Update,
+  Subcategories_Get_all,
+} from "@/Actions/quires";
 import { useDispatch } from "react-redux";
 import { addProduct, updateProduct } from "@/Redux/Actions/Products";
 import { useToast } from "@/components/ui/use-toast";
@@ -35,6 +39,7 @@ import { Switch } from "@/components/ui/switch";
 import Add_Attribute_Form from "./_components/add_attribute_form";
 import { fromShcema_Product as fromshcema } from "@/Types";
 import clsx from "clsx";
+import { setSubCateguries } from "@/Redux/Actions/SubCategory";
 
 export default function page() {
   const t = useTranslations("productPage");
@@ -388,7 +393,7 @@ export default function page() {
                         <FormItem>
                           <FormControl>
                             <Input
-                            disabled={Combination}
+                              disabled={Combination}
                               type="number"
                               placeholder={t("stock")}
                               {...field}
@@ -492,6 +497,7 @@ export default function page() {
               form.setValue("images", item?.images);
               form.setValue("category", item?.category[0]?._id);
               SetCategorySelect();
+
               const sub = item?.sub_categories?.map((item: any) => {
                 return { name: item?.name, value: item._id };
               });

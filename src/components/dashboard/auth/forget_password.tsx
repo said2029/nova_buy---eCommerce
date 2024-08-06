@@ -1,11 +1,14 @@
-import { AuthMode_schema } from "@/app/dashboard/auth/page";
+import { GetByEmail, send_Email } from "@/Actions/quires";
+import { AuthMode_schema } from "@/app/[locale]/dashboard/auth/page";
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import ButtonLoading from "../buttons/ButtonLoading";
 
 const form_schema_signIn = z.object({
   email: z.string().email().min(10),
@@ -13,7 +16,7 @@ const form_schema_signIn = z.object({
 export default function Forget_password({
   setMode,
 }: {
-  setMode:(name:AuthMode_schema)=>void ;
+  setMode: (name: AuthMode_schema) => void;
 }) {
   const form = useForm<z.infer<typeof form_schema_signIn>>({
     resolver: zodResolver(form_schema_signIn),
@@ -21,14 +24,39 @@ export default function Forget_password({
       email: "",
     },
   });
-  const submit = (value: z.infer<typeof form_schema_signIn>) => {
-    console.log(value);
-    form.reset();
-    // you can add your sign in logic here.
+  const { toast } = useToast();
+  const submit = async (value: z.infer<typeof form_schema_signIn>) => {
+    try {
+      const user = await GetByEmail(value.email);
+      if (!user || user.length <= 0) {
+        throw new Error("User not found");
+      }
+
+      await send_Email({
+        to: value.email,
+        html: `<p><a href="http://localhost:3000/en/dashboard/auth?mode=reset&i=${user._id}">Restart</a></p>`,
+        subject: "Restart Password",
+      });
+      toast({
+        title: "Email Sent",
+        description:
+          "We have sent a password reset link to your email address.",
+        duration: 2000,
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error?.message,
+        duration: 2000,
+      });
+    }
   };
   return (
     <div className="flex flex-col h-full justify-evenly items-center w-full px-3 space-y-9">
-      <h1 className="font-semibold  justify-self-start text-3xl">Forget Password</h1>
+      <h1 className="font-semibold  justify-self-start text-3xl">
+        Forget Password
+      </h1>
+
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(submit)}
@@ -53,7 +81,11 @@ export default function Forget_password({
           >
             Back to Sign In
           </span>
-          <Button className="w-full">Send</Button>
+          <ButtonLoading
+            className="static w-full"
+            name="Send"
+            loading={form.formState.isSubmitting}
+          />
         </form>
       </Form>
 

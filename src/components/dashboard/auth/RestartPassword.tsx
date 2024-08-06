@@ -1,11 +1,15 @@
-import { AuthMode_schema } from "@/app/dashboard/auth/page";
+import { OurStaff_Update } from "@/Actions/quires";
+import { AuthMode_schema } from "@/app/[locale]/dashboard/auth/page";
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import ButtonLoading from "../buttons/ButtonLoading";
+import { useSearchParams } from "next/navigation";
 // restart password schema
 const form_schema_signIn = z.object({
   password: z.string().min(7),
@@ -20,10 +24,36 @@ export default function RestartPassword({
   const form = useForm<z.infer<typeof form_schema_signIn>>({
     resolver: zodResolver(form_schema_signIn),
   });
-  const submit = (value: z.infer<typeof form_schema_signIn>) => {
-    console.log(value);
-    form.reset();
-    // you can add your sign in logic here.
+  const params = useSearchParams();
+  const { toast } = useToast();
+  const submit = async (value: z.infer<typeof form_schema_signIn>) => {
+    if (value.confirmPassword !== value.password) {
+      toast({
+        title: "Passwords do not match",
+        description: "Please make sure both passwords match.",
+        duration: 2000,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      await OurStaff_Update({ password: value.password, _id: params.get("i") });
+      toast({
+        title: "Password changed successfully",
+        description: "You can now login with your new password.",
+        duration: 2000,
+      });
+
+      setMode("sign_in");
+    } catch (error: any) {
+      toast({
+        title: "Error changing password",
+        description: error?.message,
+        duration: 2000,
+        variant: "destructive",
+      });
+    }
   };
   return (
     <div className="flex flex-col h-full justify-evenly items-center w-full px-3 space-y-9">
@@ -67,7 +97,11 @@ export default function RestartPassword({
           >
             Back to Sign In
           </span>
-          <Button className="w-full">Reset Password</Button>
+          <ButtonLoading
+            className="static w-full"
+            loading={form.formState.isSubmitting}
+            name="Reset Password"
+          />
         </form>
       </Form>
 

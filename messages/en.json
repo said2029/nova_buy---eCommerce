@@ -1,4 +1,25 @@
 {
+  "navBar":{
+    "English":"English",
+    "Arabic":"Arabic",
+    "Dashboard":"Dashboard",
+    "Edit Profile":"Edit Profile",
+    "Log Out":"Log Out",
+    "Catalog":"Catalog",
+    "Products":"Products",
+    "Category":"Category",
+    "SubCategory":"SubCategory",
+    "Attribute":"Attribute",
+    "Coupon":"Coupon",
+    "Users":"Users",
+    "Settings":"Settings",
+    "Orders":"Orders",
+    "Our Staff":"Our Staff",
+    "View Store":"View Store",
+    "Store Customizations":"Store Customizations",
+    "Store Setting":"Store Setting",
+    "":""
+  },
   "dashboard": {
     "Summary": "Summary",
     "Today Orders": "Today Orders",
