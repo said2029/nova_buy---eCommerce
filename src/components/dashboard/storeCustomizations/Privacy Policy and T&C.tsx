@@ -59,7 +59,7 @@ export default function Privacy_Policy_and_TC({
   };
   return (
     <div className="bg-gray-200/10 rounded-md mt-10 p-2">
-      <h1 className="font-semibold text-2xl pl-4 border-s-4 border-red-400">
+      <h1 className="font-semibold text-2xl pl-4 border-s-4 border-teal-600">
         {t("Privacy Policy and T&C")}
       </h1>
       <section className="px-4 md:px-10">

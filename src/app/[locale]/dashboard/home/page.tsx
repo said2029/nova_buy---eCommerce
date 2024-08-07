@@ -24,8 +24,8 @@ export default async function page({
       <div className="p-7 mt-3">
         {/*  Summary */}
 
-        <div className=" py-5 dark:bg-gray-700/25  rounded-md border-2 border-background border-dashed">
-          <h1 className="border-s-4 text-xl text-primary/75 border-red-500 ps-4 font-semibold">
+        <div className="py-5 dark:bg-gray-700/25 rounded-md border border-primary/25">
+          <h1 className="border-s-4 text-xl text-primary/75 border-teal-600 ps-4 font-semibold">
             {t("Summary")}
           </h1>
           <section className="mt-11 grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-2 px-2 md:px-7 xl:grid-cols-4">
@@ -56,8 +56,8 @@ export default async function page({
           </section>
         </div>
         {/*  Order Status */}
-        <div className=" py-5 mt-7 dark:bg-gray-700/25 border-2 border-background border-dashed rounded-md">
-          <h1 className="border-s-4 text-xl text-primary/75 border-red-500 ps-4 font-semibold">
+        <div className=" py-5 mt-7 dark:bg-gray-700/25 border border-primary/25 rounded-md">
+          <h1 className="border-s-4 text-xl text-primary/75 border-teal-600 ps-4 font-semibold">
             {t("Order Status")}
           </h1>
           <section className="mt-11 grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-2 px-2 md:px-7 xl:grid-cols-4">
@@ -88,13 +88,13 @@ export default async function page({
           </section>
         </div>
         {/* Chart */}
-        <div className=" py-5 mt-7 dark:bg-gray-700/25 border-2 border-background border-dashed rounded-md">
-          <h1 className="border-s-4 text-xl text-primary/75 border-red-500 ps-4 font-semibold">
+        <div className=" py-5 mt-7 dark:bg-gray-700/25 border border-primary/25 rounded-md">
+          <h1 className="border-s-4 text-xl text-primary/75 border-teal-600 ps-4 font-semibold">
             {t("Chart")}
           </h1>
           <section className="mt-11 grid grid-cols-1 lg:grid-cols-2  gap-6 px-2 sm:px-7">
             <div className="bg-background/10  rounded-md sm:p-3">
-              <h1 className="border-s-4 text-primary/75 border-red-500 ps-4 font-semibold">
+              <h1 className="border-s-4 text-primary/75 border-teal-600 ps-4 font-semibold">
                 {t("Weekly sales")}
               </h1>
               <Order_Chart
@@ -104,7 +104,7 @@ export default async function page({
               />
             </div>
             <div className="bg-background/10 rounded-md sm:p-3">
-              <h1 className="border-s-4 text-primary/75 border-red-500 ps-4 font-semibold">
+              <h1 className="border-s-4 text-primary/75 border-teal-600 ps-4 font-semibold">
                 {t("Best Selling Products")}
               </h1>
               <Bast_Products_Chart
@@ -116,8 +116,8 @@ export default async function page({
         </div>
         {/* Recent Order */}
 
-        <div className=" py-5 mt-7 dark:bg-gray-700/25 border-2 border-background border-dashed rounded-md">
-          <h1 className="border-s-4 text-xl text-primary/75 border-red-500 ps-4 font-semibold">
+        <div className=" py-5 mt-7 dark:bg-gray-700/25 border border-primary/25 rounded-md">
+          <h1 className="border-s-4 text-xl text-primary/75 border-teal-600 ps-4 font-semibold">
             {t("Recent Order")}
           </h1>
           <section className="mt-11 px-3">

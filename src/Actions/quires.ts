@@ -115,6 +115,17 @@ const Orders_Get_All = async (quires: {
   }
 };
 
+const Order_Get_ById = async (id: string) => {
+  try {
+    const data = await Fetch.get(`/order/${id}`, {
+      cache: "no-cache",
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const Order_Update = (id: string, body: any) => {
   const data = Fetch.put(`/order/update/${id}`, { body: JSON.stringify(body) });
   return data;
@@ -430,6 +441,7 @@ export {
   GetByEmail,
   Orders_Get_All,
   Order_Update,
+  Order_Get_ById,
   User_Get_All,
   User_Update,
   User_Delete,

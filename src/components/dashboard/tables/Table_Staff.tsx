@@ -85,7 +85,7 @@ export default function OurStaff_Table({
 
   return (
     <div className="relative">
-      <Table className="rounded-xl overflow-hidden border-2 border-red-400 text-center text-nowrap relative">
+      <Table className="rounded-xl overflow-hidden border-2 border-teal-600 text-center text-nowrap relative">
         <TableHeader className="bg-gray-500/10 ">
           <TableRow>
             <TableHead className="text-center">{t("NAME")}</TableHead>
@@ -99,10 +99,10 @@ export default function OurStaff_Table({
           </TableRow>
         </TableHeader>
         {dataStaff && (
-          <TableBody className="border-2 border-red-400">
+          <TableBody className="border-2 border-teal-600">
             {dataStaff.map((item: any, index: number) => {
               return (
-                <TableRow key={item._id} className="border-0 border-red-400">
+                <TableRow key={item._id} className="border-0 border-teal-600">
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.email}</TableCell>
                   <TableCell>{item.phone}</TableCell>
@@ -150,7 +150,7 @@ export default function OurStaff_Table({
                         }
                       }}
                       defaultChecked={item.is_activait}
-                      className="border-2 peer border-red-400 peer-checked:border-teal-400"
+                      className="border-2 peer border-teal-600 peer-checked:border-teal-400"
                     />
                   </TableCell>
                   <TableCell>

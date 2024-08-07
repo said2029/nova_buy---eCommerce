@@ -113,7 +113,7 @@ export default function Category_Table({
     <div className="relative">
       <Table
         className={clsx(
-          "rounded-xl overflow-hidden text-center border-2 border-red-400",
+          "rounded-xl overflow-hidden text-center border-2 border-teal-600",
           {
             "opacity-50": isLoading,
             "pointer-events-none": isLoading,
@@ -130,11 +130,11 @@ export default function Category_Table({
             <TableHead>{t("ACTIONS")}</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="border-2 border-red-400">
+        <TableBody className="border-2 border-teal-600">
           {Data?.categories?.length >= 1 &&
             Data?.categories.map((item: any) => {
               return (
-                <TableRow key={item._id} className="border-0 border-red-400">
+                <TableRow key={item._id} className="border-0 border-teal-600">
                   <TableCell>#{item?._id?.slice(-5)}</TableCell>
                   <TableCell className="flex justify-center">
                     <Avater_Image image={item.image} />

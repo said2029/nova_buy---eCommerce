@@ -35,7 +35,7 @@ export default async function RootLayout({
       <head>
         <script src="http://localhost:3000"></script>
       </head>
-      <body className={roboto.className + " bg-gray-200/80 dark:bg-slate-900"}>
+      <body className={roboto.className + " dark:bg-slate-900"}>
         <NextIntlClientProvider messages={messages}>
           <ReduxProvider>
             <FetchApitProvider>

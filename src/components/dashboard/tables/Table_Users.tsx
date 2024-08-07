@@ -138,7 +138,7 @@ export default function User_Table({ searchFilter }: { searchFilter: string }) {
     <div className="relative">
       <Table
         className={clsx(
-          "rounded-xl overflow-hidden border-2 border-red-400 text-center text-nowrap",
+          "rounded-xl overflow-hidden border-2 border-teal-600 text-center text-nowrap",
           {
             "opacity-50": isLoading,
             "pointer-events-none": isLoading,
@@ -157,11 +157,11 @@ export default function User_Table({ searchFilter }: { searchFilter: string }) {
             <TableHead className="text-center">{t_table("ACTIONS")}</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="border-2 border-red-400">
+        <TableBody className="border-2 border-teal-600">
           {UserData &&
             UserData?.users?.map((item: any, index: number) => {
               return (
-                <TableRow key={item._id} className="border-0 border-red-400">
+                <TableRow key={item._id} className="border-0 border-teal-600">
                   <TableCell>{index}</TableCell>
                   <TableCell>
                     {moment(item.createdAt).format("MMMM Do YYYY")}

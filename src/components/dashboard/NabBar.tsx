@@ -34,7 +34,7 @@ export default function NabBar({
   };
 
   return (
-    <header className="w-full max-w-full h-16 px-5 py-2 bg-background flex dark:bg-slate-800 justify-between fixed top-0 left-0 z-10 ">
+    <header className="w-full max-w-full h-16 px-5 py-2 backdrop-blur-xl flex dark:bg-slate-800 justify-between fixed top-0 left-0 z-10 ">
       <>
         <nav className={clsx("flex gap-3 items-center")}>
           <Button onClick={toggelSidbat} variant="ghost">
@@ -63,13 +63,13 @@ export default function NabBar({
           <li className="relative flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger>
-                {/* <span className="absolute -top-1 -right-1 bg-red-400 text-[12px] px-1 rounded-full">
+                {/* <span className="absolute -top-1 -right-1 bg-teal-600 text-[12px] px-1 rounded-full">
                   1
                 </span> */}
                 <BellRing size={20} strokeWidth={1.5} />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem></DropdownMenuItem>
+                <DropdownMenuItem>Coming Soon😀!</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </li>
@@ -80,7 +80,7 @@ export default function NabBar({
                 <Avatar>
                   <AvatarImage
                     src={
-                      localStorage?.getItem("userImage") ||
+                      (localStorage && localStorage?.getItem("userImage")) ||
                       "https://github.com/shadcn.png"
                     }
                     alt="@shadcn"

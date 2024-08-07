@@ -29,6 +29,7 @@ import { addDataOrder, updateOrder } from "@/Redux/Actions/Orders";
 import clsx from "clsx";
 import Loadiner from "@/components/ui/Loadiner";
 import moment from "moment";
+import Link from "next/link";
 
 export default function Order_Table({ FilterData }: { FilterData: any }) {
   const { toast } = useToast();
@@ -91,7 +92,7 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
         "opacity-35": isLoading,
       })}
     >
-      <Table className="rounded-xl overflow-hidden border-2 border-red-400">
+      <Table className="rounded-xl overflow-hidden border-2 border-teal-600">
         <TableHeader className="bg-gray-500/10">
           <TableRow>
             <TableHead>{t("INVOICE NO")}</TableHead>
@@ -106,13 +107,13 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
         </TableHeader>
         {!isLoading && (
           <>
-            <TableBody className="border-2 text-center border-red-400 text-nowrap">
+            <TableBody className="border-2 text-center border-teal-600 text-nowrap">
               {Orders?.orders.length >= 1 &&
                 Orders.orders.map((item: any, index: number) => {
                   return (
                     <TableRow
                       key={item._id}
-                      className="border-0 border-red-400"
+                      className="border-0 border-teal-600"
                     >
                       <TableCell>{item.InvocId}</TableCell>
                       <TableCell>
@@ -125,7 +126,7 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
                         <Badge
                           className={clsx("bg-orange-400 text-white", {
                             "bg-orange-700": item.status == "Pending",
-                            "bg-teal-700": item.status == "Delivered",
+                            "bg-teal-600": item.status == "Delivered",
                             "bg-sky-700": item.status == "Processing",
                             "bg-red-700": item.status == "Cancel",
                           })}
@@ -156,13 +157,10 @@ export default function Order_Table({ FilterData }: { FilterData: any }) {
                           </SelectContent>
                         </Select>
                       </TableCell>
-                      <TableCell className="flex justify-center">
-                        <Button variant={"ghost"}>
+                      <TableCell className="flex justify-center items-center">
+                        <Link href={`/dashboard/home/orders/${item._id}`}>
                           <Printer strokeWidth={1} />
-                        </Button>
-                        <Button variant={"ghost"}>
-                          <ZoomIn strokeWidth={1} />
-                        </Button>
+                        </Link>
                       </TableCell>
                     </TableRow>
                   );

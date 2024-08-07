@@ -14,7 +14,7 @@
     "Users": "المستخدمون",
     "Orders": "الطلبات",
     "Our Staff": "موظفينا",
-    "Settings":"الإعدادات",
+    "Settings": "الإعدادات",
     "View Store": "عرض المتجر",
     "Store Customizations": "تخصيصات المتجر",
     "Store Setting": "إعدادات المتجر",
@@ -226,5 +226,22 @@
     "Error_Message": "فشل في إنشاءالسمة؟",
     "Update Attribute": "تحديث السمة",
     "Option Attribute": "خيار السمة"
+  },
+  "invoicePage": {
+    "Print Invoice": "طباعة الفاتورة",
+    "Invoice": "فاتورة",
+    "STATUS": "الحالة",
+    "INVOICE TO": "فاتورة إلى",
+    "INVOICE NO": "رقم الفاتورة",
+    "DATE": "التاريخ",
+    "PAYMENT METHO": "طريقة الدفع",
+    "SHIPPING COST": "تكلفة الشحن",
+    "DISCOUNT": "الخصم",
+    "TOTAL AMOUN": "المبلغ الإجمالي",
+    "PRODUCT NAME": "اسم المنتج",
+    "QUANTITY": "الكمية",
+    "PRICE": "السعر",
+    "AMOUNT": "المبلغ",
+    "PAYMENT METHOD":"طريقة الدفع"
   }
 }

@@ -90,7 +90,7 @@ export default function Attribute_Table({
     <div className="relative w-full">
       <Table
         className={clsx(
-          "rounded-xl overflow-hidden w-full text-center border-2 border-red-400",
+          "rounded-xl overflow-hidden w-full text-center border-2 border-teal-600",
           {
             "opacity-60": isLoading,
             "pointer-events-none": isLoading,
@@ -107,10 +107,10 @@ export default function Attribute_Table({
           </TableRow>
         </TableHeader>
         {AttributeData.attributes && (
-          <TableBody className="border-2 border-red-400">
+          <TableBody className="border-2 border-teal-600">
             {AttributeData.attributes.map((item: any) => {
               return (
-                <TableRow key={item._id} className="border-0 border-red-400">
+                <TableRow key={item._id} className="border-0 border-teal-600">
                   <TableCell>#{item._id.slice(-5)}</TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.option}</TableCell>

@@ -117,7 +117,7 @@ export default function Coupon_Table({
     <div className="relative">
       <Table
         className={clsx(
-          "rounded-xl overflow-hidden text-center border-2 border-red-400",
+          "rounded-xl overflow-hidden text-center border-2 border-teal-600",
           {
             "opacity-60": isLoading,
             "pointer-events-none": isLoading,
@@ -136,13 +136,13 @@ export default function Coupon_Table({
             <TableHead>{t("ACTIONS")}</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="border-2 border-red-400">
+        <TableBody className="border-2 border-teal-600">
           {Coupon_Data.coupon &&
             Coupon_Data.coupon.map((item: any, index: number) => {
               return (
                 <TableRow
                   key={item._id}
-                  className="border-0 border-red-400 text-nowrap"
+                  className="border-0 border-teal-600 text-nowrap"
                 >
                   <TableCell className="flex !justify-center">
                     <Avater_Image image={item.Image} />

@@ -291,7 +291,7 @@ export default function page() {
                                                   }}
                                                   type="button"
                                                   size={"sm"}
-                                                  className="absolute top-1 right-1 bg-red-400"
+                                                  className="absolute top-1 right-1 bg-teal-600"
                                                 >
                                                   <X size={16} />
                                                 </Button>
