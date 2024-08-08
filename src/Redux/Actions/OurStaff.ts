@@ -18,7 +18,6 @@ const ourStaff = createSlice({
       );
     },
     updateStaff: (state, action) => {
-      console.log(action.payload);
       state.Staff[
         state.Staff.findIndex((item) => item._id == action.payload._id)
       ] = action.payload;

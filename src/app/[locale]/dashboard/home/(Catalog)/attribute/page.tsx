@@ -97,7 +97,6 @@ export default function page() {
   const handleUpdateOpen = (item: z.infer<typeof AttributeSchema> | any) => {
     SheetController.current.click();
     setModeForm("update");
-    console.log(ModeForm);
     form.setValue("name", item.name);
     form.setValue("_id", item._id);
     form.setValue("option", item.option);

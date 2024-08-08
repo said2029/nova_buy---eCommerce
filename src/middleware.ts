@@ -10,7 +10,6 @@ export default createMiddleware({
 
 //  log in
 function middleware(req: any, res: any) {
-  console.log(req.header);
 }
 
 export const config = {

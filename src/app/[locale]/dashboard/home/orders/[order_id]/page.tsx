@@ -40,7 +40,6 @@ export default function page({
       setLoading(true);
       const response = await Order_Get_ById(order_id);
       setOrder(response);
-      console.log(response);
       toast({
         title: "Success",
         description: "Order fetched successfully",

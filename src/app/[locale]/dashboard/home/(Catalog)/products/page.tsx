@@ -126,7 +126,6 @@ export default function page() {
   };
 
   const submit = async (value: zod.infer<typeof fromshcema>) => {
-    console.log(value);
     if (ModeForm === "create") {
       await Create(value);
     } else {

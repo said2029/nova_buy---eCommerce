@@ -360,7 +360,6 @@ export default function HomeSetting({ defaultData }: { defaultData: any }) {
                             search: value,
                             page: 0,
                           });
-                          console.log(body);
                           dispatch(setCoupon(body));
                         }}
                         onChange={field.onChange}

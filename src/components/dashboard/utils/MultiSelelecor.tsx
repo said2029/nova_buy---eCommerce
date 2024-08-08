@@ -69,7 +69,6 @@ export function MultiSelectTest({
 
   useEffect(() => {
     setOption(options);
-    console.log("options", option);
   }, [options]);
   useEffect(() => {
     return () => {
@@ -95,7 +94,6 @@ export function MultiSelectTest({
           <Input
             className="focus:border-none focus-visible:border-none"
             onChange={async (value) => {
-              console.log(value.target?.value);
               setTimeoutId(
                 setTimeout(async () => {
                   if (onSearch) await onSearch(value.target?.value || "");

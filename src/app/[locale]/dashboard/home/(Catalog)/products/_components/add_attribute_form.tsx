@@ -68,7 +68,6 @@ export default function Add_Attribute_Form({
                 };
               })
             );
-            console.log("AttributeSelect  ", AttributeSelect);
           }}
           options={Attribute?.attributes.map((item: any) => {
             return { value: item._id, name: item.name };
