@@ -117,9 +117,7 @@ const Orders_Get_All = async (quires: {
 
 const Order_Get_ById = async (id: string) => {
   try {
-    const data = await Fetch.get(`/order/${id}`, {
-      cache: "no-cache",
-    });
+    const data = await Fetch.get(`/order/${id}`);
     return data;
   } catch (error) {
     throw error;

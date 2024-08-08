@@ -26,4 +26,6 @@ const Setting = createSlice({
   },
 });
 
+export const { setSetting } = Setting.actions;
+
 export default Setting.reducer;

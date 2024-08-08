@@ -77,20 +77,23 @@ export default function page({
                   src="/images/logo.png"
                 />
                 <div className="flex flex-col">
-                  <h1 className="uppercase text-2xl font-bold">{t("Invoice")}</h1>
-                  <p className="mt-2 text-gray-600 flex gap-2 items-center">
-                    {t("STATUS")}{"  "}
+                  <h1 className="uppercase text-2xl font-bold">
+                    {t("Invoice")}
+                  </h1>
+                  <section className="mt-2 text-gray-600 flex gap-2 items-center">
+                    {t("STATUS")}
+                    {"  "}
                     <Badge
                       className={clsx("bg-orange-400 text-white", {
-                        "bg-orange-700": order.status == "Pending",
-                        "bg-teal-600": order.status == "Delivered",
-                        "bg-sky-700": order.status == "Processing",
-                        "bg-red-700": order.status == "Cancel",
+                        "bg-orange-700": order?.status == "Pending",
+                        "bg-teal-600": order?.status == "Delivered",
+                        "bg-sky-700": order?.status == "Processing",
+                        "bg-red-700": order?.status == "Cancel",
                       })}
                     >
-                      {order.status}
+                      {order?.status}
                     </Badge>
-                  </p>
+                  </section>
                 </div>
               </section>
               <section className="flex flex-col justify-end text-end text-[14px] text-gray-400 opacity-80">
@@ -108,23 +111,30 @@ export default function page({
                 <h1 className="font-bold text-xl text-gray-500">
                   {t("INVOICE TO")}
                 </h1>
-                <p>Emma</p>
-                <p>123 Main St</p>
-                <p>New York, NY 10001</p>
-                <p>+1 234 567 8901</p>
-                <p>emma@gmail.com</p>
+                <p>{order?.userDetals[0]?.fullName}</p>
+                <p>{order?.userDetals[0]?.phoneNumber}</p>
+                <p>{order?.userDetals[0]?.email}</p>
+                <p>
+                  {order?.deliveryAddress?.country +
+                    " / " +
+                    order?.deliveryAddress?.city}
+                </p>
+                <p>
+                  {order?.deliveryAddress?.street}, {"   "}{" "}
+                  {order?.deliveryAddress?.zipCode}
+                </p>
               </div>
               <div className="text-[13px]">
                 <h1 className="font-bold text-xl text-gray-500">
                   {t("INVOICE NO")}
                 </h1>
-                <p>#{order?._id.slice(-5)}</p>
+                <p>#{order?._id?.slice(-5)}</p>
               </div>
               <div className="text-[13px]">
                 <h1 className="font-bold text-xl text-gray-500">{t("DATE")}</h1>
                 <p>
                   {moment(order?.createdAt).format(
-                    dashSetting.setting.defaultDateFormat
+                    dashSetting?.setting?.defaultDateFormat
                   )}
                 </p>
               </div>
@@ -140,12 +150,18 @@ export default function page({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow className="border border-gray-600 text-center">
-                  <TableCell>Product Name</TableCell>
-                  <TableCell>1</TableCell>
-                  <TableCell>$10.00</TableCell>
-                  <TableCell>$10.00</TableCell>
-                </TableRow>
+                {order?.products?.map((item: any, index: number) => {
+                  return (
+                    <TableRow className="border border-gray-600 text-center">
+                      <TableCell>{item?.titel}</TableCell>
+                      <TableCell>{order?.items[index]?.quantity}</TableCell>
+                      <TableCell>${item?.salePrice}</TableCell>
+                      <TableCell>
+                        ${+item?.salePrice * +order?.items[index]?.quantity}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
             <hr className="my-6 border-gray-600" />

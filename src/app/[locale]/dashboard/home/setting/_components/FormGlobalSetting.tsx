@@ -11,9 +11,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { setSetting } from "@/Redux/Actions/Setting";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import * as z from "zod";
 
 const SettingsSchema = z.object({
@@ -38,18 +40,22 @@ export default function FormGlobalSetting({
 }) {
   const { toast } = useToast();
   const t = useTranslations("SettingPage");
+  const dispatch = useDispatch();
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: defualtData,
   });
 
+
   const submit = async (value: z.infer<typeof SettingsSchema>) => {
-    await Global_Setting_Update(value);
+    const data = await Global_Setting_Update(value);
+    dispatch(setSetting(data));
     toast({
       title: "Global Setting Updated",
       description: "Your global settings have been updated successfully.",
       duration: 2000,
     });
+
   };
   return (
     <Form {...form}>

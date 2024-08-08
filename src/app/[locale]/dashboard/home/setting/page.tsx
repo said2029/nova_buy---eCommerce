@@ -2,6 +2,8 @@ import MainProviderPerants from "@/components/dashboard/MainProviderPerants";
 import { getTranslations } from "next-intl/server";
 import FormGlobalSetting from "./_components/FormGlobalSetting";
 import { Global_Setting_Get } from "@/Actions/quires";
+import store from "@/Redux/store";
+import { fetch_Setting } from "@/Redux/Actions/Setting";
 
 export default async function page() {
   const t = await getTranslations("SettingPage");
