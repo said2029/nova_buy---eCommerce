@@ -21,7 +21,6 @@ import { addAttribute, updateAttribute } from "@/Redux/Actions/Attribute";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
 import React, { useRef, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -42,7 +41,6 @@ const AttributeSchema = z.object({
 });
 
 export default function page({params:{locale}}:{params:{locale:string}}) {
-  unstable_setRequestLocale(locale);
 
   const { toast } = useToast();
   const t = useTranslations("Attributes");

@@ -39,11 +39,8 @@ import { Switch } from "@/components/ui/switch";
 import Add_Attribute_Form from "./_components/add_attribute_form";
 import { fromShcema_Product as fromshcema } from "@/Types";
 import clsx from "clsx";
-import { setSubCateguries } from "@/Redux/Actions/SubCategory";
-import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function page({params:{locale}}:{params:{locale:string}}) {
-  unstable_setRequestLocale(locale);
+export default function page() {
   const t = useTranslations("productPage");
   const [ModeForm, setModeForm] = useState<"create" | "update">("create");
   const [Combination, setCombination] = useState<boolean>(false);
