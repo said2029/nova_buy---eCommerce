@@ -24,7 +24,7 @@ class Fecth {
         const response = await fetch(this.baseUrl + path, {
           ...option,
           method: "GET",
-          next:{revalidate:1000}
+          cache: "no-cache",
         });
         const res = await response.json();
         return res;
