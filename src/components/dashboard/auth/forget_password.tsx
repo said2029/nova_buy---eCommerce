@@ -8,6 +8,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import ButtonLoading from "../buttons/ButtonLoading";
+import { usePathname } from "next/navigation";
 
 const form_schema_signIn = z.object({
   email: z.string().email().min(10),
@@ -17,6 +18,7 @@ export default function Forget_password({
 }: {
   setMode: (name: AuthMode_schema) => void;
 }) {
+  const path = usePathname();
   const form = useForm<z.infer<typeof form_schema_signIn>>({
     resolver: zodResolver(form_schema_signIn),
     defaultValues: {
@@ -33,7 +35,7 @@ export default function Forget_password({
 
       await send_Email({
         to: value.email,
-        html: `<p><a href="http://localhost:3000/en/dashboard/auth?mode=reset&i=${user._id}">Restart</a></p>`,
+        html: `<p><a href="${window?.location?.origin}/en/dashboard/auth?mode=reset&i=${user._id}">Restart</a></p>`,
         subject: "Restart Password",
       });
       toast({
