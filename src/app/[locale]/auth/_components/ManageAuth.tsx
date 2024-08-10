@@ -19,7 +19,7 @@ export default function ManageAuth() {
     router.replace("/dashboard/home");
   }
   const handleMode = (mode: AuthMode_schema) => {
-    router.push(`/dashboard/auth?mode=${mode}`);
+    router.push(`/auth?mode=${mode}`);
   };
 
   useEffect(() => {
