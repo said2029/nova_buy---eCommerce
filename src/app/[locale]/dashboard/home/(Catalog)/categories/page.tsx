@@ -25,6 +25,7 @@ import { addCategory, updateCategory } from "@/Redux/Actions/Category";
 import { ReduxSelector } from "@/Redux/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -44,7 +45,8 @@ const CategorySchema = zod.object({
   _id: zod.string().optional(),
 });
 
-export default function page() {
+export default function page({params:{locale}}:{params:{locale:string}}) {
+  unstable_setRequestLocale(locale);
   const t = useTranslations("Category");
   const { toast } = useToast();
   const dispatch = useDispatch();

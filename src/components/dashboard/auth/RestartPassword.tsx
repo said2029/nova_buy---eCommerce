@@ -1,5 +1,5 @@
 import { OurStaff_Update } from "@/Actions/quires";
-import { AuthMode_schema } from "@/app/[locale]/dashboard/auth/page";
+import { AuthMode_schema } from "@/app/[locale]/auth/_components/ManageAuth";
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";

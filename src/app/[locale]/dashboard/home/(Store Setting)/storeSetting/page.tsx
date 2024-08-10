@@ -1,9 +1,14 @@
 import { Setting_Store_Get } from "@/Actions/quires";
 import MainProviderPerants from "@/components/dashboard/MainProviderPerants";
 import FormSetting_Store from "./_components/FormSetting_Store";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-export default async function page() {
+export default async function page({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  unstable_setRequestLocale(locale);
   const t = await getTranslations("StoreSetting");
 
   const Defualt = await Setting_Store_Get();

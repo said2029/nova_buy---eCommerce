@@ -18,6 +18,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { addCoupon, updateCoupon } from "@/Redux/Actions/Coupon";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -33,7 +34,8 @@ const CouponSchema = zod.object({
   _id: zod.string().optional(),
 });
 
-export default function page() {
+export default function page({params:{locale}}:{params:{locale:string}}) {
+  unstable_setRequestLocale(locale);
   const t = useTranslations("Coupon");
   const [filter, set_filter] = useState<{ search: string }>({ search: "" });
   const { toast } = useToast();

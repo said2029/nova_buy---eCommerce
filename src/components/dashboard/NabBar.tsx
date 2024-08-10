@@ -13,24 +13,23 @@ import { ModeToggle } from "./SelectTheme";
 import { Button } from "../ui/button";
 import clsx from "clsx";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 export default function NabBar({
   toggelSidbat,
   sidbarOpen,
-  locale,
 }: {
   toggelSidbat: () => void;
   sidbarOpen: boolean;
-  locale: string;
 }) {
   const t = useTranslations("navBar");
   const router = useRouter();
-  const searchParams = useSearchParams();
+
+  const Pathname = usePathname();
+
   const HandleLang = (lg: string) => {
     router.replace(`/${lg}/dashboard`);
-    router.refresh();
   };
 
   return (
@@ -45,7 +44,7 @@ export default function NabBar({
           <li>
             <DropdownMenu>
               <DropdownMenuTrigger className="h-10 uppercase  opacity-90">
-                {locale}
+                {Pathname.split("/")[1]}
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => HandleLang("en")}>

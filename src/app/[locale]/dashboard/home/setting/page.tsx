@@ -1,11 +1,11 @@
 import MainProviderPerants from "@/components/dashboard/MainProviderPerants";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import FormGlobalSetting from "./_components/FormGlobalSetting";
 import { Global_Setting_Get } from "@/Actions/quires";
-import store from "@/Redux/store";
-import { fetch_Setting } from "@/Redux/Actions/Setting";
 
-export default async function page() {
+
+export default async function page({params:{locale}}:{params:{locale:string}}) {
+  unstable_setRequestLocale(locale);
   const t = await getTranslations("SettingPage");
   const defualtData = await Global_Setting_Get();
 

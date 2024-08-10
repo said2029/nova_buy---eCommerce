@@ -8,9 +8,10 @@ import Privacy_Policy_and_TC from "@/components/dashboard/storeCustomizations/Pr
 import SEOSettingsPage from "@/components/dashboard/storeCustomizations/SEO_Setting";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Fetch from "@/lib/axios/AxiosClient";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-export default async function page() {
+export default async function page({params:{locale}}:{params:{locale:string}}) {
+  unstable_setRequestLocale(locale);
   const t = await getTranslations("storeCustomizations");
   let HomeSettingData:any = {};
 

@@ -1,6 +1,5 @@
 import { GetByEmail, send_Email } from "@/Actions/quires";
-import { AuthMode_schema } from "@/app/[locale]/dashboard/auth/page";
-import { Button } from "@/components/ui/button";
+import { AuthMode_schema } from "@/app/[locale]/auth/_components/ManageAuth";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";

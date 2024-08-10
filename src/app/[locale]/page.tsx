@@ -1,14 +1,14 @@
 import { unstable_setRequestLocale } from "next-intl/server";
-import { ReactNode } from "react";
+import { redirect } from "next/navigation";
+import React from "react";
 
-
-export default function layout({
-  children,
+export default function page({
   params: { locale },
 }: {
-  children: ReactNode;
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  return <div>{children}</div>;
+  redirect("/dashboard/home");
+
+  return <div>page</div>;
 }

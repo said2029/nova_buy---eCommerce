@@ -5,10 +5,8 @@ import { motion } from "framer-motion";
 import { ReactNode, useEffect, useRef, useState } from "react";
 export default function SidbarProvider({
   children,
-  locale,
 }: {
   children: ReactNode;
-  locale: string;  
 }) {
   const [sidbarOpen, setSidbarOpen] = useState(false);
   const toggleSidbar = () => {
@@ -38,7 +36,7 @@ export default function SidbarProvider({
         animate={mql.current == false && sidbarOpen ? "open" : "closed"}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
-        <NabBar locale={locale} sidbarOpen={sidbarOpen} toggelSidbat={toggleSidbar} />
+        <NabBar sidbarOpen={sidbarOpen} toggelSidbat={toggleSidbar} />
         <div className="z-0 mt-[4rem]">{children}</div>
       </motion.div>
     </div>

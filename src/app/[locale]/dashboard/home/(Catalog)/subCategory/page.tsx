@@ -24,6 +24,7 @@ import {
 } from "@/Redux/Actions/SubCategory";
 import { useDispatch } from "react-redux";
 import ButtonLoading from "@/components/dashboard/buttons/ButtonLoading";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const schema = zod.object({
   name: zod.string().min(2),
@@ -31,7 +32,8 @@ const schema = zod.object({
   _id: zod.string().optional(),
 });
 
-export default function page() {
+export default function page({params:{locale}}:{params:{locale:string}}) {
+  unstable_setRequestLocale(locale);
   const t = useTranslations("SubCategory");
   const [filter, setFilter] = useState<{ search: string }>({ search: "" });
   const [ModeForm, setModeForm] = useState<"create" | "update">("create");

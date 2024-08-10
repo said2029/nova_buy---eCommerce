@@ -1,3 +1,4 @@
+import React from "react";
 import Cart_dashboard from "@/components/dashboard/Carts/Cart_dashboard";
 import Bast_Products_Chart from "@/components/dashboard/Chart/Bast_Products_Chart";
 import Order_Chart from "@/components/dashboard/Chart/Order_Chart_Line";
@@ -8,14 +9,21 @@ import {
   ShoppingBag,
   ShoppingCart,
 } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Dashboard_get } from "@/Actions/quires";
+
+const locales = ["en", "ar"];
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export default async function page({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
+  unstable_setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "dashboard" });
   const Dashboard_data = await Dashboard_get();
