@@ -35,7 +35,7 @@ export default function Forget_password({
 
       await send_Email({
         to: value.email,
-        html: `<p><a href="${window?.location?.origin}/en/dashboard/auth?mode=reset&i=${user._id}">Restart</a></p>`,
+        html: `<p><a href="${window?.location?.origin}/en/auth?mode=reset&i=${user._id}">Restart</a></p>`,
         subject: "Restart Password",
       });
       toast({
