@@ -66,7 +66,7 @@ export default function Sign_in_dashboard({
             name="email"
             render={({ field }) => (
               <FormItem className="w-full">
-                <Input {...field} type="email" placeholder="Email" />
+                <Input defaultValue="admin@gmail.com" {...field} type="email" placeholder="Email" />
                 <FormMessage />
               </FormItem>
             )}
@@ -76,7 +76,7 @@ export default function Sign_in_dashboard({
             name="password"
             render={({ field }) => (
               <FormItem className="w-full">
-                <Input {...field} type="password" placeholder="password" />
+                <Input defaultValue="admin@2020" {...field} type="password" placeholder="password" />
                 <FormMessage />
               </FormItem>
             )}
