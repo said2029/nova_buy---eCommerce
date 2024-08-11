@@ -24,8 +24,8 @@ export default function Sign_in_dashboard({
   const form = useForm<z.infer<typeof form_schema_signIn>>({
     resolver: zodResolver(form_schema_signIn),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "admin@gmail.com",
+      password: "admin@2020",
     },
   });
 
@@ -66,7 +66,7 @@ export default function Sign_in_dashboard({
             name="email"
             render={({ field }) => (
               <FormItem className="w-full">
-                <Input defaultValue="admin@gmail.com" {...field} type="email" placeholder="Email" />
+                <Input  {...field} type="email" placeholder="Email" />
                 <FormMessage />
               </FormItem>
             )}
@@ -76,7 +76,7 @@ export default function Sign_in_dashboard({
             name="password"
             render={({ field }) => (
               <FormItem className="w-full">
-                <Input defaultValue="admin@2020" {...field} type="password" placeholder="password" />
+                <Input  {...field} type="password" placeholder="password" />
                 <FormMessage />
               </FormItem>
             )}
