@@ -68,7 +68,7 @@ export default function page() {
     resolver: zodResolver(fromshcema),
   });
   const CategoryOptions = Category.categories.map((item: any) => {
-    return { name: item.name, value: item._id };
+    return { name: item?.name, value: item?._id };
   });
 
   const Create = async (value: any) => {
@@ -99,7 +99,7 @@ export default function page() {
         return item.value;
       });
       const Attri = value.attribute.map((attr: any) => {
-        return { name: attr.name };
+        return { name: attr?.name };
       });
       const data = await Product_Update(value!._id, {
         ...value,
@@ -168,7 +168,7 @@ export default function page() {
                 ...filter,
                 category: CategoryOptions.find(
                   (item: any) => item.value == value
-                ).name,
+                )?.name,
               });
             }}
             defaultName="Categoy"
@@ -430,7 +430,7 @@ export default function page() {
                             <MultiSelectTest
                               options={singlCategorySelect?.all_sub_Categories?.map(
                                 (item: any) => {
-                                  return { name: item.name, value: item._id };
+                                  return { name: item?.name, value: item._id };
                                 }
                               )}
                               name="SubCategory"
