@@ -73,25 +73,25 @@ export default async function page({
               currency={Dashboard_data.orderStatus.Pending.length}
               shadowColor={"shadow-green-400"}
               titel={t("Pending Order")}
-              image="/images/Icons/checklist.png"
+              image="/images/Icons/pending.svg"
             />
             <Cart_dashboard
               currency={Dashboard_data.orderStatus.Processing.length}
               shadowColor={"shadow-sky-400"}
               titel={t("Processing Order")}
-              image="/images/Icons/order-processed.png"
+              image="/images/Icons/Processing.svg"
             />
             <Cart_dashboard
               currency={Dashboard_data.orderStatus.Delivered.length}
               shadowColor={"shadow-red-400"}
               titel={t("Completed Order")}
-              image="/images/Icons/completed-task.png"
+              image="/images/Icons/Completed.svg"
             />
             <Cart_dashboard
               currency={Dashboard_data.orderStatus.Cancel.length}
               shadowColor={"shadow-blue-400"}
               titel={t("Cancelled Order")}
-              image="/images/Icons/delivery-cancelled.png"
+              image="/images/Icons/Cancel.svg"
             />
           </section>
         </div>
