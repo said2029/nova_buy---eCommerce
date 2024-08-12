@@ -79,10 +79,10 @@ export default function NabBar({
                 <Avatar>
                   <AvatarImage
                     src={
-                      (localStorage && localStorage?.getItem("userImage")) ||
+                      (window?.localStorage?.getItem("userImage")) ||
                       "https://github.com/shadcn.png"
                     }
-                    alt="@shadcn"
+                    alt="Staff Image"
                   />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
@@ -109,7 +109,7 @@ export default function NabBar({
                 <DropdownMenuItem
                   onClick={() => {
                     deleteCookie("auth");
-                    localStorage.removeItem("userId");
+                    localStorage?.removeItem("userId");
                     router.refresh();
                   }}
                   className="flex gap-2 cursor-pointer font-medium"

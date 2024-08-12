@@ -143,20 +143,20 @@ export default function Products_Table({
         </TableHeader>
         <TableBody className="border-2 border-teal-600  text-center">
           {Data?.products?.length >= 1 &&
-            Data?.products.map((item: any) => {
+            Data?.products.map((item?: any) => {
               return (
                 <TableRow
-                  key={item._id}
+                  key={item?._id}
                   className="border-0 border-teal-600 text-nowrap"
                 >
                   <TableCell className="flex justify-center w-full">
-                    <Avater_Image image={item.images[0]} />
+                    <Avater_Image image={item?.images[0]} />
                   </TableCell>
-                  <TableCell>{item.titel}</TableCell>
-                  <TableCell>{item.category[0].name}</TableCell>
-                  <TableCell> ${item.price}</TableCell>
-                  <TableCell> ${item.salePrice}</TableCell>
-                  <TableCell>{item.stock}</TableCell>
+                  <TableCell>{item?.titel}</TableCell>
+                  <TableCell>{item?.category[0]?.name}</TableCell>
+                  <TableCell> ${item?.price}</TableCell>
+                  <TableCell> ${item?.salePrice}</TableCell>
+                  <TableCell>{item?.stock}</TableCell>
                   <TableCell>
                     <Badge
                       className={clsx("text-white", {

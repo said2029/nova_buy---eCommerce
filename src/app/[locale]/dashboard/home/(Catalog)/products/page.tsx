@@ -430,7 +430,7 @@ export default function page() {
                             <MultiSelectTest
                               options={singlCategorySelect?.all_sub_Categories?.map(
                                 (item: any) => {
-                                  return { name: item?.name, value: item._id };
+                                  return { name: item?.name, value: item?._id };
                                 }
                               )}
                               name="SubCategory"
