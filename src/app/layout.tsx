@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 import { ThemeProvider } from "@/Providers/theme-provider";
@@ -18,9 +19,9 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Nova - eCommerce dashboard",
   description: "Nova - eCommerce dashboard",
-  icons:{
-    icon:"/images/logo.png"
-  }
+  icons: {
+    icon: "/images/logo.png",
+  },
 };
 
 export default async function RootLayout({
@@ -43,6 +44,7 @@ export default async function RootLayout({
             <FetchApitProvider>
               <ThemeProvider attribute="class" defaultTheme="system">
                 {children}
+                <Analytics />
               </ThemeProvider>
             </FetchApitProvider>
           </ReduxProvider>
